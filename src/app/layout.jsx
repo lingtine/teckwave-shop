@@ -1,7 +1,6 @@
 import "~/styles/globals.css";
 import { inter } from "./fonts";
-
-import { Header, Footer } from "~/components";
+import { Header, Footer } from "./components";
 
 export const metadata = {
   title: "Create Next App",
@@ -13,7 +12,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body suppressHydrationWarning={true} className={inter.className}>
         <Header />
-        {children}
+        <div>{children}</div>
         <Footer />
       </body>
     </html>
