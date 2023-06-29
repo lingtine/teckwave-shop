@@ -1,7 +1,7 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { BiCartAdd } from "react-icons/bi";
-
 function ProductCart({ product }) {
   let numberFormat = new Intl.NumberFormat("vi", {
     style: "currency",

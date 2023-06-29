@@ -1,12 +1,12 @@
 "use client";
 import ProductCart from "./product-cart";
 import { FiArrowRightCircle, FiArrowLeftCircle } from "react-icons/fi";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
-function ProductCarousel({ products, lengthCarousel = 5 }) {
+function ProductCarousel({ products = [], lengthCarousel = 5 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const maxIndex = products.length - lengthCarousel;
-  const carouselRef = useRef();
+  console.log(lengthCarousel);
   const onPrev = () => {
     if (currentIndex <= 0) return;
     setCurrentIndex(currentIndex - 1);
@@ -15,20 +15,17 @@ function ProductCarousel({ products, lengthCarousel = 5 }) {
     if (currentIndex >= maxIndex) return;
     setCurrentIndex(currentIndex + 1);
   };
-  useEffect(() => {}, [currentIndex]);
 
   return (
-    <div
-      ref={carouselRef}
-      className="relative flex w-full overflow-x-hidden -mx-1  py-8"
-    >
+    <div className="relative flex w-full overflow-x-hidden -mx-1 py-8">
       {products.map((product, index) => (
         <div
-          className={`flex-shrink-0 max-w-[${
-            100 / lengthCarousel
-          }%] px-2 translate-x-[-${
-            currentIndex * 100
-          }%] duration-700 ease-in-out h-fit `}
+          key={index}
+          className={`flex-shrink-0  px-2 tra duration-700 ease-in-out h-fit`}
+          style={{
+            maxWidth: 100 / lengthCarousel + `%`,
+            transform: `translateX(-${100 * currentIndex}%)`,
+          }}
         >
           <ProductCart key={index} product={product} />
         </div>

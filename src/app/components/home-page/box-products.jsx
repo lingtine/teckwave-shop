@@ -1,6 +1,5 @@
 import ProductCarousel from "../products/product-carousel";
 import ProductList from "../products/product-list";
-
 function BoxProducts({ data, slider }) {
   return (
     <div className="mt-10">
@@ -32,9 +31,9 @@ function BoxProducts({ data, slider }) {
           {data.title}
         </h4>
       </div>
-      <div className="mt-10">
+      <div className="py-10">
         {slider ? (
-          <ProductCarousel products={data.products} />
+          <ProductCarousel products={data.products} lengthCarousel={5} />
         ) : (
           <ProductList products={data.products} />
         )}
