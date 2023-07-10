@@ -1,5 +1,6 @@
 import Image from "next/image";
 import BoxProducts from "./components/home-page/box-products";
+import Navigation from "./components/home-page/navigation";
 
 function HomePage() {
   const data = {
@@ -43,11 +44,662 @@ function HomePage() {
     ],
   };
 
+  const dataTitle = [
+    {
+      title: "Laptop",
+      items: [
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Laptop",
+      items: [
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Laptop",
+      items: [
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Laptop",
+      items: [
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+        {
+          title: "laptop theo Hãng",
+          items: [
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+            {
+              title: "Laptop gaming Asus",
+              items: [
+                { title: "LapTop" },
+                { title: "LapTop" },
+                { title: "LapTop" },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ];
+
   return (
     <div className="container mx-auto ">
-      <div className="grid grid-cols-5 gap-2 grid-flow-col">
-        <div className="bg-slate-300"></div>
-        <div className="col-span-4">
+      <div className="flex gap-3">
+        <div className="w-[200px] bg-slate-300 rounded-md shadow-sm">
+          <Navigation data={dataTitle} />
+        </div>
+        <div className="flex flex-1">
           <Image
             src="/images/banner/banner-1.png"
             alt="banner"

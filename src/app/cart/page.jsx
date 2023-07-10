@@ -115,7 +115,7 @@ function CartPage() {
             <p className="font-bold">30000</p>
           </div>
           <Link
-            href={"/check-out"}
+            href={"/checkout"}
             className="block text-center py-3 border bg-teal-800 text-white w-full rounded-lg hover:bg-teal-500"
           >
             Check out
