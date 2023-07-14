@@ -2,12 +2,18 @@ import Link from "next/link";
 
 function Topbar() {
   return (
-    <div className="bg-teal-800">
+    <div className="bg-color-black">
       <div className="container mx-auto">
-        <div className="flex justify-end p-1">
-          <Link className="text-white text-sm " href="/dashboard/login">
-            Đăng nhập
-          </Link>
+        <div className="flex justify-center p-2.5">
+          <p className="text-color-text-primary text-sm">
+            Summer Sale For All Swim Suits And Free Express Delivery - OFF 50%!
+            <Link
+              href="/"
+              className="text-color-text-primary text-base px-2 underline "
+            >
+              ShopNow
+            </Link>
+          </p>
         </div>
       </div>
     </div>

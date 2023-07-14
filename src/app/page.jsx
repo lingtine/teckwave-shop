@@ -1,7 +1,7 @@
 import Image from "next/image";
 import BoxProducts from "./components/home-page/box-products";
-import Navigation from "./components/home-page/navigation";
-
+import NavBar from "./components/home-page/navbar";
+import ProductCarousel from "./components/products/product-carousel";
 function HomePage() {
   const data = {
     title: "APPLE AUTHORISED RESELLER",
@@ -695,11 +695,11 @@ function HomePage() {
 
   return (
     <div className="container mx-auto ">
-      <div className="flex gap-3">
-        <div className="w-[200px] bg-slate-300 rounded-md shadow-sm">
-          <Navigation data={dataTitle} />
+      <div className="flex min-h-0">
+        <div className="pr-4 pt-8 border-r">
+          <NavBar data={dataTitle} />
         </div>
-        <div className="flex flex-1">
+        <div className="flex flex-1 pt-8 px-8">
           <Image
             src="/images/banner/banner-1.png"
             alt="banner"
@@ -709,8 +709,18 @@ function HomePage() {
           />
         </div>
       </div>
-      <BoxProducts data={data} />
-      <BoxProducts slider data={data} />
+      <BoxProducts heading={"Category"} type={"This Month"} data={data}>
+        <ProductCarousel products={data.products} />
+      </BoxProducts>
+      <BoxProducts heading={"Category"} type={"This Month"} data={data}>
+        <ProductCarousel products={data.products} />
+      </BoxProducts>
+      <BoxProducts heading={"Category"} type={"This Month"} data={data}>
+        <ProductCarousel products={data.products} />
+      </BoxProducts>
+      <BoxProducts heading={"Category"} type={"This Month"} data={data}>
+        <ProductCarousel products={data.products} />
+      </BoxProducts>
     </div>
   );
 }

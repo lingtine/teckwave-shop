@@ -20,7 +20,7 @@ function ProductCart({ product }) {
           height={180}
           className="object-contain"
         />
-        <div className="absolute bg-teal-500 text-white p-2.5 rounded-full right-4 bottom-0 text-lg text-center">
+        <div className="absolute bg-secondary-3 text-white p-2.5 rounded-full right-4 bottom-0 text-lg text-center">
           <BiCartAdd />
         </div>
       </div>
@@ -28,7 +28,7 @@ function ProductCart({ product }) {
         <h5 className="uppercase font-semibold text-sm text-center">
           {product.name}
         </h5>
-        <div className="text-center my-1 text-red-500 font-semibold ">
+        <div className="text-center my-1 text-secondary-3 font-semibold ">
           {numberFormat.format(product.price)}
         </div>
       </div>

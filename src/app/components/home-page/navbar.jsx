@@ -1,6 +1,6 @@
-function Navigation({ data }) {
+function NavBar({ data }) {
   return (
-    <ul className="flex flex-col h-full justify-around items-center relative ">
+    <ul className="flex flex-col h-full justify-around items-center relative w-[217px]">
       {data.map((item, index) => (
         <li
           key={index}
@@ -43,4 +43,4 @@ function Navigation({ data }) {
   );
 }
 
-export default Navigation;
+export default NavBar;

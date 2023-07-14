@@ -3,7 +3,7 @@ import ProductCart from "./product-cart";
 import { FiArrowRightCircle, FiArrowLeftCircle } from "react-icons/fi";
 import { useState } from "react";
 
-function ProductCarousel({ products = [], lengthCarousel = 5 }) {
+function ProductCarousel({ products = [], lengthCarousel = 4 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const maxIndex = products.length - lengthCarousel;
   console.log(lengthCarousel);
@@ -17,14 +17,13 @@ function ProductCarousel({ products = [], lengthCarousel = 5 }) {
   };
 
   return (
-    <div className="relative flex w-full overflow-x-hidden -mx-1 py-8">
+    <div className="relative flex w-full overflow-x-hidden py-8">
       {products.map((product, index) => (
         <div
           key={index}
-          className={`flex-shrink-0  px-2 tra duration-700 ease-in-out h-fit`}
+          className={`max-w-[270px] flex-shrink-0  mx-4 tra duration-700 ease-in-out h-fit`}
           style={{
-            maxWidth: 100 / lengthCarousel + `%`,
-            transform: `translateX(-${100 * currentIndex}%)`,
+            transform: `translateX(-${112 * currentIndex}%)`,
           }}
         >
           <ProductCart key={index} product={product} />
