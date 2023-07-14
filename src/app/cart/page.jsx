@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { FaRegTrashCan } from "react-icons/fa6";
+import { TiDelete } from "react-icons/ti";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
+import InputQuantity from "../components/input-quanlity/input-quanlity";
 function CartPage() {
   const data = [
     {
@@ -55,16 +56,19 @@ function CartPage() {
       <div className="grid grid-flow-col grid-cols-3 gap-4">
         <div className="col-span-2 bg-white p-8 shadow-lg rounded-lg">
           <div>
-            <ul className="flex py-4">
-              <li className="flex-1">Item</li>
-              <li className="w-[120px]">Qty</li>
-              <li className="w-[120px]">Subtotal</li>
+            <ul className="flex justify-between items-center py-4">
+              <li className="min-w-[360px]">Item</li>
+              <div className="flex justify-between flex-1">
+                <li className="">Price</li>
+                <li className="">Quantity</li>
+                <li className="">Subtotal</li>
+              </div>
             </ul>
           </div>
           <ul>
             {data.map((product) => (
-              <li className=" py-8 flex border-t last:border-b">
-                <div className="flex-1 flex items-center">
+              <li className=" py-8 flex border-t last:border-b justify-between">
+                <div className="min-w-[360px] flex items-center relative group/item">
                   <Image
                     src={product.image}
                     alt={product.name}
@@ -75,38 +79,39 @@ function CartPage() {
                     <h5>{product.name}</h5>
                     <p>{product.subTile}</p>
                   </div>
-                  <div className="flex-1 text-center">
-                    <button className="p-3 text-gray-500 rounded-full text-md hover:bg-slate-100">
-                      <FaRegTrashCan />
-                    </button>
+                  <div className="hidden group-hover/item:block  cursor-pointer absolute p-2 text-lg top-0 -left-2 text-secondary-3">
+                    <TiDelete />
                   </div>
                 </div>
-                <div className="w-[120px] flex items-center">
-                  {product.quality}
-                </div>
-                <div className="w-[120px] flex items-center">
-                  {product.price}
+                <div className="flex flex-1 justify-between items-center">
+                  <div className="">{product.price}</div>
+                  <div className="flex items-center">
+                    <InputQuantity quantity={product.quality} />
+                  </div>
+                  <div className=" flex items-center">
+                    {product.price * product.quality}
+                  </div>
                 </div>
               </li>
             ))}
           </ul>
           <Link
             href={"/"}
-            className="my-2 flex items-center p-2 rounded-md text-gray-800 text-base hover:bg-slate-100 w-fit"
+            className="my-2 flex items-center p-4 rounded-md border font-medium text-gray-800 text-base hover:bg-secondary-3 hover:text-primary w-fit"
           >
             <IoIosArrowBack />
             <span className="ml-4">Continue Shopping</span>
           </Link>
         </div>
-        <div className="p-8 bg-white rounded-xl h-fit shadow-lg">
+        <div className="p-8 bg-white rounded h-fit border border-primary-1">
           <h3 className="text-1xl font-bold dark:text-white">Summary</h3>
-          <div className="border-b">
-            <div className="flex justify-between my-8">
-              <h5>Subtotal</h5>
+          <div className="">
+            <div className="flex justify-between py-4 border-b ">
+              <h5>Subtotal:</h5>
               <p className="font-bold">30000</p>
             </div>
-            <div className="flex justify-between my-8">
-              <h5>Shipping</h5>
+            <div className="flex justify-between py-4 border-b">
+              <h5>Shipping:</h5>
               <p className="font-bold">30000</p>
             </div>
           </div>
@@ -116,7 +121,7 @@ function CartPage() {
           </div>
           <Link
             href={"/checkout"}
-            className="block text-center py-3 border bg-teal-800 text-white w-full rounded-lg hover:bg-teal-500"
+            className="block text-center py-3 border bg-secondary-3 text-primary w-full rounded-lg hover:opacity-90"
           >
             Check out
           </Link>
