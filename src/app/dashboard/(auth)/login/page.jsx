@@ -2,7 +2,7 @@ import Link from "next/link";
 
 function LoginPage() {
   return (
-    <div className="mt-8">
+    <div className="my-20 ">
       <div class=" container mx-auto w-full max-w-sm">
         <form class="bg-white shadow-xl rounded-xl px-8 pt-6 pb-8 mb-4">
           <div className="my-8">
@@ -57,7 +57,7 @@ function LoginPage() {
           </div>
 
           <button
-            class="my-4 w-full bg-teal-800 hover:bg-teal-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            class="my-4 w-full bg-secondary-3 hover:opacity-90 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="button"
           >
             Login

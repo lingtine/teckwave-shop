@@ -29,7 +29,7 @@ function HeaderNavigation() {
       </li>
       <li>
         <Link
-          href={"/sign-up"}
+          href={"/dashboard/register"}
           className="text-base mx-4 text-color-text-black hover:underline"
         >
           Sign Up
