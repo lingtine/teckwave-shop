@@ -37,13 +37,13 @@ function Footer() {
               <h5 className="text-primary font-bold text-lg">Account</h5>
             </div>
             <ul className="text-primary">
-              <li cclassName="py-2">
+              <li className="py-2">
                 <p>My Account</p>
               </li>
               <li className="py-2">
                 <p>Login / Register</p>
               </li>
-              <li cclassName="py-2">
+              <li className="py-2">
                 <p>Cart</p>
               </li>
 
