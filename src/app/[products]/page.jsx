@@ -142,7 +142,7 @@ function ProductsPage() {
         <div className=" bg-white h-fit rounded-xl py-4">
           <FilterProducts dateFilter={filterData} />
         </div>
-        <div className="col-span-5 bg-stone-300 py-4 px-2">
+        <div className="col-span-5  py-4 px-2">
           <div className="flex flex-col ">
             <div className="flex justify-end">
               <SelectBox

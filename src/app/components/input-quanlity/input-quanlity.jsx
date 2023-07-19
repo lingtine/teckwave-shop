@@ -44,8 +44,11 @@ function InputQuantity({ quantity, onChange, maxQuantity = 99 }) {
     }
   };
   return (
-    <div className="flex items-center justify-between border">
-      <button className={"p-2"} onClick={handleDecrease}>
+    <div className="flex h-fit items-center min-w-[120px] justify-between border border-color-black max-w-[159px]">
+      <button
+        className={"p-2 border-r border-r-color-black "}
+        onClick={handleDecrease}
+      >
         <HiOutlineMinus />
       </button>
       <input
@@ -55,7 +58,12 @@ function InputQuantity({ quantity, onChange, maxQuantity = 99 }) {
         onChange={handleChange}
         type={"number"}
       />
-      <button className={"p-2"} onClick={handleIncrease}>
+      <button
+        className={
+          "p-2 text-secondary bg-secondary-3 border-l border-l-secondary-3"
+        }
+        onClick={handleIncrease}
+      >
         <HiOutlinePlus />
       </button>
     </div>
