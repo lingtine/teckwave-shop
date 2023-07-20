@@ -15,10 +15,11 @@ function Button({
   outline,
   className,
   large,
+  normal,
   ...props
 }) {
   const styles = classNames(
-    "flex items-center px-5 py-1.5 border rounded-md ",
+    "flex items-center border rounded-md text-base",
     {
       "border-slate-500 bg-teal-500 text-white hover:bg-teal-400": primary,
       "border-secondary-3 bg-secondary-3 text-white": secondary,
@@ -32,7 +33,8 @@ function Button({
       "text-yellow-500": outline && warning,
       "text-green-500": outline && success,
       "text-red-500": outline && danger,
-      "px-10 py-3": large,
+      "px-10 py-3": normal,
+      "py-4 px-12": large,
     },
     className
   );
