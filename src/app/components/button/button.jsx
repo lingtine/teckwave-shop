@@ -14,12 +14,18 @@ function Button({
   rounded,
   outline,
   className,
+
+  //size
   large,
   normal,
+  small,
+
+  //
+  hidden,
   ...props
 }) {
   const styles = classNames(
-    "flex items-center border rounded-md text-base",
+    "flex items-center border rounded-md",
     {
       "border-slate-500 bg-teal-500 text-white hover:bg-teal-400": primary,
       "border-secondary-3 bg-secondary-3 text-white": secondary,
@@ -33,16 +39,18 @@ function Button({
       "text-yellow-500": outline && warning,
       "text-green-500": outline && success,
       "text-red-500": outline && danger,
-      "px-10 py-3": normal,
-      "py-4 px-12": large,
+      "py-2 px-4 text-sm": small,
+      "px-10 py-3 text-base": normal,
+      "py-4 px-12 text-lg": large,
+      "opacity-50 cursor-not-allowed": hidden,
     },
     className
   );
   return (
     <button className={styles} {...props}>
-      <span>{leftIcon}</span>
+      {leftIcon && <span className="mr-2">{leftIcon}</span>}
       <span>{children}</span>
-      <span>{rightIcon}</span>
+      {rightIcon && <span className="ml-2">{rightIcon}</span>}
     </button>
   );
 }

@@ -56,7 +56,7 @@ function AccountLayout({ children }) {
             </ul>
           </div>
         </div>
-        <div className="flex 1">{children}</div>
+        <div className="flex-1">{children}</div>
       </div>
     </div>
   );
