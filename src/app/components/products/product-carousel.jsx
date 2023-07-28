@@ -6,7 +6,7 @@ import { useState } from "react";
 function ProductCarousel({ products = [], lengthCarousel = 4 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const maxIndex = products.length - lengthCarousel;
-  console.log(lengthCarousel);
+
   const onPrev = () => {
     if (currentIndex <= 0) return;
     setCurrentIndex(currentIndex - 1);

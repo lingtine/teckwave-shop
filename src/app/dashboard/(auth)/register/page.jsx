@@ -1,10 +1,30 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
+import Input from "~/app/components/input/input";
+
+import { useSelector, useDispatch } from "react-redux";
+import {
+  changeFullName,
+  changeConfirmPassword,
+  changePassword,
+  changeEmail,
+} from "~/redux/features/dashboard/form-register-slice";
 function Register() {
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state.registerForm);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
   return (
     <div className="my-20">
       <div className=" container mx-auto w-full max-w-sm">
-        <form className="bg-white shadow-xl rounded-xl px-8 pt-6 pb-8 mb-4">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white shadow-xl rounded-xl px-8 pt-6 pb-8 mb-4"
+        >
           <div className="my-8">
             <h3 className=" text-3xl font-semibold mb-4">Get Started</h3>
             <div className="text-slate-400 text-sm ">
@@ -19,66 +39,50 @@ function Register() {
               }
             </div>
           </div>
-          <div className="relative rounded-md border">
-            <input
-              type="text"
-              id="username"
-              className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
+          <div className="my-2">
+            <Input
+              label={"Full Name"}
+              required
+              value={formData.fullName}
+              onChange={(e) => {
+                dispatch(changeFullName(e.target.value));
+              }}
             />
-            <label
-              htmlFor="username"
-              className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-teal-800 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-            >
-              Username
-            </label>
           </div>
-          <div className="relative rounded-md border mt-4">
-            <input
-              type="text"
-              id="email"
-              className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
+          <div className="my-2">
+            <Input
+              label={"Email Address"}
+              required
+              value={formData.email}
+              onChange={(e) => {
+                dispatch(changeEmail(e.target.value));
+              }}
             />
-            <label
-              htmlFor="email"
-              className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-teal-800 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-            >
-              Email Address
-            </label>
           </div>
-          <div className="relative rounded-md border mt-4">
-            <input
-              type="password"
-              id="password"
-              className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
+          <div className="my-2">
+            <Input
+              label={"Password"}
+              required
+              value={formData.password}
+              onChange={(e) => {
+                dispatch(changePassword(e.target.value));
+              }}
             />
-            <label
-              htmlFor="password"
-              className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-teal-800 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-            >
-              Password
-            </label>
           </div>
-          <div className="relative rounded-md border mt-4">
-            <input
-              type="password"
-              id="confirmPassword"
-              className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-              placeholder=" "
+          <div className="my-2">
+            <Input
+              label={"Confirm Password"}
+              required
+              value={formData.changeConfirmPassword}
+              onChange={(e) => {
+                dispatch(changeConfirmPassword(e.target.value));
+              }}
             />
-            <label
-              htmlFor="confirmPassword"
-              className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-teal-800 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
-            >
-              Confirm Password
-            </label>
           </div>
 
           <button
+            type="submit"
             className="my-4 w-full bg-secondary-3 hover:opacity-90 text-primary font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
           >
             Register
           </button>

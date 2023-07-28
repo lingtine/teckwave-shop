@@ -6,7 +6,12 @@ import InputQuantity from "../input-quanlity/input-quanlity";
 import ProductImageContent from "./product-image-content";
 import { TbTruckDelivery } from "react-icons/tb";
 import { HiArrowPath } from "react-icons/hi2";
+
+import { useState } from "react";
+
 function ProductContent({ product }) {
+  const [value, setValue] = useState(0);
+
   return (
     <div className="flex -mx-[35px] my-10">
       <div className="flex-[0_0_62.5%] max-w-[62.5%] px-[35px]">
@@ -19,8 +24,8 @@ function ProductContent({ product }) {
           <p className="text-sm font-medium text-justify">{product.describe}</p>
         </div>
         <div className=" flex py-8 items-center">
-          <InputQuantity quantity={1}></InputQuantity>
-          <Button secondary className="mx-4 px-2 inline-block ">
+          <InputQuantity onChange={setValue} quantity={value}></InputQuantity>
+          <Button secondary small className="mx-4 px-2 inline-block ">
             Buy Now
           </Button>
         </div>

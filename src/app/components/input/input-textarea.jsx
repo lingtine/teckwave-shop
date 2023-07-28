@@ -1,4 +1,4 @@
-function InputTextArea({ label, required }) {
+function InputTextArea({ label, required, ...props }) {
   return (
     <div className="relative rounded-md border h-full p-4">
       <textarea
@@ -6,6 +6,7 @@ function InputTextArea({ label, required }) {
         id={`input_${label}`}
         className="block px-2.5 pb-2.5 pt-4 w-full h-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-color-text-secondary peer"
         placeholder=" "
+        {...props}
       />
       <label
         htmlFor={`input_${label}`}

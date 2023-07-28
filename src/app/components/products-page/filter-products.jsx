@@ -8,8 +8,6 @@ function FilterProducts({ dateFilter = [] }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
-    console.log(filter);
   };
   const renderFilterByField = dateFilter.map((field) => (
     <FieldFilter
