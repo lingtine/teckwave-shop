@@ -1,8 +1,8 @@
 import Image from "next/image";
-import BoxProducts from "./components/home-page/box-products";
-import NavBar from "./components/home-page/navbar";
-import ProductCarousel from "./components/products/product-carousel";
-import AboutUs from "./components/home-page/about-us";
+import BoxProducts from "~/app/components/products/product-carousel";
+import NavBar from "~/app/components/home-page/navbar";
+import ProductCarousel from "~/app/components/products/product-carousel";
+import AboutUs from "~/app/components/home-page/about-us";
 function HomePage() {
   const data = {
     title: "APPLE AUTHORISED RESELLER",

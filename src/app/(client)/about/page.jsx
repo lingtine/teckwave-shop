@@ -4,7 +4,7 @@ import { BiStoreAlt } from "react-icons/bi";
 import { CiDollar } from "react-icons/ci";
 import { TbMoneybag } from "react-icons/tb";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
-import AboutUs from "../components/home-page/about-us";
+import AboutUs from "~/app/components/home-page/about-us";
 function AboutPage() {
   return (
     <div>

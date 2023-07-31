@@ -1,7 +1,5 @@
 import "~/styles/globals.css";
 import { inter } from "./fonts";
-import { Header, Footer } from "./components";
-
 import Providers from "~/redux/provider";
 
 export const metadata = {
@@ -12,13 +10,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Providers>
-        <body suppressHydrationWarning={true} className={inter.className}>
-          <Header />
-          <div>{children}</div>
-          <Footer />
-        </body>
-      </Providers>
+      <body suppressHydrationWarning={true} className={inter.className}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

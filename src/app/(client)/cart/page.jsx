@@ -2,7 +2,7 @@ import Image from "next/image";
 import { TiDelete } from "react-icons/ti";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
-import InputQuantity from "../components/input-quanlity/input-quanlity";
+import InputQuantity from "~/app/components/input-quanlity/input-quanlity";
 function CartPage() {
   const data = [
     {

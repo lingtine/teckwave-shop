@@ -2,9 +2,9 @@
 
 import { BiPhone } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
-import Button from "../components/button/button";
-import Input from "../components/input/input";
-import InputTextArea from "../components/input/input-textarea";
+import Button from "~/app/components/button/button";
+import Input from "~/app/components/input/input";
+import InputTextArea from "~/app/components/input/input-textarea";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,9 +13,7 @@ import {
   changeMessage,
   changePhoneNumber,
 } from "~/redux/features/contact/contact-form-slice";
-import { useFetchCategoriesQuery } from "~/redux/services/catalog/category-api";
 import { useFetchCategoryGroupsQuery } from "~/redux/services/catalog/category-group-api";
-import { useFetchPokemonQuery } from "~/redux/services/test/pokemon-api";
 function ContactPage() {
   const dispatch = useDispatch();
   const formValues = useSelector((state) => {
@@ -29,7 +27,7 @@ function ContactPage() {
   } else if (error) {
     console.log(error);
   } else {
-    console.log
+    console.log;
     console.log(data);
   }
   const renderForm = (

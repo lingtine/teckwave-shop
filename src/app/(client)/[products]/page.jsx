@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import SelectBox from "../components/select-box/select-box";
-import ProductList from "../components/products/product-list";
-import Pagination from "../components/products-page/pagination";
-import FilterProducts from "../components/products-page/filter-products";
+import SelectBox from "~/app/components/select-box/select-box";
+import ProductList from "~/app/components/products/product-list";
+import Pagination from "~/app/components/products-page/pagination";
+import FilterProducts from "~/app/components/products-page/filter-products";
 
 function ProductsPage() {
   const [valueSorted, setValueSorted] = useState(null);
