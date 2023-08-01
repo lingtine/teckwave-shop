@@ -2,7 +2,7 @@ import Button from "~/app/components/button/button";
 import Input from "~/app/components/input/input";
 import InputTextArea from "~/app/components/input/input-textarea";
 import InputMultipleImage from "~/app/components/input/InputMultipleImage";
-function AddProducts() {
+function EditProduct() {
   return (
     <div>
       <h2 className="my-2 text-lg text-primary-1 font-bold">Add Product</h2>
@@ -40,4 +40,4 @@ function AddProducts() {
   );
 }
 
-export default AddProducts;
+export default EditProduct;

@@ -13,7 +13,7 @@ function SideBar() {
   const page = pathname.split("/")[2];
 
   return (
-    <ul className="border">
+    <ul className="">
       <li>
         <Link
           className={classNames(

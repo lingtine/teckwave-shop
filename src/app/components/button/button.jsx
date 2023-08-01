@@ -19,7 +19,7 @@ function Button({
   large,
   normal,
   small,
-
+  full,
   //
   hidden,
   ...props
@@ -42,6 +42,7 @@ function Button({
       "py-2 px-4 text-sm": small,
       "px-10 py-3 text-base": normal,
       "py-4 px-12 text-lg": large,
+      "w-full flex justify-center py-2 ": full,
       "opacity-50 cursor-not-allowed": hidden,
     },
     className

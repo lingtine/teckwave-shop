@@ -50,6 +50,14 @@ function AccountLayout({ children }) {
                   Reset Password
                 </Link>
               </li>
+              <li
+                className={classNames(
+                  "py-1 text-base text-color-text-black hover:text-secondary-3",
+                  { "text-secondary-3": page === "wish-list" }
+                )}
+              >
+                <Link href={"/dashboard/account/wish-list"}>Wishlist</Link>
+              </li>
               <li className="py-1 text-base text-color-text-black  ">
                 <button>Log out</button>
               </li>

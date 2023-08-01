@@ -1,5 +1,5 @@
 import Image from "next/image";
-import BoxProducts from "~/app/components/products/product-carousel";
+import BoxProducts from "~/app/components/home-page/box-products";
 import NavBar from "~/app/components/home-page/navbar";
 import ProductCarousel from "~/app/components/products/product-carousel";
 import AboutUs from "~/app/components/home-page/about-us";

@@ -51,6 +51,9 @@ function Header() {
                     <Link href="/dashboard/account/my-orders">My Orders</Link>
                   </li>
                   <li className="py-2 px-2 border-b hover:text-secondary-3  ">
+                    <Link href="/dashboard/account/wish-list">WishList</Link>
+                  </li>
+                  <li className="py-2 px-2 border-b hover:text-secondary-3  ">
                     <button>Log out</button>
                   </li>
                 </ul>
