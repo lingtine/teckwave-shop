@@ -7,7 +7,6 @@ import { useState } from "react";
 
 function ProductCart({ product }) {
   const [status, setStatus] = useState(false);
-
   const handleAddProduct = () => {
     console.log("add product.");
   };
@@ -22,7 +21,7 @@ function ProductCart({ product }) {
         onClick={() => {
           setStatus(!status);
         }}
-        className="absolute text-xl text-secondary-3 p-2.5 rounded-full right-1  top-2"
+        className="absolute text-xl text-secondary-3 p-2.5 rounded-full right-1  top-6"
       >
         {status ? <AiFillHeart /> : <AiOutlineHeart />}
       </div>
