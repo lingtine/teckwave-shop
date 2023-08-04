@@ -70,4 +70,4 @@ export const {
   useUpdateProductMutation,
   useGetProductQuery,
 } = productApi;
-export { productApi };
+export default productApi;

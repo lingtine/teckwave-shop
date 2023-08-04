@@ -19,4 +19,4 @@ const categoryApi = createApi({
 });
 
 export const { useFetchCategoriesQuery } = categoryApi;
-export { categoryApi };
+export default categoryApi;

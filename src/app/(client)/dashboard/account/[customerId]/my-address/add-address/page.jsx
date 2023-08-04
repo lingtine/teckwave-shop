@@ -18,6 +18,7 @@ import {
 } from "~/redux/features/dashboard/form-add-address-slice";
 
 import { useAddDeliveryInfosMutation } from "~/redux/services/customer/customer-api";
+import Link from "next/link";
 
 function AddAddress() {
   const { data: cityData, isSuccess } = useGetAllCityQuery();
@@ -81,7 +82,13 @@ function AddAddress() {
                 <label>Company</label>
               </div>
             </li> */}
-            <li className="flex justify-end">
+            <li className="flex justify-end items-center">
+              <Link
+                className="mx-6 btn primary py-2 px-4 border border-primary-1 bg-secondary-2"
+                href={`/dashboard/account/${customerId}/my-address`}
+              >
+                Trở về
+              </Link>
               <Button secondary normal>
                 Add Address
               </Button>

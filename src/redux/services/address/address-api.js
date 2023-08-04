@@ -18,6 +18,6 @@ const addressApi = createApi({
   },
 });
 
-export { addressApi };
+export default addressApi;
 
 export const { useGetAllCityQuery } = addressApi;

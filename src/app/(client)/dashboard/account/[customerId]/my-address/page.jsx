@@ -62,7 +62,9 @@ function MyAddress() {
           <h4>My Address</h4>
         </div>
         <div className="flex justify-end w-full text-base py-8 border-b">
-          <Link href="/dashboard/account/my-address/add-address">
+          <Link
+            href={`/dashboard/account/${customerId}/my-address/add-address`}
+          >
             <Button secondary normal leftIcon={<AiOutlinePlus />}>
               Add Address
             </Button>

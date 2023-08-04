@@ -19,4 +19,4 @@ const categoryGroupsApi = createApi({
 });
 
 export const { useFetchCategoryGroupsQuery } = categoryGroupsApi;
-export { categoryGroupsApi };
+export default categoryGroupsApi;

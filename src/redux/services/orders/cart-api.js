@@ -15,6 +15,16 @@ const cartApi = createApi({
           };
         },
       }),
+      getCart: builder.query({
+        query: (customerId) => {
+          return {
+            url: `/customers/${customerId}`,
+          };
+        },
+      }),
     };
   },
 });
+
+export default cartApi;
+export const { useGetCartQuery, useAddProductMutation } = cartApi;

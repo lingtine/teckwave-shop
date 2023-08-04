@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import classNames from "classnames";
 function AccountLayout({ children }) {
-  const pathname = usePathname();
-  const page = pathname.split("/")[3];
+  const { customerId } = useParams();
+  const pathName = usePathname();
+  const page = pathName.split("/")[4];
   return (
     <div
       suppressHydrationWarning={true}
@@ -22,7 +23,9 @@ function AccountLayout({ children }) {
                   { "text-secondary-3": page === "my-account" }
                 )}
               >
-                <Link href={"/dashboard/account/my-account"}>My Profile</Link>
+                <Link href={`/dashboard/account/${customerId}/my-account`}>
+                  My Profile
+                </Link>
               </li>
               <li
                 className={classNames(
@@ -30,7 +33,9 @@ function AccountLayout({ children }) {
                   { "text-secondary-3": page === "my-address" }
                 )}
               >
-                <Link href={"/dashboard/account/my-address"}>Address Book</Link>
+                <Link href={`/dashboard/account/${customerId}/my-address`}>
+                  Address Book
+                </Link>
               </li>
               <li
                 className={classNames(
@@ -38,7 +43,9 @@ function AccountLayout({ children }) {
                   { "text-secondary-3": page === "my-orders" }
                 )}
               >
-                <Link href={"/dashboard/account/my-orders"}>My Orders</Link>
+                <Link href={`/dashboard/account/${customerId}/my-orders`}>
+                  My Orders
+                </Link>
               </li>
               <li
                 className={classNames(
@@ -46,18 +53,11 @@ function AccountLayout({ children }) {
                   { "text-secondary-3": page === "reset-password" }
                 )}
               >
-                <Link href={"/dashboard/account/reset-password"}>
+                <Link href={`/dashboard/account/${customerId}/reset-password`}>
                   Reset Password
                 </Link>
               </li>
-              <li
-                className={classNames(
-                  "py-1 text-base text-color-text-black hover:text-secondary-3",
-                  { "text-secondary-3": page === "wish-list" }
-                )}
-              >
-                <Link href={"/dashboard/account/wish-list"}>Wishlist</Link>
-              </li>
+
               <li className="py-1 text-base text-color-text-black  ">
                 <button>Log out</button>
               </li>

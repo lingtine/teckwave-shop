@@ -20,4 +20,4 @@ const pokemonApi = createApi({
 });
 
 export const { useFetchPokemonQuery } = pokemonApi;
-export { pokemonApi };
+export default pokemonApi;

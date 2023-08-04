@@ -16,19 +16,19 @@ const customerApi = createApi({
         },
       }),
       getCustomer: builder.query({
-        query: (productId) => {
+        query: (customerId) => {
           return {
             method: "GET",
-            url: `/${productId}`,
+            url: `/${customerId}`,
           };
         },
         providesTags: ["update"],
       }),
       getOrders: builder.query({
-        query: (productId) => {
+        query: (customerId) => {
           return {
             method: "GET",
-            url: `/orders/${productId}`,
+            url: `/orders/${customerId}`,
           };
         },
       }),
@@ -79,11 +79,13 @@ const customerApi = createApi({
   },
 });
 
-export { customerApi };
+export default customerApi;
 export const {
   useGetAllCustomersQuery,
-  useAddDeliveryInfosMutation,
   useGetCustomerQuery,
+  useGetOrdersQuery,
+
+  useAddDeliveryInfosMutation,
   useUpdateDeliveryInfoDefaultMutation,
   useUpdateDeliveryInfoMutation,
   useDeleteDeliveryInfoMutation,

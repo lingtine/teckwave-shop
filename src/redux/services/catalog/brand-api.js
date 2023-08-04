@@ -17,4 +17,4 @@ const brandApi = createApi({
 });
 
 export const { useFetchAllBrandsQuery } = brandApi;
-export { brandApi };
+export default brandApi;
