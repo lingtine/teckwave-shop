@@ -61,11 +61,11 @@ function WishList() {
             view
           </Button>
         </div>
-        <ProductList products={data.products} />
+        <ProductList products={data.products || []} />
       </div>
 
       <BoxProducts type={"Just For You"}>
-        <ProductList products={data.products} />
+        <ProductList products={data.products || []} />
       </BoxProducts>
     </div>
   );

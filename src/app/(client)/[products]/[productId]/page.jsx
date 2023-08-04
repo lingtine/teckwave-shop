@@ -1,6 +1,12 @@
+"use client";
+
 import ProductContent from "~/app/components/product-detail/product-content";
+import { useGetProductQuery } from "~/redux/services/catalog/product-api";
+import { useParams } from "next/navigation";
 
 function ProductDetailPage() {
+  const { productId } = useParams();
+
   const data = {
     images: [
       { url: "/images/products/havic/havic.png", name: "havic" },
@@ -17,6 +23,12 @@ function ProductDetailPage() {
     describe:
       "PlayStation 5 Controller Skin High quality vinyl with air channel adhesive for easy bubble free install & mess free removal Pressure sensitive.",
   };
+
+  const { data: productData, isSuccess } = useGetProductQuery(productId);
+
+  if (isSuccess) {
+    console.log(productId);
+  }
 
   return (
     <div>

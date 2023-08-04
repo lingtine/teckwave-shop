@@ -1,7 +1,10 @@
+"use client";
 import Link from "next/link";
 import { AiOutlinePlus } from "react-icons/ai";
 import Button from "~/app/components/button/button";
 import AddressContent from "~/app/components/my-address/address-content";
+import { useParams } from "next/navigation";
+import { useGetCustomerQuery } from "~/redux/services/customer/customer-api";
 
 function MyAddress() {
   const data = [
@@ -38,6 +41,20 @@ function MyAddress() {
       default: false,
     },
   ];
+  const { customerId } = useParams();
+
+  const { data: customerData, isSuccess } = useGetCustomerQuery(
+    "bfeecf25-454c-4115-6428-08db9361766e"
+  );
+
+  let renderData;
+
+  if (isSuccess) {
+    const addressesData = customerData.data.deliveryInfos;
+    renderData = addressesData.map((address) => {
+      return <AddressContent data={address} key={address.id} />;
+    });
+  }
   return (
     <div className="px-4 border">
       <div className="">
@@ -45,17 +62,13 @@ function MyAddress() {
           <h4>My Address</h4>
         </div>
         <div className="flex justify-end w-full text-base py-8 border-b">
-          <Link href="/">
-            <Button secondary large leftIcon={<AiOutlinePlus />}>
+          <Link href="/dashboard/account/my-address/add-address">
+            <Button secondary normal leftIcon={<AiOutlinePlus />}>
               Add Address
             </Button>
           </Link>
         </div>
-        <div>
-          {data.map((address) => {
-            return <AddressContent data={address} />;
-          })}
-        </div>
+        <div>{renderData}</div>
       </div>
     </div>
   );

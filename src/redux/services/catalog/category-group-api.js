@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 const categoryGroupsApi = createApi({
   reducerPath: "categoryGroups",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://ecommerce.hahaho.me/catalogs/category-groups",
+    baseUrl: "http://ecommerce.quochao.id.vn/catalogs/category-groups",
   }),
   endpoints(builder) {
     return {
