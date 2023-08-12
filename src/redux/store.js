@@ -11,6 +11,7 @@ import formUpdateProductReducer from "./features/product/update-product-form-sli
 import formEditProfileReducer from "./features/dashboard/form-edit-profile-slice";
 import formAddAddressReducer from "./features/dashboard/form-add-address-slice";
 import formEditAddressReducer from "./features/dashboard/form-edit-address-slice";
+import checkoutReducer from "./features/check-out/checkout-slice";
 
 import {
   pokemonApi,
@@ -21,6 +22,9 @@ import {
   customerApi,
   productApi,
   cartApi,
+  couponApi,
+  orderApi,
+  authApi,
 } from "./services";
 
 const store = configureStore({
@@ -35,6 +39,7 @@ const store = configureStore({
     editProfileForm: formEditProfileReducer,
     addAddressForm: formAddAddressReducer,
     editAddressForm: formEditAddressReducer,
+    checkoutForm: checkoutReducer,
 
     [pokemonApi.reducerPath]: pokemonApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
@@ -44,6 +49,9 @@ const store = configureStore({
     [customerApi.reducerPath]: customerApi.reducer,
     [addressApi.reducerPath]: addressApi.reducer,
     [cartApi.reducerPath]: cartApi.reducer,
+    [couponApi.reducerPath]: cartApi.reducer,
+    [orderApi.reducerPath]: orderApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) => {
@@ -55,7 +63,10 @@ const store = configureStore({
       .concat(productApi.middleware)
       .concat(addressApi.middleware)
       .concat(customerApi.middleware)
-      .concat(cartApi.middleware);
+      .concat(cartApi.middleware)
+      .concat(couponApi.middleware)
+      .concat(orderApi.middleware)
+      .concat(authApi.middleware);
   },
 });
 

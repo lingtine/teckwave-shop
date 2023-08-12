@@ -7,15 +7,30 @@ import {
   changeEmail,
   changePassword,
 } from "~/redux/features/dashboard/form-login-slice";
+import { useLoginMutation } from "~/redux/services/authentication/auth-api";
+import { useEffect } from "react";
 
 function LoginPage() {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.loginForm);
+  const [login, { isSuccess, data }] = useLoginMutation();
+  useEffect(() => {
+    if (isSuccess) {
+      console.log(data);
+    }
+  }, [isSuccess, data]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(formData);
+  };
   return (
     <div className="my-20 ">
       <div className=" container mx-auto w-full max-w-sm">
-        <form className="bg-white shadow-xl rounded-xl px-8 pt-6 pb-8 mb-4">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white shadow-xl rounded-xl px-8 pt-6 pb-8 mb-4"
+        >
           <div className="my-8">
             <h3 className=" text-3xl font-semibold mb-4">Login</h3>
             <div className="text-slate-400 text-sm ">
@@ -62,7 +77,7 @@ function LoginPage() {
 
           <button
             className="my-4 w-full bg-secondary-3 hover:opacity-90 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
+            type="submit"
           >
             Login
           </button>

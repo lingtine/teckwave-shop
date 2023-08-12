@@ -1,19 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  fullName: "",
   confirmPassword: "",
   email: "",
   password: "",
+  name: "",
+  code: "",
+  showCode: false,
 };
 
 const formRegisterSlice = createSlice({
   name: "formRegisterSlice",
   initialState,
   reducers: {
-    changeFullName(state, action) {
-      state.fullName = action.payload;
-    },
     changePassword(state, action) {
       state.password = action.payload;
     },
@@ -23,14 +22,25 @@ const formRegisterSlice = createSlice({
     changeConfirmPassword(state, action) {
       state.confirmPassword = action.payload;
     },
+    changeName(state, action) {
+      state.name = action.payload;
+    },
+    changeCode(state, action) {
+      state.code = action.payload;
+    },
+    changeShowCode(state, action) {
+      state.showCode = true;
+    },
   },
 });
 
 export const {
   changeConfirmPassword,
   changeEmail,
-  changeFullName,
   changePassword,
+  changeCode,
+  changeName,
+  changeShowCode,
 } = formRegisterSlice.actions;
 
 export default formRegisterSlice.reducer;

@@ -1,9 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import { TiDelete } from "react-icons/ti";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
 import InputQuantity from "~/app/components/input-quanlity/input-quanlity";
+
+import { useGetCartQuery } from "~/redux/services/orders/cart-api";
+
 function CartPage() {
+  const { data: cartData } = useGetCartQuery(
+    "bfeecf25-454c-4115-6428-08db9361766e "
+  );
+
   const data = [
     {
       name: "Apple iPhone",

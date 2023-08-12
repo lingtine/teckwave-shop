@@ -1,6 +1,12 @@
+"use client";
 import Image from "next/image";
+import Input from "~/app/components/input/input";
+
+import { useGetAllCouponQuery } from "~/redux/services/discount/coupon-api";
 
 function Checkout() {
+  const { data: couponData } = useGetAllCouponQuery();
+
   const data = [
     {
       name: "Apple iPhone",
@@ -52,104 +58,9 @@ function Checkout() {
       <div className="flex justify-between ">
         <div className=" bg-white py-8 rounded-lg">
           <h3 className="my-8 text-xl font-bold ">Delivery Information</h3>
-          <form className="min-w-[470px]">
-            <div class="relative z-0 w-full mb-6 group border px-2 rounded bg-secondary">
-              <input
-                type="email"
-                name="floating_email"
-                id="floating_email"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
-              />
-              <label
-                htmlFor="floating_email"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary-1  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Email address
-              </label>
-            </div>
-            <div class="relative z-0 w-full mb-6 group border px-2 rounded bg-secondary">
-              <input
-                type="text"
-                name="floating_first_name"
-                id="floating_first_name"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
-              />
-              <label
-                htmlFor="floating_first_name"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary-1  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                First Name
-              </label>
-            </div>
-            <div class="relative z-0 w-full mb-6 group border px-2 rounded bg-secondary">
-              <input
-                type="address"
-                name="floating_address"
-                id="floating_address"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
-              />
-              <label
-                htmlFor="floating_address"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary-1  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Stress Address
-              </label>
-            </div>
-            <div class="relative z-0 w-full mb-6 group border px-2 rounded bg-secondary">
-              <input
-                type="number"
-                name="floating_phone"
-                id="floating_phone"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
-              />
-              <label
-                htmlFor="floating_phone"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary-1  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Phone Number
-              </label>
-            </div>
-            <div class="relative z-0 w-full mb-6 group border px-2 rounded bg-secondary">
-              <textarea
-                type="text"
-                name="floating_text"
-                id="floating_text"
-                class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                placeholder=" "
-                required
-                rows="4"
-                cols="50"
-              />
-              <label
-                htmlFor="floating_text"
-                class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary-1  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-              >
-                Note
-              </label>
-            </div>
-            <div class="flex items-center">
-              <input
-                id="link-checkbox"
-                type="checkbox"
-                value=""
-                class="w-4 h-4 text-secondary-3 checked:accent-secondary-3  bg-secondary-3  rounded focus:ring-secondary-3 dark:focus:ring-secondary-3  focus:ring-2 "
-              />
-              <label
-                for="link-checkbox"
-                class="ml-2 text-sm font-medium text-gray-900 "
-              >
-                Save this information for faster check-out next time
-              </label>
-            </div>
-          </form>
+          <div className="min-w-[470px]">
+            <Input label={"email"} />
+          </div>
         </div>
         <div className="p-8 bg-white rounded-xl h-fit w-full max-w-md ">
           <h3 className="text-xl my-8 font-bold dark:text-white">

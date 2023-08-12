@@ -16,11 +16,17 @@ const customerApi = createApi({
         },
       }),
       getCustomer: builder.query({
-        query: (customerId) => {
+        query: () => {
           return {
             method: "GET",
-            url: `/${customerId}`,
+            url: `/info`,
           };
+        },
+        async onQueryStarted(args, { dispatch, queryFulfilled }) {
+          try {
+            const { data } = await queryFulfilled;
+            dispatch(setUser(data));
+          } catch (error) {}
         },
         providesTags: ["update"],
       }),
@@ -75,6 +81,26 @@ const customerApi = createApi({
         },
         invalidatesTags: ["update"],
       }),
+      register: builder.mutation({
+        query: (data) => {
+          return {
+            url: "/register",
+            method: "POST",
+            body: data,
+          };
+        },
+      }),
+      verifyEmail: builder.mutation({
+        query: (email) => {
+          return {
+            url: "/verify-email",
+            method: "POST",
+            body: {
+              email,
+            },
+          };
+        },
+      }),
     };
   },
 });
@@ -89,4 +115,7 @@ export const {
   useUpdateDeliveryInfoDefaultMutation,
   useUpdateDeliveryInfoMutation,
   useDeleteDeliveryInfoMutation,
+
+  useVerifyEmailMutation,
+  useRegisterMutation,
 } = customerApi;

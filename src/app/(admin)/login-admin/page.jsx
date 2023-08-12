@@ -6,13 +6,29 @@ import {
   changeUserName,
   changePassword,
 } from "~/redux/features/dashboard/form-login-admin-slice";
+
+import { useLoginMutation } from "~/redux/services/authentication/auth-api";
+import jwt_decode from "jwt-decode";
+import { useEffect } from "react";
 function LoginAdmin() {
   const dispatch = useDispatch();
   const loginAdmin = useSelector((state) => state.loginAdminForm);
+  const [login, { isLoading, isSuccess, data }] = useLoginMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log(refreshToken);
+      var decoded = jwt_decode(data.data.accessToken);
+      console.log(decoded);
+    }
+  }, [isSuccess]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(loginAdmin);
+    login({
+      email: loginAdmin.username,
+      password: loginAdmin.password,
+    });
   };
   return (
     <div>
@@ -23,7 +39,7 @@ function LoginAdmin() {
             <form onSubmit={handleSubmit}>
               <div className="my-4">
                 <Input
-                  label={"User"}
+                  label={"email"}
                   value={loginAdmin.username}
                   onChange={(e) => {
                     dispatch(changeUserName(e.target.value));

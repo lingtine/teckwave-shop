@@ -14,9 +14,18 @@ const categoryGroupsApi = createApi({
           };
         },
       }),
+      addCategoryGroups: builder.mutation({
+        query: (data) => {
+          return {
+            method: "POST",
+            body: data,
+          };
+        },
+      }),
     };
   },
 });
 
-export const { useFetchCategoryGroupsQuery } = categoryGroupsApi;
+export const { useFetchCategoryGroupsQuery, useAddCategoryGroupsMutation } =
+  categoryGroupsApi;
 export default categoryGroupsApi;
