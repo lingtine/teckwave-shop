@@ -2,7 +2,7 @@
 
 import Input from "~/app/components/input/input";
 import Button from "~/app/components/button/button";
-
+import Link from "next/link";
 import {
   changeCode,
   changeConfirmPassword,
@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 function Register() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function Register() {
   const [verifyEmail, verifyEmailResult] = useVerifyEmailMutation();
   const [register, registerResult] = useRegisterMutation();
 
+  const router = useRouter();
   useEffect(() => {
     if (verifyEmailResult.isSuccess) {
       toast.info("Check your email to get the code");
@@ -34,6 +36,7 @@ function Register() {
     }
     if (registerResult.isSuccess) {
       toast.success("User Register Successfully");
+      router.push("/dashboard/login");
     }
   }, [verifyEmailResult.isSuccess]);
 
@@ -61,7 +64,20 @@ function Register() {
           action=""
           className="border px-10 py-5 border-color-text-black rounded-sm min-w-[400px]"
         >
-          <h3 className="text-2xl font-semibold text-primary-1">Registers</h3>
+          <div className="my-8">
+            <h3 className=" text-3xl font-semibold mb-4">Register</h3>
+            <div className="text-slate-400 text-sm ">
+              You are ready have an account?{" "}
+              {
+                <Link
+                  href={"/dashboard/login"}
+                  className="text-red-500 hover:underline"
+                >
+                  Login
+                </Link>
+              }
+            </div>
+          </div>
           <div className="my-4">
             <Input
               label={"Name"}

@@ -1,10 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import classNames from "classnames";
 function AccountLayout({ children }) {
-  const { customerId } = useParams();
   const pathName = usePathname();
   const page = pathName.split("/")[4];
   return (
@@ -23,9 +22,7 @@ function AccountLayout({ children }) {
                   { "text-secondary-3": page === "my-account" }
                 )}
               >
-                <Link href={`/dashboard/account/${customerId}/my-account`}>
-                  My Profile
-                </Link>
+                <Link href={`/dashboard/account/my-account`}>My Profile</Link>
               </li>
               <li
                 className={classNames(
@@ -33,9 +30,7 @@ function AccountLayout({ children }) {
                   { "text-secondary-3": page === "my-address" }
                 )}
               >
-                <Link href={`/dashboard/account/${customerId}/my-address`}>
-                  Address Book
-                </Link>
+                <Link href={`/dashboard/account/my-address`}>Address Book</Link>
               </li>
               <li
                 className={classNames(
@@ -43,9 +38,7 @@ function AccountLayout({ children }) {
                   { "text-secondary-3": page === "my-orders" }
                 )}
               >
-                <Link href={`/dashboard/account/${customerId}/my-orders`}>
-                  My Orders
-                </Link>
+                <Link href={`/dashboard/account/my-orders`}>My Orders</Link>
               </li>
               <li
                 className={classNames(
@@ -53,7 +46,7 @@ function AccountLayout({ children }) {
                   { "text-secondary-3": page === "reset-password" }
                 )}
               >
-                <Link href={`/dashboard/account/${customerId}/reset-password`}>
+                <Link href={`/dashboard/account/reset-password`}>
                   Reset Password
                 </Link>
               </li>

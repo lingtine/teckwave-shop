@@ -9,16 +9,20 @@ import {
 } from "~/redux/features/dashboard/form-login-slice";
 import { useLoginMutation } from "~/redux/services/authentication/auth-api";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 function LoginPage() {
   const dispatch = useDispatch();
+  const router = useRouter();
   const formData = useSelector((state) => state.loginForm);
-  const [login, { isSuccess, data }] = useLoginMutation();
+  const [login, { isSuccess }] = useLoginMutation();
   useEffect(() => {
     if (isSuccess) {
-      console.log(data);
+      toast.success("Login Success");
+      router.push("/");
     }
-  }, [isSuccess, data]);
+  }, [isSuccess]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -1,27 +1,44 @@
-// authSlice.js
+// features/auth/authSlice.js
 import { createSlice } from "@reduxjs/toolkit";
+import { deleteCookie, getCookie } from "~/utils/cookie";
 
 // initialize userToken from local storage
-const userToken = localStorage.getItem("userToken")
-  ? localStorage.getItem("userToken")
-  : null;
+const accessToken = getCookie("accessToken");
+const refreshToken = getCookie("refreshToken");
 
 const initialState = {
-  loading: false,
-  userInfo: null,
-  acct,
-
-  error: null,
-  success: false,
+  // ...initial state
+  accessToken,
+  refreshToken,
 };
 
 const authSlice = createSlice({
-  name: "auth",
+  name: "authSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.accessToken = "";
+      state.refreshToken = "";
+      deleteCookie("accessToken");
+      deleteCookie("refreshToken");
+    },
+    changeAccessToken: (state, action) => {
+      state.accessToken = action.payload;
+    },
+    changeRefreshToken: (state, action) => {
+      state.refreshToken = action.payload;
+    },
+    changeAuth: (state, action) => {
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
+    },
+  },
   extraReducers: {
-    // login user
-    // register user reducer...
+    // ...userLogin reducer
+    // ...registerUser reducer
   },
 });
+
+export const { logout, changeAccessToken, changeRefreshToken, changeAuth } =
+  authSlice.actions;
 export default authSlice.reducer;

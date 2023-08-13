@@ -1,9 +1,18 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+import { setUser } from "~/redux/features/auth/user-slice";
+import authApi from "../authentication/auth-api";
 const customerApi = createApi({
   reducerPath: "customer",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://ecommerce.quochao.id.vn/customers/customers",
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState().authSlice.accessToken;
+      if (token) {
+        headers.set("authorization", `Bearer ${token}`);
+        return headers;
+      }
+    },
   }),
   tagTypes: ["update"],
   endpoints(builder) {
@@ -22,11 +31,13 @@ const customerApi = createApi({
             url: `/info`,
           };
         },
-        async onQueryStarted(args, { dispatch, queryFulfilled }) {
+        async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
           try {
             const { data } = await queryFulfilled;
-            dispatch(setUser(data));
-          } catch (error) {}
+            await dispatch(setUser(data));
+          } catch (error) {
+            await dispatch(authApi.endpoints.refreshToken.initiate(null));
+          }
         },
         providesTags: ["update"],
       }),

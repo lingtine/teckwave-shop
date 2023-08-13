@@ -12,6 +12,8 @@ import formEditProfileReducer from "./features/dashboard/form-edit-profile-slice
 import formAddAddressReducer from "./features/dashboard/form-add-address-slice";
 import formEditAddressReducer from "./features/dashboard/form-edit-address-slice";
 import checkoutReducer from "./features/check-out/checkout-slice";
+import userReducer from "./features/auth/user-slice";
+import authReducer from "./features/auth/auth-slice";
 
 import {
   pokemonApi,
@@ -40,6 +42,8 @@ const store = configureStore({
     addAddressForm: formAddAddressReducer,
     editAddressForm: formEditAddressReducer,
     checkoutForm: checkoutReducer,
+    user: userReducer,
+    authSlice: authReducer,
 
     [pokemonApi.reducerPath]: pokemonApi.reducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
