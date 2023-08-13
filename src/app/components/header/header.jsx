@@ -9,10 +9,11 @@ import classNames from "classnames";
 import TopBar from "./top-bar";
 import HeaderNavigation from "./header-navigation";
 import { useSelector } from "react-redux";
+import { useLogoutMutation } from "~/redux/services/authentication/auth-api";
 
 function Header() {
   const { user } = useSelector((state) => state.user);
-
+  const [logout] = useLogoutMutation();
   return (
     <header className="min-h-[142px] border-b">
       <TopBar />
@@ -65,7 +66,13 @@ function Header() {
                       <Link href="/dashboard/account/my-orders">My Orders</Link>
                     </li>
                     <li className="py-2 px-2 border-b hover:text-secondary-3  ">
-                      <button>Log out</button>
+                      <button
+                        onClick={() => {
+                          logout();
+                        }}
+                      >
+                        Log out
+                      </button>
                     </li>
                   </ul>
                 </div>

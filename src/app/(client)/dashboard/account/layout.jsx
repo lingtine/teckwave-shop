@@ -3,9 +3,25 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import classNames from "classnames";
+import { useLogoutMutation } from "~/redux/services/authentication/auth-api";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 function AccountLayout({ children }) {
+  const [logout, { isSuccess }] = useLogoutMutation();
   const pathName = usePathname();
+  const router = useRouter();
   const page = pathName.split("/")[4];
+  const { user } = useSelector((state) => state.user);
+
+  if (user === null) {
+    router.push("/dashboard/login");
+  }
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/");
+    }
+  }, [isSuccess]);
   return (
     <div
       suppressHydrationWarning={true}
@@ -52,7 +68,13 @@ function AccountLayout({ children }) {
               </li>
 
               <li className="py-1 text-base text-color-text-black  ">
-                <button>Log out</button>
+                <button
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  Log out
+                </button>
               </li>
             </ul>
           </div>

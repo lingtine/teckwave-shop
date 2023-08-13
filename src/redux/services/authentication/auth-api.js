@@ -4,7 +4,7 @@ import { changeAuth } from "~/redux/features/auth/auth-slice";
 import { getCookie, setCookie } from "~/utils/cookie";
 import { logout } from "~/redux/features/auth/auth-slice";
 import { logout as userLogout } from "~/redux/features/auth/user-slice";
-
+import jwtDecode from "jwt-decode";
 const authApi = createApi({
   reducerPath: "auth",
   baseQuery: fetchBaseQuery({
@@ -29,6 +29,22 @@ const authApi = createApi({
           };
         },
       }),
+      logout: builder.mutation({
+        query: () => {
+          return {
+            url: "/logout",
+            method: "POST",
+            body: { refreshToken: getCookie("refreshToken") },
+          };
+        },
+        async onQueryStarted(args, { dispatch, queryFulfilled }) {
+          try {
+            await queryFulfilled;
+            await dispatch(logout());
+            await dispatch(userLogout());
+          } catch (error) {}
+        },
+      }),
 
       login: builder.mutation({
         query: (data) => {
@@ -47,9 +63,15 @@ const authApi = createApi({
           try {
             const { data } = await queryFulfilled;
             await dispatch(changeAuth(data));
-            await setCookie("accessToken", data.accessToken);
-            await setCookie("refreshToken", data.refreshToken);
-            await dispatch(customerApi.endpoints.getCustomer.initiate(null));
+            let jwt = jwtDecode(data.accessToken);
+            if (jwt.role === "Customer") {
+              await setCookie("accessToken", data.accessToken);
+              await setCookie("refreshToken", data.refreshToken);
+              await dispatch(customerApi.endpoints.getCustomer.initiate(null));
+            } else if (jwt.role === "admin") {
+              await setCookie("accessToken", data.accessToken);
+              await setCookie("refreshToken", data.refreshToken);
+            }
           } catch (error) {}
         },
       }),
@@ -79,9 +101,5 @@ const authApi = createApi({
 });
 
 export default authApi;
-export const {
-  useLoginMutation,
-  useRegisterMutation,
-  useVerifyCodeMutation,
-  useVerifyEmailMutation,
-} = authApi;
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
+  authApi;

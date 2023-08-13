@@ -16,6 +16,15 @@ const productApi = createApi({
         },
         providesTags: ["Post", "Delete", "Update"],
       }),
+      searchProducts: builder.mutation({
+        query: (value) => {
+          return {
+            url: "/",
+            method: "GET",
+            params: { Keyword: value },
+          };
+        },
+      }),
       addProduct: builder.mutation({
         query: (product) => {
           return {
@@ -63,7 +72,7 @@ const productApi = createApi({
 export const {
   //products
   useGetAllProductsQuery,
-
+  useSearchProductsMutation,
   //product
   useAddProductMutation,
   useDeleteProductMutation,
