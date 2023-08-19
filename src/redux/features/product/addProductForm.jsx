@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   productName: "",
+  categoryGroup: null,
   category: null,
   brand: null,
   price: 0,
@@ -15,6 +16,9 @@ const addProductFormSlice = createSlice({
   reducers: {
     changeProductName(state, action) {
       state.productName = action.payload;
+    },
+    changeCategoryGroup(state, action) {
+      state.categoryGroup = action.payload;
     },
     changeCategory(state, action) {
       state.category = action.payload;
@@ -41,5 +45,6 @@ export const {
   changeBrand,
   changePrice,
   changeImage,
+  changeCategoryGroup,
   changeDescription,
 } = addProductFormSlice.actions;

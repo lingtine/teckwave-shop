@@ -18,6 +18,13 @@ import authReducer from "./features/auth/auth-slice";
 import cartReducer from "./features/cart/cart";
 import formAddBrandSlice from "./features/dashboard/brand/form-add-brand-slice";
 import formUpdateBrandSlice from "./features/dashboard/brand/form-update-brand-slice";
+
+import formAddCategorySlice from "./features/product/category/form-add-category-slice";
+import formEditCategorySlice from "./features/product/category/form-edit-category-slice";
+import formAddCategoryGroup from "./features/product/category-group/form-add-category-group-slice";
+import formEditCategoryGroup from "./features/product/category-group/form-edit-category-group-slice";
+import formAddSpecification from "./features/product/specification/form-add-specification-slice";
+import formEditSpecification from "./features/product/specification/form-edit-specification-slice";
 import {
   pokemonApi,
   addressApi,
@@ -61,6 +68,12 @@ const store = configureStore({
     cart: cartReducer,
     [formAddBrandSlice.name]: formAddBrandSlice.reducer,
     [formUpdateBrandSlice.name]: formUpdateBrandSlice.reducer,
+    [formAddCategorySlice.name]: formAddCategorySlice.reducer,
+    [formEditCategorySlice.name]: formEditCategorySlice.reducer,
+    [formAddCategoryGroup.name]: formAddCategoryGroup.reducer,
+    [formEditCategoryGroup.name]: formEditCategoryGroup.reducer,
+    [formAddSpecification.name]: formAddSpecification.reducer,
+    [formEditSpecification.name]: formEditSpecification.reducer,
 
     //api
     [pokemonApi.reducerPath]: pokemonApi.reducer,

@@ -13,25 +13,20 @@ import {
   changeBrand,
   changeDescription,
   changeImage,
-  changeCategoryGroup,
 } from "~/redux/features/product/addProductForm";
 import { useAddProductMutation } from "~/redux/services/catalog/product-api";
-import {
-  useFetchCategoriesByQueryMutation,
-  useFetchCategoriesQuery,
-} from "~/redux/services/catalog/category-api";
+import { useFetchCategoriesQuery } from "~/redux/services/catalog/category-api";
 import { useFetchAllBrandsQuery } from "~/redux/services/catalog/brand-api";
 import { useDispatch, useSelector } from "react-redux";
-import { useFetchCategoryGroupsQuery } from "~/redux/services/catalog/category-group-api";
 import SelectBox from "~/app/components/select-box/select-box";
 import { useEffect } from "react";
 
 function AddProducts() {
-  const [getCategory, { isSuccess, data }] =
-    useFetchCategoriesByQueryMutation();
-  const { data: categoryGroupData, isSuccess: categoryGroupSuccess } =
-    useFetchCategoryGroupsQuery();
-
+  const {
+    data: categoryData,
+    isLoading,
+    isSuccess: categorySuccess,
+  } = useFetchCategoriesQuery();
   const { data: brandsData, isSuccess: brandsSuccess } =
     useFetchAllBrandsQuery();
   const [addProduct, result] = useAddProductMutation();
@@ -42,10 +37,9 @@ function AddProducts() {
 
   let dataCategoryConfig = [];
   let dataBrandsConfig = [];
-  let dataCategoryGroupConfig = [];
 
-  if (categoryGroupSuccess) {
-    dataCategoryGroupConfig = categoryGroupData.data.map((item) => {
+  if (categorySuccess) {
+    dataCategoryConfig = categoryData.data.map((item) => {
       return {
         ...item,
         label: item.name,
@@ -65,14 +59,7 @@ function AddProducts() {
       router.push("/dashboard/products");
     }
   }, [result.isSuccess]);
-  if (isSuccess) {
-    dataCategoryConfig = data.data.map((item) => {
-      return {
-        ...item,
-        label: item.name,
-      };
-    });
-  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let formData = new FormData();
@@ -111,39 +98,19 @@ function AddProducts() {
             <li className="my-4">
               <div className="flex items-center">
                 <div className="mr-4">
-                  <h4>Category Group:</h4>
+                  <h4>Category:</h4>
                 </div>
-                {categoryGroupSuccess && (
+                {categorySuccess && (
                   <SelectBox
-                    options={dataCategoryGroupConfig}
+                    options={dataCategoryConfig}
                     onChange={(option) => {
-                      dispatch(changeCategoryGroup(option));
-                      getCategory({ GroupId: option.id });
+                      dispatch(changeCategory(option));
                     }}
-                    selected={dataForm.categoryGroup}
+                    selected={dataForm.category}
                   />
                 )}
               </div>
             </li>
-            {dataForm.categoryGroup && (
-              <li className="my-4">
-                <div className="flex items-center">
-                  <div className="mr-4">
-                    <h4>Category:</h4>
-                  </div>
-                  {isSuccess && (
-                    <SelectBox
-                      options={dataCategoryConfig}
-                      onChange={(option) => {
-                        dispatch(changeCategory(option));
-                      }}
-                      selected={dataForm.category}
-                    />
-                  )}
-                </div>
-              </li>
-            )}
-
             <li className="my-4">
               <div className="flex items-center">
                 <div className="mr-4">

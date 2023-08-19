@@ -2,33 +2,34 @@
 
 import Link from "next/link";
 
+import { IoAddCircleOutline } from "react-icons/io5";
 import Image from "next/image";
 import {
-  useFetchAllBrandsQuery,
-  useDeleteBrandMutation,
-} from "~/redux/services/catalog/brand-api";
+  useGetAllProductsQuery,
+  useDeleteProductMutation,
+} from "~/redux/services/catalog/product-api";
 import Table from "~/app/components/table/table";
 import { AiFillEdit } from "react-icons/ai";
 import { CiCircleRemove } from "react-icons/ci";
-import { IoAddCircleOutline } from "react-icons/io5";
+import { useEffect } from "react";
 function Products() {
-  const { data: brandData, isSuccess } = useFetchAllBrandsQuery();
-  const [removeBrand, result] = useDeleteBrandMutation();
-  let configData = [];
+  const { data: productsData, isSuccess } = useGetAllProductsQuery();
+  const [removeProduct, result] = useDeleteProductMutation();
+  let configProductsData = [];
   if (isSuccess) {
-    configData = [
+    configProductsData = [
       {
-        label: "Brand Name",
+        label: "Product Name",
         render: (data) => {
           return (
-            <div className="flex items-center justify-evenly px-8">
+            <div>
               <Image
                 src={data.imageUrl}
                 alt={data.name}
-                width={50}
-                height={30}
+                width={100}
+                height={80}
               />
-              <div className="mx-4">{data.name}</div>
+              <div>{data.name}</div>
             </div>
           );
         },
@@ -40,6 +41,28 @@ function Products() {
         },
       },
       {
+        label: "Unit Price",
+        render: (data) => {
+          return data.unitPrice;
+        },
+      },
+      {
+        label: "Number Star",
+        render: (data) => {
+          return <div className="text-center">{data.numberOfStar}</div>;
+        },
+      },
+      {
+        label: "Status",
+        render: (data) => {
+          return data.isActive ? (
+            <div className="text-center">Active</div>
+          ) : (
+            <div className="text-center">None</div>
+          );
+        },
+      },
+      {
         label: "Actions",
         render: (data) => {
           return (
@@ -47,12 +70,12 @@ function Products() {
               <button
                 className="mx-4"
                 onClick={() => {
-                  removeBrand(data.id);
+                  removeProduct(data.id);
                 }}
               >
                 <CiCircleRemove />
               </button>
-              <Link href={`/dashboard/brands/edit-brand/${data.id}`}>
+              <Link href={`/dashboard/products/edit-product/${data.id}`}>
                 <AiFillEdit></AiFillEdit>
               </Link>
             </div>
@@ -65,20 +88,20 @@ function Products() {
   return (
     <div>
       <div className="flex justify-between">
-        <div>Brands</div>
+        <div>Products</div>
         <div>
           <Link
-            href={"/dashboard/brands/add-brand"}
+            href={"/dashboard/products/add-product"}
             className="flex items-center bg-secondary-3 text-primary px-2 py-4 rounded-sm text-sm hover:opacity-90"
           >
             <IoAddCircleOutline />
-            <span className="mx-2">Add brand</span>
+            <span className="mx-2">Add Products</span>
           </Link>
         </div>
       </div>
       <div className="my-8 w-full">
-        {isSuccess && brandData.data && (
-          <Table data={brandData.data} config={configData}></Table>
+        {isSuccess && productsData.data && (
+          <Table data={productsData.data} config={configProductsData}></Table>
         )}
       </div>
     </div>

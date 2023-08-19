@@ -33,7 +33,7 @@ const categoryGroupsApi = createApi({
         query: ([id, data]) => {
           return {
             method: "PUT",
-            url: `${id}`,
+            url: `/${id}`,
             body: data,
           };
         },

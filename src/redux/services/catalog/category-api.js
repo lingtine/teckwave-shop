@@ -17,7 +17,17 @@ const categoryApi = createApi({
       fetchCategories: builder.query({
         query: () => {
           return {
+            url: "/",
             method: "GET",
+          };
+        },
+      }),
+      fetchCategoriesByQuery: builder.mutation({
+        query: (parameters) => {
+          return {
+            url: "/",
+            method: "GET",
+            params: parameters,
           };
         },
       }),
@@ -33,8 +43,8 @@ const categoryApi = createApi({
       getCategory: builder.query({
         query: (id) => {
           return {
-            method: "GET",
             url: `/${id}`,
+            method: "GET",
           };
         },
       }),
@@ -65,5 +75,6 @@ export const {
   useCreateCategoryMutation,
   useRemoveCategoryMutation,
   useUpdateCategoryMutation,
+  useFetchCategoriesByQueryMutation,
 } = categoryApi;
 export default categoryApi;
