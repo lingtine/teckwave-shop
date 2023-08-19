@@ -14,8 +14,17 @@ export { default as authApi } from "./authentication/auth-api";
 export { default as employeeApi } from "./employee/employee";
 //customer
 export { default as customerApi } from "./customer/customer-api";
-//discount
-export { default as couponApi } from "./discount/coupon-api";
+
 //orders
 export { default as cartApi } from "./orders/cart-api";
 export { default as orderApi } from "./orders/order-api";
+//discount
+export { default as couponApi } from "./discount/coupon-api";
+export { default as discountEventApi } from "./discount/discount-event-api";
+//warehouse
+export { default as orderReportApi } from "./warehouse/order-report-api";
+export { default as productWarehouseApi } from "./warehouse/product-api";
+export { default as reportApi } from "./warehouse/report-api";
+export { default as stockApi } from "./warehouse/stock-api";
+export { default as supplierApi } from "./warehouse/supplier-api";
+export { default as warehouseApi } from "./warehouse/warehouse-api";

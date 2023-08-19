@@ -33,6 +33,13 @@ import {
   employeeApi,
   reviewApi,
   specificationApi,
+  discountEventApi,
+  orderReportApi,
+  productWarehouseApi,
+  reportApi,
+  stockApi,
+  supplierApi,
+  warehouseApi,
 } from "./services";
 
 const store = configureStore({
@@ -71,6 +78,15 @@ const store = configureStore({
     [orderApi.reducerPath]: orderApi.reducer,
     [authApi.reducerPath]: authApi.reducer,
     [employeeApi.reducerPath]: employeeApi.reducer,
+
+    [orderReportApi.reducerPath]: orderReportApi.reducer,
+    [productWarehouseApi.reducerPath]: productWarehouseApi.reducer,
+    [reportApi.reducerPath]: reportApi.reducer,
+    [stockApi.reducerPath]: stockApi.reducer,
+    [supplierApi.reducerPath]: supplierApi.reducer,
+    [warehouseApi.reducerPath]: warehouseApi.reducer,
+
+    [discountEventApi.reducerPath]: discountEventApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) => {
@@ -90,6 +106,13 @@ const store = configureStore({
       .concat(authApi.middleware)
       .concat(employeeApi.middleware)
       .concat(specificationApi.middleware)
+      .concat(discountEventApi.middleware)
+      .concat(orderReportApi.middleware)
+      .concat(warehouseApi.middleware)
+      .concat(supplierApi.middleware)
+      .concat(stockApi.middleware)
+      .concat(reportApi.middleware)
+      .concat(productWarehouseApi.middleware)
       .concat(reviewApi.middleware);
   },
 });
