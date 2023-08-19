@@ -2,8 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { setUser } from "~/redux/features/auth/user-slice";
 import authApi from "../authentication/auth-api";
+import cartApi from "../orders/cart-api";
 const customerApi = createApi({
-  reducerPath: "customer",
+  reducerPath: "customerApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://ecommerce.quochao.id.vn/customers/customers",
     prepareHeaders: (headers, { getState }) => {
@@ -34,33 +35,28 @@ const customerApi = createApi({
         async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
           try {
             const { data } = await queryFulfilled;
-            await dispatch(setUser(data));
+            await dispatch(setUser(data.data));
+            await dispatch(cartApi.endpoints.getCartDetail.initiate(null));
           } catch (error) {
             await dispatch(authApi.endpoints.refreshToken.initiate(null));
           }
         },
         providesTags: ["update"],
       }),
-      getOrders: builder.query({
-        query: (customerId) => {
+
+      //delivery info
+      getDeliveryInfo: builder.query({
+        query: (deliveryInfoId) => {
           return {
+            url: `/delivery-infos/${deliveryInfoId}`,
             method: "GET",
-            url: `/orders/${customerId}`,
-          };
-        },
-      }),
-      getOrderDetail: builder.query({
-        query: (orderId) => {
-          return {
-            method: "GET",
-            url: `/orders/${orderId}/detail`,
           };
         },
       }),
       addDeliveryInfos: builder.mutation({
-        query: (customerId, deliveryInfos) => {
+        query: (deliveryInfos) => {
           return {
-            url: `/${customerId}/delivery-infos`,
+            url: `/delivery-infos`,
             method: "POST",
             body: deliveryInfos,
           };
@@ -83,7 +79,7 @@ const customerApi = createApi({
           };
         },
       }),
-      updateDeliveryInfoDefault: builder.mutation({
+      changeDeliveryInfoDefault: builder.mutation({
         query: (deliveryInfoId) => {
           return {
             url: `delivery-infos/${deliveryInfoId}/default`,
@@ -92,6 +88,52 @@ const customerApi = createApi({
         },
         invalidatesTags: ["update"],
       }),
+
+      // wish list
+      getWishList: builder.query({
+        query: () => {
+          return {
+            url: "/wishlist",
+            method: "GET",
+          };
+        },
+      }),
+      addToWishList: builder.mutation({
+        query: (productId) => {
+          return {
+            url: `/wishlist/${productId}`,
+            method: "POST",
+          };
+        },
+      }),
+      removeToWishList: builder.mutation({
+        query: (productId) => {
+          return {
+            url: `/wishlist/${productId}`,
+            method: "DELETE",
+          };
+        },
+      }),
+
+      //orders
+      getOrders: builder.query({
+        query: () => {
+          return {
+            method: "GET",
+            url: `/orders`,
+          };
+        },
+      }),
+      getOrderDetail: builder.query({
+        query: (orderId) => {
+          return {
+            method: "GET",
+            url: `/orders/${orderId}/detail`,
+          };
+        },
+      }),
+
+      //verify email
       register: builder.mutation({
         query: (data) => {
           return {
@@ -102,13 +144,11 @@ const customerApi = createApi({
         },
       }),
       verifyEmail: builder.mutation({
-        query: (email) => {
+        query: (data) => {
           return {
-            url: "/verify-email",
             method: "POST",
-            body: {
-              email,
-            },
+            url: "/verify-email",
+            body: data,
           };
         },
       }),
@@ -120,13 +160,24 @@ export default customerApi;
 export const {
   useGetAllCustomersQuery,
   useGetCustomerQuery,
-  useGetOrdersQuery,
 
+  //delivery info
+  useChangeDeliveryInfoDefaultMutation,
   useAddDeliveryInfosMutation,
-  useUpdateDeliveryInfoDefaultMutation,
   useUpdateDeliveryInfoMutation,
+  useGetDeliveryInfoQuery,
   useDeleteDeliveryInfoMutation,
 
-  useVerifyEmailMutation,
+  //order
+  useGetOrdersQuery,
+  useGetOrderDetailQuery,
+
+  //wishlist
+  useGetWishListQuery,
+  useAddToWishListMutation,
+  useRemoveToWishListMutation,
+
+  //register
   useRegisterMutation,
+  useVerifyEmailMutation,
 } = customerApi;

@@ -8,20 +8,34 @@ import {
 } from "~/redux/features/dashboard/form-login-admin-slice";
 
 import { useLoginMutation } from "~/redux/services/authentication/auth-api";
-import jwt_decode from "jwt-decode";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import jwtDecode from "jwt-decode";
 function LoginAdmin() {
   const dispatch = useDispatch();
   const loginAdmin = useSelector((state) => state.loginAdminForm);
-  const [login, { isLoading, isSuccess, data }] = useLoginMutation();
+  const { user } = useSelector((state) => state.user);
 
+  const [login, { isLoading, isSuccess, data }] = useLoginMutation();
+  const router = useRouter();
+  let jwt;
   useEffect(() => {
     if (isSuccess) {
-      console.log(refreshToken);
-      var decoded = jwt_decode(data.data.accessToken);
-      console.log(decoded);
+      jwt = jwtDecode(data.accessToken);
+      if (jwt.role === "Employee") {
+        toast.success("Đăng nhập thành công");
+        router.push("/dashboard");
+      } else if (jwt.role === "Customer") {
+        toast.error("Đây không phải là tài khoảng Admin");
+      }
     }
   }, [isSuccess]);
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard");
+    }
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();

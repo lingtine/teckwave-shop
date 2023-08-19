@@ -33,7 +33,7 @@ function HeaderNavigation() {
       <li>
         {user === null ? (
           <Link
-            href={"/dashboard/register"}
+            href={"/register"}
             className="text-base mx-4 text-color-text-black hover:underline"
           >
             Sign Up

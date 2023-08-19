@@ -13,7 +13,9 @@ import { useLogoutMutation } from "~/redux/services/authentication/auth-api";
 
 function Header() {
   const { user } = useSelector((state) => state.user);
+  const { cart } = useSelector((state) => state.cart);
   const [logout] = useLogoutMutation();
+
   return (
     <header className="min-h-[142px] border-b">
       <TopBar />
@@ -34,36 +36,29 @@ function Header() {
           <div className="flex items-center">
             <SearchBar />
 
-            <Link
-              className="flex items-center relative"
-              href={user ? "/cart" : "/dashboard/login"}
-            >
+            <Link className="flex items-center relative" href={"/cart"}>
               <BsCart3 className="text-3xl text-color-black ml-6 hover:text-secondary-3"></BsCart3>
-              {user && (
+              {cart && cart.item.length && (
                 <span className="absolute text-xs -right-1.5 bottom-4 bg-red-500 text-white py-0.5 px-1 rounded shadow-lg ">
-                  3
+                  {cart.item.length}
                 </span>
               )}
             </Link>
             {user && (
               <div className="flex items-center relative group/sub-item  ">
-                <Link href="/dashboard/account/my-account">
+                <Link href="/account/my-account">
                   <LuUser className=" text-3xl text-color-black ml-6 hover:text-secondary-3" />
                 </Link>
                 <div className="absolute hidden group-hover/sub-item:block bg-white min-w-[150px] w-fit p-2 top-10 right-0 rounded-md shadow-lg before:w-full before:-top-3 before:left-0 before:absolute before:h-[15px] before:bg-transparent z-50">
                   <ul>
                     <li className="py-2 px-2 border-b hover:text-secondary-3  ">
-                      <Link href="/dashboard/account/my-account">
-                        My Account
-                      </Link>
+                      <Link href="/account/my-account">My Account</Link>
                     </li>
                     <li className="py-2 px-2 border-b hover:text-secondary-3  ">
-                      <Link href="/dashboard/account/my-address">
-                        My Address
-                      </Link>
+                      <Link href="/account/my-address">My Address</Link>
                     </li>
                     <li className="py-2 px-2 border-b hover:text-secondary-3  ">
-                      <Link href="/dashboard/account/my-orders">My Orders</Link>
+                      <Link href="/account/my-orders">My Orders</Link>
                     </li>
                     <li className="py-2 px-2 border-b hover:text-secondary-3  ">
                       <button

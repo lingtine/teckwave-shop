@@ -4,12 +4,13 @@ import Link from "next/link";
 import { BiCartAdd } from "react-icons/bi";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { useState } from "react";
-
+import {
+  useAddToWishListMutation,
+  useRemoveToWishListMutation,
+} from "~/redux/services/customer/customer-api";
 function ProductCart({ product }) {
   const [status, setStatus] = useState(false);
-  const handleAddProduct = () => {
-    console.log("add product.");
-  };
+  const handleAddProduct = () => {};
   let numberFormat = new Intl.NumberFormat("vi", {
     style: "currency",
     currency: "VND",

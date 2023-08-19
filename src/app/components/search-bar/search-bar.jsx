@@ -13,7 +13,8 @@ import { BiLoaderAlt } from "react-icons/bi";
 import { TiDeleteOutline } from "react-icons/ti";
 import useDebounce from "~/hooks/use-debounce";
 import { useEffect } from "react";
-
+import { formatPrice } from "~/utils/formatPrice";
+import Link from "next/link";
 function SearchBar() {
   const dispatch = useDispatch();
   const { searchValue } = useSelector((state) => state.searchData);
@@ -21,58 +22,39 @@ function SearchBar() {
   const [handleSearch, { isSuccess, isLoading, data }] =
     useSearchProductsMutation(debounceSearch);
   let renderSearchResult;
+
   if (isSuccess) {
     if (data.data.length !== 0) {
-      renderSearchResult = (
-        <div className="absolute w-full py-2 px-3 bg-white top-[120%] border border-slate-300 rounded">
-          <ul className="">
-            <li className="flex border-b last:border-none py-2 ">
+      console.log(data.data);
+      renderSearchResult = data.data.map((product) => {
+        return (
+          <li className="flex border-b last:border-none py-2 " key={product.id}>
+            <Link href={`/đâs/${product.id}`}>
               <Image
-                src={"/images/products/laptop.jpg"}
-                alt="laptop"
+                src={product.imageUrl}
+                alt={product.name}
                 width={50}
-                height={40}
+                height={30}
               />
               <div className="mx-4">
-                <h6 className="text-base font-semibold">Laptop</h6>
-                <p className="text-sm text-secondary-3">20000</p>
+                <h6 className="text-base font-semibold">{product.name}</h6>
+                <p className="text-sm text-secondary-3">
+                  {formatPrice(product.unitPrice)}
+                </p>
               </div>
-            </li>
-            <li className="flex border-b last:border-none py-2">
-              <Image
-                src={"/images/products/laptop.jpg"}
-                alt="laptop"
-                width={50}
-                height={40}
-              />
-              <div className="mx-4">
-                <h6 className="text-base font-semibold">Laptop</h6>
-                <p className="text-sm text-secondary-3">20000</p>
-              </div>
-            </li>
-            <li className="flex border-b last:border-none py-2">
-              <Image
-                src={"/images/products/laptop.jpg"}
-                alt="laptop"
-                width={50}
-                height={40}
-              />
-              <div className="mx-4">
-                <h6 className="text-base font-semibold">Laptop</h6>
-                <p className="text-sm text-secondary-3">20000</p>
-              </div>
-            </li>
-          </ul>
-        </div>
-      );
+            </Link>
+          </li>
+        );
+      });
     } else if (data.data.length === 0) {
       renderSearchResult = (
         <div className="absolute s w-full py-2 px-3 bg-white top-[120%] border border-slate-300 rounded">
-          <div className="min-h-[200px]">dá</div>
+          <div className="min-h-[50px]">No Result</div>
         </div>
       );
     }
   }
+
   useEffect(() => {
     debounceSearch.trim();
     if (debounceSearch && debounceSearch !== "") {
@@ -112,7 +94,11 @@ function SearchBar() {
           <BiSearch></BiSearch>
         </button>
       </div>
-      {debounceSearch && renderSearchResult}
+      {debounceSearch && (
+        <div className="z-50 absolute w-full py-2 px-3 bg-white top-[120%] border border-slate-300 rounded">
+          <ul className="">{renderSearchResult}</ul>
+        </div>
+      )}
     </div>
   );
 }

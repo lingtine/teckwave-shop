@@ -26,10 +26,6 @@ function ProductDetailPage() {
 
   const { data: productData, isSuccess } = useGetProductQuery(productId);
 
-  if (isSuccess) {
-    console.log(productId);
-  }
-
   return (
     <div>
       <div className="container mx-auto ">

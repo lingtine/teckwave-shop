@@ -22,14 +22,6 @@ function ContactPage() {
 
   const { data, error, isLoading } = useFetchCategoryGroupsQuery();
 
-  if (isLoading) {
-    console.log(1);
-  } else if (error) {
-    console.log(error);
-  } else {
-    console.log;
-    console.log(data);
-  }
   const renderForm = (
     <form className="flex flex-col justify-between px-8 py-10 h-full">
       <div className="flex justify-between">

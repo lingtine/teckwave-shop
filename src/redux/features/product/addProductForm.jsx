@@ -6,6 +6,7 @@ const initialState = {
   brand: null,
   price: 0,
   description: "",
+  image: null,
 };
 
 const addProductFormSlice = createSlice({
@@ -27,6 +28,9 @@ const addProductFormSlice = createSlice({
     changeDescription(state, action) {
       state.description = action.payload;
     },
+    changeImage(state, action) {
+      state.image = action.payload;
+    },
   },
 });
 
@@ -36,6 +40,6 @@ export const {
   changeCategory,
   changeBrand,
   changePrice,
-
+  changeImage,
   changeDescription,
 } = addProductFormSlice.actions;

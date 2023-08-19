@@ -5,6 +5,7 @@ const initialState = {
   productName: "",
   price: 0,
   description: "",
+  image: null,
 };
 
 const updateProductFormSlice = createSlice({
@@ -26,6 +27,9 @@ const updateProductFormSlice = createSlice({
     changeDescription(state, action) {
       state.description = action.payload;
     },
+    changeImage(state, action) {
+      state.image = action.payload;
+    },
   },
 });
 
@@ -34,6 +38,7 @@ export const {
   changeDescription,
   changePrice,
   changeProductName,
+  changeImage,
 } = updateProductFormSlice.actions;
 
 export default updateProductFormSlice.reducer;

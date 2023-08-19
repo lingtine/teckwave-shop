@@ -8,7 +8,6 @@ import { useUpdateDeliveryInfoDefaultMutation } from "~/redux/services/customer/
 
 function AddressContent({ data }) {
   const [setAddressDefault, result] = useUpdateDeliveryInfoDefaultMutation();
-  console.log(data.isDefault);
   return (
     <div className="flex justify-between items-center py-4">
       <div>

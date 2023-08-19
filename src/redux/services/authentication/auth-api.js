@@ -1,5 +1,6 @@
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 import customerApi from "../customer/customer-api";
+import employeeApi from "../employee/employee";
 import { changeAuth } from "~/redux/features/auth/auth-slice";
 import { getCookie, setCookie } from "~/utils/cookie";
 import { logout } from "~/redux/features/auth/auth-slice";
@@ -20,15 +21,6 @@ const authApi = createApi({
 
   endpoints(builder) {
     return {
-      register: builder.mutation({
-        query: (data) => {
-          return {
-            url: "/register",
-            method: "POST",
-            body: data,
-          };
-        },
-      }),
       logout: builder.mutation({
         query: () => {
           return {
@@ -68,15 +60,16 @@ const authApi = createApi({
               await setCookie("accessToken", data.accessToken);
               await setCookie("refreshToken", data.refreshToken);
               await dispatch(customerApi.endpoints.getCustomer.initiate(null));
-            } else if (jwt.role === "admin") {
+            } else if (jwt.role === "Employee") {
               await setCookie("accessToken", data.accessToken);
               await setCookie("refreshToken", data.refreshToken);
+              await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
             }
           } catch (error) {}
         },
       }),
       refreshToken: builder.mutation({
-        query: (refreshToken) => {
+        query: () => {
           return {
             url: "/refresh-token",
             method: "POST",
@@ -96,10 +89,43 @@ const authApi = createApi({
           }
         },
       }),
+      register: builder.mutation({
+        query: (data) => {
+          return {
+            url: "/register",
+            method: "POST",
+            body: data,
+          };
+        },
+      }),
+      createEmployee: builder.mutation({
+        query: (data) => {
+          return {
+            url: "/create-employee",
+            method: "POST",
+            body: data,
+          };
+        },
+      }),
+      createAdmin: builder.mutation({
+        query: (data) => {
+          return {
+            url: "/create-admin",
+            method: "POST",
+            body: data,
+          };
+        },
+      }),
     };
   },
 });
 
 export default authApi;
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
-  authApi;
+export const {
+  useLoginMutation,
+  useLogoutMutation,
+  useRefreshTokenMutation,
+  useRegisterMutation,
+  useCreateAdminMutation,
+  useCreateEmployeeMutation,
+} = authApi;
