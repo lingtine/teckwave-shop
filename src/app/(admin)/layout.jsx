@@ -1,7 +1,7 @@
 "use client";
 
 import "~/styles/globals.css";
-import { getCookie } from "~/utils/cookie";
+import { getCookie } from "cookies-next";
 import { useGetEmployeeQuery } from "~/redux/services/employee/employee";
 import jwtDecode from "jwt-decode";
 export const metadata = {

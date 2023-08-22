@@ -1,30 +1,22 @@
-import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import customerApi from "../customer/customer-api";
 import employeeApi from "../employee/employee";
 import { changeAuth } from "~/redux/features/auth/auth-slice";
-import { getCookie, setCookie } from "~/utils/cookie";
+import { setCookie, getCookie } from "cookies-next";
 import { logout } from "~/redux/features/auth/auth-slice";
 import { logout as userLogout } from "~/redux/features/auth/user-slice";
 import jwtDecode from "jwt-decode";
+
+import customFetchBase from "~/redux/api/customFetchBase";
 const authApi = createApi({
   reducerPath: "auth",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/auths/auth",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
-
+  baseQuery: customFetchBase,
   endpoints(builder) {
     return {
       logout: builder.mutation({
         query: () => {
           return {
-            url: "/logout",
+            url: "auths/auth/logout",
             method: "POST",
             body: { refreshToken: getCookie("refreshToken") },
           };
@@ -41,7 +33,7 @@ const authApi = createApi({
       login: builder.mutation({
         query: (data) => {
           return {
-            url: "/login",
+            url: "auths/auth/login",
             method: "POST",
             body: data,
           };
@@ -56,6 +48,7 @@ const authApi = createApi({
             const { data } = await queryFulfilled;
             await dispatch(changeAuth(data));
             let jwt = jwtDecode(data.accessToken);
+
             if (jwt.role === "Customer") {
               await setCookie("accessToken", data.accessToken);
               await setCookie("refreshToken", data.refreshToken);
@@ -64,28 +57,13 @@ const authApi = createApi({
               await setCookie("accessToken", data.accessToken);
               await setCookie("refreshToken", data.refreshToken);
               await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
+            } else if (jwt.role[1] === "Admin") {
+              await setCookie("accessToken", data.accessToken);
+              await setCookie("refreshToken", data.refreshToken);
+              await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
             }
-          } catch (error) {}
-        },
-      }),
-      refreshToken: builder.mutation({
-        query: () => {
-          return {
-            url: "/refresh-token",
-            method: "POST",
-            body: { refreshToken: getCookie("refreshToken") },
-          };
-        },
-        async onQueryStarted(args, { dispatch, queryFulfilled }) {
-          try {
-            const { data } = await queryFulfilled;
-            await dispatch(changeAuth(data.data));
-            await setCookie("accessToken", data.data.accessToken);
-            await setCookie("refreshToken", data.data.refreshToken);
-            await dispatch(customerApi.endpoints.getCustomer.initiate(null));
           } catch (error) {
-            await dispatch(logout());
-            await dispatch(userLogout());
+            console.log(error);
           }
         },
       }),

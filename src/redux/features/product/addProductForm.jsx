@@ -35,6 +35,9 @@ const addProductFormSlice = createSlice({
     changeImage(state, action) {
       state.image = action.payload;
     },
+    clearData() {
+      return initialState;
+    },
   },
 });
 
@@ -47,4 +50,5 @@ export const {
   changeImage,
   changeCategoryGroup,
   changeDescription,
+  clearData,
 } = addProductFormSlice.actions;

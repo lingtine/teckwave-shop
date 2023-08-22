@@ -12,6 +12,7 @@ import Table from "~/app/components/table/table";
 import { AiFillEdit } from "react-icons/ai";
 import { CiCircleRemove } from "react-icons/ci";
 import { useEffect } from "react";
+import Pagination from "~/app/components/products-page/pagination";
 function Products() {
   const { data: productsData, isSuccess } = useGetAllProductsQuery();
   const [removeProduct, result] = useDeleteProductMutation();
@@ -103,6 +104,9 @@ function Products() {
         {isSuccess && productsData.data && (
           <Table data={productsData.data} config={configProductsData}></Table>
         )}
+      </div>
+      <div>
+        <Pagination />
       </div>
     </div>
   );

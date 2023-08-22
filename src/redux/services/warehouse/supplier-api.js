@@ -1,28 +1,19 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 const supplierApi = createApi({
   reducerPath: "supplierApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/warehouses/suppliers",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
   endpoints(builder) {
     return {
       fetchAllSuppliers: builder.query({
         query: () => {
-          return { method: "GET", url: "/" };
+          return { method: "GET", url: "warehouses/suppliers/" };
         },
       }),
       addSupplier: builder.mutation({
         query: (data) => {
           return {
-            url: "/",
+            url: "warehouses/suppliers/",
             method: "POST",
             body: data,
           };
@@ -31,7 +22,7 @@ const supplierApi = createApi({
       getSupplier: builder.query({
         query: (supplierId) => {
           return {
-            url: `/${supplierId}`,
+            url: `warehouses/suppliers/${supplierId}`,
             method: "GET",
           };
         },
@@ -39,7 +30,7 @@ const supplierApi = createApi({
       updateSupplier: builder.mutation({
         query: ([supplierId, data]) => {
           return {
-            url: `/${supplierId}`,
+            url: `warehouses/suppliers/${supplierId}`,
             method: "PUT",
             body: data,
           };
@@ -48,7 +39,7 @@ const supplierApi = createApi({
       removeSupplier: builder.mutation({
         query: (supplierId) => {
           return {
-            url: `/${supplierId}`,
+            url: `warehouses/suppliers/${supplierId}`,
             method: "DELETE",
           };
         },
@@ -56,7 +47,7 @@ const supplierApi = createApi({
       restoreSupplier: builder.mutation({
         query: (supplierId) => {
           return {
-            url: `/restore/${supplierId}`,
+            url: `warehouses/suppliers/restore/${supplierId}`,
             method: "PUT",
           };
         },

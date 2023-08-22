@@ -1,22 +1,14 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 const couponApi = createApi({
   reducerPath: "coupon",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/discounts/coupons",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
   endpoints(builder) {
     return {
       getAllCoupon: builder.query({
         query: () => {
           return {
+            url: "discounts/coupons/",
             method: "GET",
           };
         },
@@ -25,7 +17,7 @@ const couponApi = createApi({
         query: (data) => {
           return {
             method: "POST",
-            url: "/",
+            url: "discounts/coupons/",
             body: data,
           };
         },
@@ -34,7 +26,7 @@ const couponApi = createApi({
         query: (couponId) => {
           return {
             method: "GET",
-            url: `/${couponId}`,
+            url: `discounts/coupons/${couponId}`,
           };
         },
       }),
@@ -42,7 +34,7 @@ const couponApi = createApi({
         query: ([couponId, data]) => {
           return {
             method: "PUT",
-            url: `/${couponId}`,
+            url: `discounts/coupons/${couponId}`,
             body: data,
           };
         },
@@ -51,7 +43,7 @@ const couponApi = createApi({
         query: (couponId) => {
           return {
             method: "DELETE",
-            url: `/${couponId}`,
+            url: `discounts/coupons/${couponId}`,
           };
         },
       }),
@@ -59,7 +51,7 @@ const couponApi = createApi({
         query: ([couponId, status]) => {
           return {
             method: "POST",
-            url: `/${couponId}/update-status`,
+            url: `discounts/coupons/${couponId}/update-status`,
             params: status,
           };
         },

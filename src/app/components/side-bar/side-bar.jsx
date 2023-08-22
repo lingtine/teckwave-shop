@@ -9,7 +9,7 @@ import classNames from "classnames";
 
 function SideBar() {
   const segment = useSelectedLayoutSegment();
-  console.log(segment);
+
   const nav = [
     {
       label: "DashBoard",
@@ -39,6 +39,24 @@ function SideBar() {
       label: "Brands",
       href: "/dashboard/brands",
       current: segment === "brands",
+      icon: <LiaFileInvoiceDollarSolid />,
+    },
+    {
+      label: "Warehouse",
+      href: "/dashboard/warehouse",
+      current: segment === "warehouse",
+      icon: <LiaFileInvoiceDollarSolid />,
+    },
+    {
+      label: "Supplier",
+      href: "/dashboard/supplier",
+      current: segment === "supplier",
+      icon: <LiaFileInvoiceDollarSolid />,
+    },
+    {
+      label: "Report",
+      href: "/dashboard/report",
+      current: segment === "report",
       icon: <LiaFileInvoiceDollarSolid />,
     },
   ];

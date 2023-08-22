@@ -70,14 +70,14 @@ function LoginPage() {
             />
           </div>
 
-          <div className="mt-4 text-right">
+          {/* <div className="mt-4 text-right">
             <a
               className=" align-baseline font-bold text-sm text-gray-700 hover:text-gray-500"
               href="#"
             >
               Forgot Password?
             </a>
-          </div>
+          </div> */}
 
           <button
             className="my-4 w-full bg-secondary-3 hover:opacity-90 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

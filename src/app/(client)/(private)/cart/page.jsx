@@ -7,42 +7,81 @@ import Link from "next/link";
 import InputQuantity from "~/app/components/input-quanlity/input-quanlity";
 import { useGetCartDetailQuery } from "~/redux/services/orders/cart-api";
 function CartPage() {
-  const { data } = useGetCartDetailQuery();
+  //const { data } = useGetCartDetailQuery();
   let renderCart;
+  const data = [
+    {
+      name: "Apple iPhone",
+      subTile: "Color: Grey Space",
+      image: "/images/products/product_1.png",
+      price: "4800000",
+      quality: "1",
+    },
+    {
+      name: "Apple iPhone",
+      subTile: "Color: Grey Space",
+      image: "/images/products/product_1.png",
+      price: "4800000",
+      quality: "1",
+    },
+    {
+      name: "Apple iPhone",
+      subTile: "Color: Grey Space",
+      image: "/images/products/product_1.png",
+      price: "4800000",
+      quality: "1",
+    },
+    {
+      name: "Apple iPhone",
+      subTile: "Color: Grey Space",
+      image: "/images/products/product_1.png",
+      price: "4800000",
+      quality: "1",
+    },
+    {
+      name: "Apple iPhone",
+      subTile: "Color: Grey Space",
+      image: "/images/products/product_1.png",
+      price: "4800000",
+      quality: "1",
+    },
+    {
+      name: "Apple iPhone",
+      subTile: "Color: Grey Space",
+      image: "/images/products/product_1.png",
+      price: "4800000",
+      quality: "1",
+    },
+  ];
   // if (isSuccess) {
-  //   renderCart = data.map((product) => (
-  //     <li className=" py-8 flex border-t last:border-b justify-between">
-  //       <div className="min-w-[360px] flex items-center relative group/item">
-  //         <Image
-  //           src={product.image}
-  //           alt={product.name}
-  //           height={80}
-  //           width={80}
-  //         />
-  //         <div className="flex flex-col justify-center ml-5">
-  //           <h5>{product.name}</h5>
-  //           <p>{product.subTile}</p>
-  //         </div>
-  //         <div className="hidden group-hover/item:block  cursor-pointer absolute p-2 text-lg top-0 -left-2 text-secondary-3">
-  //           <TiDelete />
-  //         </div>
-  //       </div>
-  //       <div className="flex flex-1 justify-between items-center">
-  //         <div className="">{product.price}</div>
-  //         <div className="flex items-center">
-  //           <InputQuantity quantity={product.quality} />
-  //         </div>
-  //         <div className=" flex items-center">
-  //           {product.price * product.quality}
-  //         </div>
-  //       </div>
-  //     </li>
-  //   ));
-  // }
+  renderCart = data.map((product) => (
+    <li className=" py-8 flex border-t last:border-b justify-between">
+      <div className="min-w-[360px] flex items-center relative group/item">
+        <Image src={product.image} alt={product.name} height={80} width={80} />
+        <div className="flex flex-col justify-center ml-5">
+          <h5>{product.name}</h5>
+          <p>{product.subTile}</p>
+        </div>
+        <div className="hidden group-hover/item:block  cursor-pointer absolute p-2 text-lg top-0 -left-2 text-secondary-3">
+          <TiDelete />
+        </div>
+      </div>
+      <div className="flex flex-1 justify-between items-center">
+        <div className="">{product.price}</div>
+        <div className="flex items-center">
+          <InputQuantity quantity={product.quality} />
+        </div>
+        <div className=" flex items-center">
+          {product.price * product.quality}
+        </div>
+      </div>
+    </li>
+  ));
+  //}
 
   return (
     <div className="container mx-auto my-8">
-      {/* <h2 className="my-8 text-3xl font-bold ">Shopping Cart</h2>
+      <h2 className="my-8 text-3xl font-bold ">Shopping Cart</h2>
 
       <div className="grid grid-flow-col grid-cols-3 gap-4">
         <div className="col-span-2 bg-white p-8 shadow-lg rounded-lg">
@@ -56,7 +95,7 @@ function CartPage() {
               </div>
             </ul>
           </div>
-          <ul></ul>
+          <ul>{renderCart}</ul>
           <Link
             href={"/"}
             className="my-2 flex items-center p-4 rounded-md border font-medium text-gray-800 text-base hover:bg-secondary-3 hover:text-primary w-fit"
@@ -88,7 +127,7 @@ function CartPage() {
             Check out
           </Link>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

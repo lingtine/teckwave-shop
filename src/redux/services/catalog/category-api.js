@@ -1,31 +1,25 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 const categoryApi = createApi({
   reducerPath: "category",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/catalogs/categories",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
+  tagTypes: ["Post", "Delete", "Update"],
   endpoints(builder) {
     return {
       fetchCategories: builder.query({
-        query: () => {
+        query: (parameters) => {
           return {
-            url: "/",
+            url: "catalogs/categories/",
             method: "GET",
+            parameters,
           };
         },
+        providesTags: ["Post", "Delete", "Update"],
       }),
       fetchCategoriesByQuery: builder.mutation({
         query: (parameters) => {
           return {
-            url: "/",
+            url: "catalogs/categories/",
             method: "GET",
             params: parameters,
           };
@@ -34,16 +28,17 @@ const categoryApi = createApi({
       updateCategory: builder.mutation({
         query: ([id, data]) => {
           return {
-            url: `/${id}`,
+            url: `catalogs/categories/${id}`,
             method: "PUT",
             body: data,
           };
         },
+        invalidatesTags: ["Update"],
       }),
       getCategory: builder.query({
         query: (id) => {
           return {
-            url: `/${id}`,
+            url: `catalogs/categories/${id}`,
             method: "GET",
           };
         },
@@ -52,18 +47,20 @@ const categoryApi = createApi({
         query: (id) => {
           return {
             method: "DELETE",
-            url: `${id}`,
+            url: `catalogs/categories/${id}`,
           };
         },
+        invalidatesTags: ["Delete"],
       }),
       createCategory: builder.mutation({
         query: (data) => {
           return {
-            url: "/",
+            url: "catalogs/categories/",
             method: "POST",
             body: data,
           };
         },
+        invalidatesTags: ["Post"],
       }),
     };
   },

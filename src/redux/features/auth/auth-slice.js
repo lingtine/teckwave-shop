@@ -1,6 +1,6 @@
 // features/auth/authSlice.js
 import { createSlice } from "@reduxjs/toolkit";
-import { deleteCookie, getCookie } from "~/utils/cookie";
+import { deleteCookie, setCookie, getCookie } from "cookies-next";
 // initialize userToken from local storage
 const accessToken = getCookie("accessToken");
 const refreshToken = getCookie("refreshToken");
@@ -30,6 +30,8 @@ const authSlice = createSlice({
     changeAuth: (state, action) => {
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
+      setCookie("accessToken", action.payload.accessToken);
+      setCookie("refreshToken", action.payload.refreshToken);
     },
   },
 });

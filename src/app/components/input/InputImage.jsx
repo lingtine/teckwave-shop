@@ -27,7 +27,6 @@ function InputImage({ onChange, multiple }) {
 
     inputRef.current.files = dt.files;
     setImageFiles(dt.files);
-    console.log(imageFiles);
   };
 
   let content;
@@ -39,7 +38,11 @@ function InputImage({ onChange, multiple }) {
           key={index}
           className="flex items-center justify-between px-4 py-2 border my-4 rounded-md bg-secondary-3"
         >
-          <Image src={url} alt={imageFile.name} width={40} height={30} />
+          <div className="flex items-center">
+            <Image src={url} alt={imageFile.name} width={40} height={30} />
+            <p className="text-primary mx-4">{imageFile.name}</p>
+          </div>
+
           <button
             onClick={() => {
               handleRemoveFile(imageFile);

@@ -25,6 +25,10 @@ import formAddCategoryGroup from "./features/product/category-group/form-add-cat
 import formEditCategoryGroup from "./features/product/category-group/form-edit-category-group-slice";
 import formAddSpecification from "./features/product/specification/form-add-specification-slice";
 import formEditSpecification from "./features/product/specification/form-edit-specification-slice";
+import formAddReportSlice from "./features/warehouses/report/form-add-report-slice";
+import formAddSupplierSlice from "./features/warehouses/supplier/form-add-supplier-slice";
+import formAddWarehouseSlice from "./features/warehouses/warehouse/form-add-warehouse-slice";
+
 import {
   pokemonApi,
   addressApi,
@@ -74,6 +78,9 @@ const store = configureStore({
     [formEditCategoryGroup.name]: formEditCategoryGroup.reducer,
     [formAddSpecification.name]: formAddSpecification.reducer,
     [formEditSpecification.name]: formEditSpecification.reducer,
+    [formAddSupplierSlice.name]: formAddSupplierSlice.reducer,
+    [formAddWarehouseSlice.name]: formAddWarehouseSlice.reducer,
+    [formAddReportSlice.name]: formAddReportSlice.reducer,
 
     //api
     [pokemonApi.reducerPath]: pokemonApi.reducer,

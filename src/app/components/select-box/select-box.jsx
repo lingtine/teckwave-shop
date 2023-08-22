@@ -38,7 +38,7 @@ function SelectBox({ options = [], placeholder, selected, onChange }) {
   return (
     <div
       ref={selectBoxRef}
-      className="relative p-2 min-w-fit w-52 border bg-white rounded-lg"
+      className="relative p-2 min-w-fit w-40 border bg-white rounded-lg"
     >
       <div className="text-base">
         <div

@@ -1,28 +1,23 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 const reportApi = createApi({
   reducerPath: "reportApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/warehouses/reports",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
   endpoints(builder) {
     return {
       fetchAllReports: builder.query({
         query: (parameter) => {
-          return { method: "GET", url: "/", params: parameter };
+          return {
+            method: "GET",
+            url: "warehouses/reports/",
+            params: parameter,
+          };
         },
       }),
       addReport: builder.mutation({
         query: (data) => {
           return {
-            url: "/",
+            url: "warehouses/reports/",
             method: "POST",
             body: data,
           };
@@ -31,7 +26,7 @@ const reportApi = createApi({
       getReport: builder.query({
         query: (reportId) => {
           return {
-            url: `/${reportId}`,
+            url: `warehouses/reports/${reportId}`,
             method: "GET",
           };
         },
@@ -39,7 +34,7 @@ const reportApi = createApi({
       approveReport: builder.mutation({
         query: (reportId) => {
           return {
-            url: `/approve/${reportId}`,
+            url: `warehouses/reports/approve/${reportId}`,
             method: "POST",
           };
         },
@@ -47,7 +42,7 @@ const reportApi = createApi({
       inspectReport: builder.mutation({
         query: (reportId) => {
           return {
-            url: `/inspect/${reportId}`,
+            url: `warehouses/reports/inspect/${reportId}`,
             method: "POST",
           };
         },
@@ -55,8 +50,8 @@ const reportApi = createApi({
       cancelReport: builder.mutation({
         query: (reportId) => {
           return {
-            url: `/cancel/${reportId}`,
             method: "POST",
+            url: `warehouses/reports/cancel/${reportId}/`,
           };
         },
       }),

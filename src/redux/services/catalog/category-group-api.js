@@ -1,56 +1,55 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 const categoryGroupsApi = createApi({
   reducerPath: "categoryGroups",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/catalogs/category-groups",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
+  tagTypes: ["Post", "Delete", "Update"],
+
   endpoints(builder) {
     return {
       fetchCategoryGroups: builder.query({
         query: () => {
           return {
+            url: "catalogs/category-groups/",
             method: "GET",
           };
         },
+        providesTags: ["Post", "Delete", "Update"],
       }),
       addCategoryGroup: builder.mutation({
         query: (data) => {
           return {
             method: "POST",
+            url: "catalogs/category-groups/",
             body: data,
           };
         },
+        invalidatesTags: ["Post"],
       }),
       updateCategoryGroup: builder.mutation({
         query: ([id, data]) => {
           return {
             method: "PUT",
-            url: `/${id}`,
+            url: `catalogs/category-groups/${id}`,
             body: data,
           };
         },
+        invalidatesTags: ["Update"],
       }),
       removeCategoryGroup: builder.mutation({
         query: (id) => {
           return {
             method: "DELETE",
-            url: `/${id}`,
+            url: `catalogs/category-groups/${id}`,
           };
         },
+        invalidatesTags: ["Delete"],
       }),
       getCategoryGroup: builder.query({
         query: (id) => {
           return {
             method: "GET",
-            url: `/${id}`,
+            url: `catalogs/category-groups/${id}`,
           };
         },
       }),

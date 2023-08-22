@@ -14,6 +14,7 @@ import {
   changeDescription,
   changeImage,
   changeCategoryGroup,
+  clearData,
 } from "~/redux/features/product/addProductForm";
 import { useAddProductMutation } from "~/redux/services/catalog/product-api";
 import {
@@ -25,6 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFetchCategoryGroupsQuery } from "~/redux/services/catalog/category-group-api";
 import SelectBox from "~/app/components/select-box/select-box";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 function AddProducts() {
   const [getCategory, { isSuccess, data }] =
@@ -63,8 +65,13 @@ function AddProducts() {
   useEffect(() => {
     if (result.isSuccess) {
       router.push("/dashboard/products");
+      toast.success("Add product Succeeded");
+      dispatch(clearData());
     }
-  }, [result.isSuccess]);
+    if (result.isError) {
+      toast.error("Add product Failed");
+    }
+  }, [result.isSuccess, result.isError]);
   if (isSuccess) {
     dataCategoryConfig = data.data.map((item) => {
       return {

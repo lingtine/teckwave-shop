@@ -1,26 +1,19 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 
 const productApi = createApi({
   reducerPath: "product",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/catalogs/products",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
 
   tagTypes: ["Post", "Delete", "Update"],
   endpoints(builder) {
     return {
       getAllProducts: builder.query({
-        query: () => {
+        query: (parameter) => {
           return {
-            url: "/",
+            url: "catalogs/products/",
             method: "GET",
+            parameter,
           };
         },
         providesTags: ["Post", "Delete", "Update"],
@@ -28,7 +21,7 @@ const productApi = createApi({
       searchProducts: builder.mutation({
         query: (value) => {
           return {
-            url: "/",
+            url: "catalogs/products/",
             method: "GET",
             params: { Keyword: value },
           };
@@ -38,6 +31,7 @@ const productApi = createApi({
         query: (product) => {
           return {
             method: "POST",
+            url: "catalogs/products/",
             body: product,
           };
         },
@@ -47,7 +41,7 @@ const productApi = createApi({
         query: (productId) => {
           return {
             method: "DELETE",
-            url: `/${productId}`,
+            url: `catalogs/products/${productId}`,
           };
         },
         invalidatesTags: ["Delete"],
@@ -58,7 +52,7 @@ const productApi = createApi({
         query: (productId) => {
           return {
             method: "GET",
-            url: `/details/${productId}`,
+            url: `catalogs/products/details/${productId}`,
           };
         },
       }),
@@ -68,7 +62,7 @@ const productApi = createApi({
         query: (productId) => {
           return {
             method: "GET",
-            url: `/${productId}`,
+            url: `catalogs/products/${productId}`,
           };
         },
       }),
@@ -76,7 +70,7 @@ const productApi = createApi({
         query: ([productId, data]) => {
           return {
             method: "PUT",
-            url: `/${productId}`,
+            url: `catalogs/products/${productId}`,
             body: data,
           };
         },
@@ -85,7 +79,7 @@ const productApi = createApi({
       getProductsHomePage: builder.query({
         query: () => {
           return {
-            url: "/home",
+            url: "catalogs/products/home",
             method: "GET",
           };
         },
@@ -94,14 +88,14 @@ const productApi = createApi({
         query: (id) => {
           return {
             method: "GET",
-            url: `/${id}/restore`,
+            url: `catalogs/products/${id}/restore`,
           };
         },
       }),
       changeProductStatus: builder.mutation({
         query: ([id, status]) => {
           return {
-            url: `/${id}/changeStatus/${status}`,
+            url: `catalogs/products/${id}/changeStatus/${status}`,
             method: "GET",
           };
         },
@@ -110,7 +104,7 @@ const productApi = createApi({
       addSpecification: builder.mutation({
         query: ([productId, data]) => {
           return {
-            url: `/${productId}/add-specifications`,
+            url: `catalogs/products/${productId}/add-specifications`,
             body: data,
             method: "POST",
           };
@@ -119,7 +113,7 @@ const productApi = createApi({
       updateSpecification: builder.mutation({
         query: ([productId, data]) => {
           return {
-            url: `/${productId}/update-specifications`,
+            url: `catalogs/products/${productId}/update-specifications`,
             body: data,
             method: "POST",
           };
@@ -128,7 +122,7 @@ const productApi = createApi({
       removeSpecification: builder.mutation({
         query: ([productId, data]) => {
           return {
-            url: `/${productId}/remove-specifications`,
+            url: `catalogs/products/${productId}/remove-specifications`,
             body: data,
             method: "POST",
           };
@@ -140,7 +134,7 @@ const productApi = createApi({
         query: ([productId, data]) => {
           return {
             method: "POST",
-            url: `/${productId}/upload-images`,
+            url: `catalogs/products/${productId}/upload-images`,
             body: data,
           };
         },
@@ -149,7 +143,7 @@ const productApi = createApi({
         query: (imageId) => {
           return {
             method: "PUT",
-            url: "/remove-images",
+            url: "catalogs/products/remove-images",
             body: imageId,
           };
         },

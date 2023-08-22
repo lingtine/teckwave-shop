@@ -1,20 +1,13 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 
 import { setUser } from "~/redux/features/auth/user-slice";
 import authApi from "../authentication/auth-api";
 import cartApi from "../orders/cart-api";
+import customFetchBase from "~/redux/api/customFetchBase";
+
 const customerApi = createApi({
   reducerPath: "customerApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/customers/customers",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
   tagTypes: ["update"],
   endpoints(builder) {
     return {
@@ -22,6 +15,7 @@ const customerApi = createApi({
         query: () => {
           return {
             method: "GET",
+            url: "customers/customers/",
           };
         },
       }),
@@ -29,7 +23,7 @@ const customerApi = createApi({
         query: () => {
           return {
             method: "GET",
-            url: `/info`,
+            url: `customers/customers/info`,
           };
         },
         async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
@@ -48,7 +42,7 @@ const customerApi = createApi({
       getDeliveryInfo: builder.query({
         query: (deliveryInfoId) => {
           return {
-            url: `/delivery-infos/${deliveryInfoId}`,
+            url: `customers/customers/delivery-infos/${deliveryInfoId}`,
             method: "GET",
           };
         },
@@ -56,7 +50,7 @@ const customerApi = createApi({
       addDeliveryInfos: builder.mutation({
         query: (deliveryInfos) => {
           return {
-            url: `/delivery-infos`,
+            url: `customers/customers/delivery-infos`,
             method: "POST",
             body: deliveryInfos,
           };
@@ -65,7 +59,7 @@ const customerApi = createApi({
       updateDeliveryInfo: builder.mutation({
         query: (deliveryInfoId, data) => {
           return {
-            url: `delivery-infos/${deliveryInfoId}`,
+            url: `customers/customers/delivery-infos/${deliveryInfoId}`,
             method: "PUT",
             body: data,
           };
@@ -74,7 +68,7 @@ const customerApi = createApi({
       deleteDeliveryInfo: builder.mutation({
         query: (deliveryInfoId) => {
           return {
-            url: `delivery-infos/${deliveryInfoId}`,
+            url: `customers/customers/delivery-infos/${deliveryInfoId}`,
             method: "DELETE",
           };
         },
@@ -82,7 +76,7 @@ const customerApi = createApi({
       changeDeliveryInfoDefault: builder.mutation({
         query: (deliveryInfoId) => {
           return {
-            url: `delivery-infos/${deliveryInfoId}/default`,
+            url: `customers/customers/delivery-infos/${deliveryInfoId}/default`,
             method: "PUT",
           };
         },
@@ -93,7 +87,7 @@ const customerApi = createApi({
       getWishList: builder.query({
         query: () => {
           return {
-            url: "/wishlist",
+            url: "customers/customers/wishlist",
             method: "GET",
           };
         },
@@ -101,7 +95,7 @@ const customerApi = createApi({
       addToWishList: builder.mutation({
         query: (productId) => {
           return {
-            url: `/wishlist/${productId}`,
+            url: `customers/customers/wishlist/${productId}`,
             method: "POST",
           };
         },
@@ -109,7 +103,7 @@ const customerApi = createApi({
       removeToWishList: builder.mutation({
         query: (productId) => {
           return {
-            url: `/wishlist/${productId}`,
+            url: `customers/customers/wishlist/${productId}`,
             method: "DELETE",
           };
         },
@@ -120,7 +114,7 @@ const customerApi = createApi({
         query: () => {
           return {
             method: "GET",
-            url: `/orders`,
+            url: `customers/customers/orders`,
           };
         },
       }),
@@ -128,7 +122,7 @@ const customerApi = createApi({
         query: (orderId) => {
           return {
             method: "GET",
-            url: `/orders/${orderId}/detail`,
+            url: `customers/customers/orders/${orderId}/detail`,
           };
         },
       }),
@@ -137,7 +131,7 @@ const customerApi = createApi({
       register: builder.mutation({
         query: (data) => {
           return {
-            url: "/register",
+            url: "customers/customers/register",
             method: "POST",
             body: data,
           };
@@ -147,7 +141,7 @@ const customerApi = createApi({
         query: (data) => {
           return {
             method: "POST",
-            url: "/verify-email",
+            url: "customers/customers/verify-email",
             body: data,
           };
         },

@@ -1,28 +1,19 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 const stockApi = createApi({
   reducerPath: "stockApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/warehouses/product-instock",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
   endpoints(builder) {
     return {
       fetchAllProductInStocks: builder.query({
         query: () => {
-          return { method: "GET", url: "/" };
+          return { method: "GET", url: "warehouses/product-instock/" };
         },
       }),
       addProductInStock: builder.mutation({
         query: (data) => {
           return {
-            url: "/",
+            url: "warehouses/product-instock/",
             method: "POST",
             body: data,
           };
@@ -31,7 +22,7 @@ const stockApi = createApi({
       getProductInStock: builder.query({
         query: (productInStockId) => {
           return {
-            url: `/${productInStockId}`,
+            url: `warehouses/product-instock/${productInStockId}`,
             method: "GET",
           };
         },
@@ -39,7 +30,7 @@ const stockApi = createApi({
       updateProductInStock: builder.mutation({
         query: ([productInStockId, data]) => {
           return {
-            url: `/${productInStockId}`,
+            url: `warehouses/product-instock/${productInStockId}`,
             method: "PUT",
             body: data,
           };
@@ -48,7 +39,7 @@ const stockApi = createApi({
       removeProductInStock: builder.mutation({
         query: (productInStockId) => {
           return {
-            url: `/${productInStockId}`,
+            url: `warehouses/product-instock/${productInStockId}`,
             method: "DELETE",
           };
         },
@@ -56,7 +47,7 @@ const stockApi = createApi({
       restoreProductInStock: builder.mutation({
         query: (productInStockId) => {
           return {
-            url: `/restore/${productInStockId}`,
+            url: `warehouses/product-instock/restore/${productInStockId}`,
             method: "PUT",
           };
         },
@@ -64,7 +55,7 @@ const stockApi = createApi({
       getProductStockInWarehouse: builder.query({
         query: ([productId, warehouseId]) => {
           return {
-            url: `/${warehouseId}/${productId}`,
+            url: `warehouses/product-instock/${warehouseId}/${productId}`,
             method: "GET",
           };
         },
@@ -72,7 +63,7 @@ const stockApi = createApi({
       getProductStock: builder.query({
         query: (productId) => {
           return {
-            url: `/products/${productId}`,
+            url: `warehouses/product-instock/products/${productId}`,
             method: "GET",
           };
         },
@@ -80,7 +71,7 @@ const stockApi = createApi({
       getProductsStockInWarehouse: builder.query({
         query: (warehouseId) => {
           return {
-            url: `/warehouses/${warehouseId}`,
+            url: `warehouses/product-instock/warehouses/${warehouseId}`,
             method: "GET",
           };
         },

@@ -1,28 +1,23 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 const orderReportApi = createApi({
   reducerPath: "orderReportApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/warehouses/order-reports",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
   endpoints(builder) {
     return {
       getOrderReports: builder.query({
         query: (parameter) => {
-          return { method: "GET", url: "/", params: parameter };
+          return {
+            method: "GET",
+            url: "warehouses/order-reports/",
+            params: parameter,
+          };
         },
       }),
       getOrderReport: builder.mutation({
         query: (orderReportId) => {
           return {
-            url: `/cancel/${orderReportId}`,
+            url: `warehouses/order-reports/${orderReportId}`,
             method: "POST",
           };
         },

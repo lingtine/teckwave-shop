@@ -28,7 +28,50 @@ function Checkout() {
   const [order, { isError, isLoading, isSuccess }] = useCreateOrderMutation();
   const { user } = useSelector((state) => state.user);
   const dataForm = useSelector((state) => state.deliveryForm);
-
+  const data = [
+    {
+      name: "Apple iPhone",
+      subTile: "Color: Grey Space",
+      image: "/images/products/product_1.png",
+      price: "4800000",
+      quality: "1",
+    },
+    {
+      name: "Apple iPhone",
+      subTile: "Color: Grey Space",
+      image: "/images/products/product_1.png",
+      price: "4800000",
+      quality: "1",
+    },
+    {
+      name: "Apple iPhone",
+      subTile: "Color: Grey Space",
+      image: "/images/products/product_1.png",
+      price: "4800000",
+      quality: "1",
+    },
+    {
+      name: "Apple iPhone",
+      subTile: "Color: Grey Space",
+      image: "/images/products/product_1.png",
+      price: "4800000",
+      quality: "1",
+    },
+    {
+      name: "Apple iPhone",
+      subTile: "Color: Grey Space",
+      image: "/images/products/product_1.png",
+      price: "4800000",
+      quality: "1",
+    },
+    {
+      name: "Apple iPhone",
+      subTile: "Color: Grey Space",
+      image: "/images/products/product_1.png",
+      price: "4800000",
+      quality: "1",
+    },
+  ];
   useEffect(() => {
     if (isSuccess) {
       toast.success("OrderSuccess");
@@ -141,7 +184,7 @@ function Checkout() {
           <h3 className="text-xl my-8 font-bold text-primary-1">
             Order Summary
           </h3>
-          {/* <ProductList products={carts} /> */}
+
           <div>
             <Coupons />
           </div>

@@ -9,6 +9,7 @@ import {
   useRemoveToWishListMutation,
 } from "~/redux/services/customer/customer-api";
 function ProductCart({ product }) {
+  console.log(product);
   const [status, setStatus] = useState(false);
   const handleAddProduct = () => {};
   let numberFormat = new Intl.NumberFormat("vi", {
@@ -39,14 +40,14 @@ function ProductCart({ product }) {
     <div className="relative group">
       <Link
         href={"/san-pham/" + "iphone"}
-        className="flex flex-col p-2 bg-white rounded-xl shadow-xl"
+        className="flex flex-col p-2 bg-white rounded-xl justify-between shadow-xl min-h-[250px]"
       >
-        <div className="flex justify-center w-full my-8">
+        <div className="flex justify-center w-full my-8  items-center">
           <Image
             alt={product.name}
-            src={product.image}
-            width={150}
-            height={180}
+            src={product.imageUrl}
+            width={70}
+            height={50}
             className="object-contain"
           />
         </div>
@@ -55,7 +56,7 @@ function ProductCart({ product }) {
             {product.name}
           </h5>
           <div className="text-center my-1 text-secondary-3 font-semibold ">
-            {numberFormat.format(product.price)}
+            {numberFormat.format(product.unitPrice)}
           </div>
         </div>
       </Link>

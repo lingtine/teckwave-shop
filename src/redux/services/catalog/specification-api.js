@@ -1,28 +1,23 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 const specificationApi = createApi({
   reducerPath: "specificationApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/catalogs/specifications",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
   endpoints(builder) {
     return {
       fetchAllSpecification: builder.query({
         query: (parameters) => {
-          return { method: "GET", url: "/", params: parameters };
+          return {
+            method: "GET",
+            url: "catalogs/specifications/",
+            params: parameters,
+          };
         },
       }),
       addSpecification: builder.mutation({
         query: (data) => {
           return {
-            url: "/",
+            url: "catalogs/specifications/",
             method: "POST",
             body: data,
           };
@@ -31,7 +26,7 @@ const specificationApi = createApi({
       getSpecification: builder.query({
         query: (specificationId) => {
           return {
-            url: `/${specificationId}`,
+            url: `catalogs/specifications/${specificationId}`,
             method: "GET",
           };
         },
@@ -39,7 +34,7 @@ const specificationApi = createApi({
       updateSpecification: builder.mutation({
         query: ([specificationId, data]) => {
           return {
-            url: `/${specificationId}`,
+            url: `catalogs/specifications/${specificationId}`,
             method: "PUT",
             body: data,
           };
@@ -48,7 +43,7 @@ const specificationApi = createApi({
       deleteSpecification: builder.mutation({
         query: (specificationId) => {
           return {
-            url: `/${specificationId}`,
+            url: `catalogs/specifications/${specificationId}`,
             method: "DELETE",
           };
         },

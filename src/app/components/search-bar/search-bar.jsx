@@ -25,7 +25,6 @@ function SearchBar() {
 
   if (isSuccess) {
     if (data.data.length !== 0) {
-      console.log(data.data);
       renderSearchResult = data.data.map((product) => {
         return (
           <li className="flex border-b last:border-none py-2 " key={product.id}>

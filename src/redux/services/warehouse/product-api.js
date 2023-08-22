@@ -1,28 +1,23 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 const warehouseProductsApi = createApi({
   reducerPath: "warehouseProductsApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/warehouses/wasehouse-products",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
   endpoints(builder) {
     return {
       fetchAllWarehouseProducts: builder.query({
         query: (parameter) => {
-          return { method: "GET", url: "/", params: parameter };
+          return {
+            method: "GET",
+            url: "warehouses/warehouse-products/",
+            params: parameter,
+          };
         },
       }),
       getWarehouseProducts: builder.query({
         query: (warehouseProductsId) => {
           return {
-            url: `/${warehouseProductsId}`,
+            url: `warehouses/warehouse-products/${warehouseProductsId}`,
             method: "GET",
           };
         },
@@ -30,7 +25,7 @@ const warehouseProductsApi = createApi({
       getWarehouseProductsBySKU: builder.query({
         query: (sku) => {
           return {
-            url: `/sku/${sku}`,
+            url: `warehouses/warehouse-products/sku/${sku}`,
             method: "GET",
           };
         },
@@ -38,7 +33,7 @@ const warehouseProductsApi = createApi({
       removeWarehouseProducts: builder.mutation({
         query: (warehouseProductsId) => {
           return {
-            url: `/${warehouseProductsId}`,
+            url: `warehouses/warehouse-products/${warehouseProductsId}`,
             method: "DELETE",
           };
         },
@@ -46,7 +41,7 @@ const warehouseProductsApi = createApi({
       restoreWarehouseProducts: builder.mutation({
         query: (warehouseProductsId) => {
           return {
-            url: `/restore/${warehouseProductsId}`,
+            url: `warehouses/warehouse-products/restore/${warehouseProductsId}`,
             method: "PUT",
           };
         },

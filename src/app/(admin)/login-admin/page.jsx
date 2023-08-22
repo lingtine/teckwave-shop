@@ -24,8 +24,6 @@ function LoginAdmin() {
     if (isSuccess) {
       jwt = jwtDecode(data.accessToken);
       if (jwt.role === "Employee") {
-        toast.success("Đăng nhập thành công");
-        router.push("/dashboard");
       } else if (jwt.role === "Customer") {
         toast.error("Đây không phải là tài khoảng Admin");
       }
@@ -34,8 +32,9 @@ function LoginAdmin() {
   useEffect(() => {
     if (user) {
       router.push("/dashboard");
+      toast.success("Đăng nhập thành công");
     }
-  }, []);
+  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

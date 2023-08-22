@@ -11,11 +11,10 @@ import {
   changePassword,
   changeShowCode,
 } from "~/redux/features/dashboard/form-register-slice";
-import { useVerifyEmailMutation } from "~/redux/services/authentication/auth-api";
 import { useRegisterMutation } from "~/redux/services/customer/customer-api";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-
+import { useVerifyEmailMutation } from "~/redux/services/customer/customer-api";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 

@@ -1,37 +1,34 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 const brandApi = createApi({
   reducerPath: "brand",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/catalogs/brands",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
+  tagTypes: ["Post", "Delete", "Update"],
   endpoints(builder) {
     return {
       fetchAllBrands: builder.query({
         query: () => {
-          return { method: "GET" };
+          return {
+            url: "catalogs/brands/",
+            method: "GET",
+          };
         },
+        providesTags: ["Post", "Delete", "Update"],
       }),
       addBrand: builder.mutation({
         query: (data) => {
           return {
-            url: "/",
+            url: "catalogs/brands/",
             method: "POST",
             body: data,
           };
         },
+        invalidatesTags: ["Post"],
       }),
       getBrand: builder.query({
         query: (brandId) => {
           return {
-            url: `/${brandId}`,
+            url: `catalogs/brands/${brandId}`,
             method: "GET",
           };
         },
@@ -39,19 +36,21 @@ const brandApi = createApi({
       updateBrand: builder.mutation({
         query: ([brandId, data]) => {
           return {
-            url: `/${brandId}`,
+            url: `catalogs/brands/${brandId}`,
             method: "PUT",
             body: data,
           };
         },
+        invalidatesTags: ["Update"],
       }),
       deleteBrand: builder.mutation({
         query: (brandId) => {
           return {
-            url: `/${brandId}`,
+            url: `catalogs/brands/${brandId}`,
             method: "DELETE",
           };
         },
+        invalidatesTags: ["Delete"],
       }),
     };
   },

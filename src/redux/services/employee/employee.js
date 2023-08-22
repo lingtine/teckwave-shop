@@ -1,34 +1,42 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { setUser } from "~/redux/features/auth/user-slice";
-import authApi from "../authentication/auth-api";
+import customFetchBase from "~/redux/api/customFetchBase";
 const employeeApi = createApi({
   reducerPath: "employee",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/employees/employees",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
+  tagTypes: ["User"],
   endpoints(builder) {
     return {
       getEmployee: builder.query({
         query: () => {
           return {
             method: "GET",
-            url: `/detail`,
+            url: "employees/employees/detail",
           };
         },
         async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
           try {
             const { data } = await queryFulfilled;
             await dispatch(setUser(data.data));
-          } catch (error) {
-            await dispatch(authApi.endpoints.refreshToken.initiate(null));
-          }
+          } catch (error) {}
+        },
+      }),
+      createAdmin: builder.mutation({
+        query: (data) => {
+          return {
+            method: "POST",
+            url: "employees/employees/create-admin",
+            body: data,
+          };
+        },
+      }),
+      createEmployee: builder.mutation({
+        query: (data) => {
+          return {
+            method: "GET",
+            url: "employees/employees/create-employee",
+            body: data,
+          };
         },
       }),
     };

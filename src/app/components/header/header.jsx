@@ -38,11 +38,11 @@ function Header() {
 
             <Link className="flex items-center relative" href={"/cart"}>
               <BsCart3 className="text-3xl text-color-black ml-6 hover:text-secondary-3"></BsCart3>
-              {cart && cart.item.length && (
+              {/* {cart && cart.item.length && (
                 <span className="absolute text-xs -right-1.5 bottom-4 bg-red-500 text-white py-0.5 px-1 rounded shadow-lg ">
                   {cart.item.length}
                 </span>
-              )}
+              )} */}
             </Link>
             {user && (
               <div className="flex items-center relative group/sub-item  ">

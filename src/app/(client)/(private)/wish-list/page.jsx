@@ -1,19 +1,25 @@
 "use client";
 
-import { useState } from "react";
-
 import ProductList from "~/app/components/products/product-list";
 import BoxProducts from "~/app/components/home-page/box-products";
 import Button from "~/app/components/button/button";
-import { useGetWishListQuery } from "~/redux/services/customer/customer-api";
-function WishList() {
-  const { data } = useGetWishListQuery();
+import {
+  useGetWishListQuery,
+  useRemoveToWishListMutation,
+} from "~/redux/services/customer/customer-api";
+import { useSelector } from "react-redux";
 
-  if (!data) {
-    return <div></div>;
+function WishList() {
+  const { data, isSuccess, isLoading } = useGetWishListQuery();
+  const [remove, result] = useRemoveToWishListMutation();
+  const user = useSelector((state) => state.user);
+  let renderWishList;
+  if (isLoading) {
+    renderWishList = <div>Loading...</div>;
   }
-  return (
-    <div className="container mx-auto my-16">
+  const handleRemove = () => {};
+  if (isSuccess) {
+    return (
       <div className="">
         <div className="flex justify-between items-center my-8">
           <div>
@@ -25,6 +31,11 @@ function WishList() {
         </div>
         <ProductList products={data.products || []} />
       </div>
+    );
+  }
+  return (
+    <div className="container mx-auto my-16">
+      {renderWishList}
 
       <BoxProducts type={"Just For You"}>
         <ProductList products={data.products || []} />

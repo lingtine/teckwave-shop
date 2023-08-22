@@ -1,24 +1,15 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 const discountEventApi = createApi({
   reducerPath: "discountEventApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/discounts/discounts",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
   endpoints(builder) {
     return {
       getAllDiscountEvent: builder.query({
         query: (parameters) => {
           return {
             method: "GET",
-            url: "/",
+            url: "discounts/discounts/",
             params: parameters,
           };
         },
@@ -27,7 +18,7 @@ const discountEventApi = createApi({
         query: (data) => {
           return {
             method: "POST",
-            url: "/",
+            url: "discounts/discounts/",
             body: data,
           };
         },
@@ -36,7 +27,7 @@ const discountEventApi = createApi({
         query: (discountEventId) => {
           return {
             method: "GET",
-            url: `/${discountEventId}`,
+            url: `discounts/discounts/${discountEventId}`,
           };
         },
       }),
@@ -44,7 +35,7 @@ const discountEventApi = createApi({
         query: ([discountEventId, data]) => {
           return {
             method: "PUT",
-            url: `/${discountEventId}`,
+            url: `discounts/discounts/${discountEventId}`,
             body: data,
           };
         },
@@ -53,7 +44,7 @@ const discountEventApi = createApi({
         query: (discountEventId) => {
           return {
             method: "DELETE",
-            url: `/${discountEventId}`,
+            url: `discounts/discounts/${discountEventId}`,
           };
         },
       }),
@@ -61,7 +52,7 @@ const discountEventApi = createApi({
         query: ([discountEventId, status]) => {
           return {
             method: "POST",
-            url: `/${discountEventId}/${status}`,
+            url: `discounts/discounts/${discountEventId}/${status}`,
           };
         },
       }),

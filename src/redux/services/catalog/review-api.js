@@ -1,28 +1,23 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 const reviewApi = createApi({
   reducerPath: "review",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/catalogs/reviews",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
   endpoints(builder) {
     return {
       getReviewByCustomer: builder.query({
         query: (parameters) => {
-          return { method: "GET", url: "/customers", params: parameters };
+          return {
+            method: "GET",
+            url: "catalogs/reviews/customers/",
+            params: parameters,
+          };
         },
       }),
       addReview: builder.mutation({
         query: (data) => {
           return {
-            url: "/",
+            url: "catalogs/reviews/customers/",
             method: "POST",
             body: data,
           };
@@ -31,7 +26,7 @@ const reviewApi = createApi({
       getReviewProduct: builder.query({
         query: ([productId, parameters]) => {
           return {
-            url: `/reviews/${productId}`,
+            url: `catalogs/reviews/customers/reviews/${productId}`,
             method: "GET",
             params: parameters,
           };
@@ -40,7 +35,7 @@ const reviewApi = createApi({
       updateReview: builder.mutation({
         query: ([reviewId, data]) => {
           return {
-            url: `/${reviewId}`,
+            url: `catalogs/reviews/customers/${reviewId}`,
             method: "PUT",
             body: data,
           };
@@ -49,7 +44,7 @@ const reviewApi = createApi({
       deleteReview: builder.mutation({
         query: (reviewId) => {
           return {
-            url: `/${reviewId}`,
+            url: `catalogs/reviews/customers/${reviewId}`,
             method: "DELETE",
           };
         },

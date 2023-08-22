@@ -1,24 +1,15 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { setCart } from "~/redux/features/cart/cart";
-
+import customFetchBase from "~/redux/api/customFetchBase";
 const cartApi = createApi({
   reducerPath: "cartApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/orders/carts",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
   endpoints: (builder) => {
     return {
       getCartDetail: builder.query({
         query: () => {
           return {
-            url: "/detail",
+            url: "orders/carts/detail",
             method: "GET",
           };
         },
@@ -33,7 +24,7 @@ const cartApi = createApi({
         query: (data) => {
           return {
             method: "PUT",
-            url: "/",
+            url: "orders/carts/",
             body: {
               ...data,
             },
@@ -46,7 +37,7 @@ const cartApi = createApi({
         query: (data) => {
           return {
             method: "PUT",
-            url: "/add-items",
+            url: "orders/carts/add-items",
             body: data,
           };
         },
@@ -54,7 +45,7 @@ const cartApi = createApi({
       removeProduct: builder.mutation({
         query: (productId) => {
           return {
-            url: `/${productId}`,
+            url: `orders/carts/${productId}`,
             method: "DELETE",
           };
         },

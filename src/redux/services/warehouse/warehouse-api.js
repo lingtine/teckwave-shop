@@ -1,28 +1,23 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { createApi } from "@reduxjs/toolkit/query/react";
+import customFetchBase from "~/redux/api/customFetchBase";
 const warehouserApi = createApi({
   reducerPath: "warehouserApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://ecommerce.quochao.id.vn/warehouses/warehousers",
-    prepareHeaders: (headers, { getState }) => {
-      const token = getState().authSlice.accessToken;
-      if (token) {
-        headers.set("authorization", `Bearer ${token}`);
-        return headers;
-      }
-    },
-  }),
+  baseQuery: customFetchBase,
   endpoints(builder) {
     return {
       fetchAllWarehousers: builder.query({
         query: (parameter) => {
-          return { method: "GET", url: "/", params: parameter };
+          return {
+            method: "GET",
+            url: "warehouses/warehouses/",
+            params: parameter,
+          };
         },
       }),
       addWarehouser: builder.mutation({
         query: (data) => {
           return {
-            url: "/",
+            url: "warehouses/warehouses/",
             method: "POST",
             body: data,
           };
@@ -31,7 +26,7 @@ const warehouserApi = createApi({
       getWarehouser: builder.query({
         query: (warehouserId) => {
           return {
-            url: `/${warehouserId}`,
+            url: `warehouses/warehouses/${warehouserId}`,
             method: "GET",
           };
         },
@@ -39,7 +34,7 @@ const warehouserApi = createApi({
       updateWarehouser: builder.mutation({
         query: ([warehouserId, data]) => {
           return {
-            url: `/${warehouserId}`,
+            url: `warehouses/warehouses/${warehouserId}`,
             method: "PUT",
             body: data,
           };
@@ -48,7 +43,7 @@ const warehouserApi = createApi({
       removeWarehouser: builder.mutation({
         query: (warehouserId) => {
           return {
-            url: `/${warehouserId}`,
+            url: `warehouses/warehouses/${warehouserId}`,
             method: "DELETE",
           };
         },
@@ -56,7 +51,7 @@ const warehouserApi = createApi({
       restoreWarehouser: builder.mutation({
         query: (warehouserId) => {
           return {
-            url: `/restore/${warehouserId}`,
+            url: `warehouses/warehouses/restore/${warehouserId}`,
             method: "PUT",
           };
         },

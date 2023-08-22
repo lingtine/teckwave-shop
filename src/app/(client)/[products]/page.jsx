@@ -5,8 +5,13 @@ import SelectBox from "~/app/components/select-box/select-box";
 import ProductList from "~/app/components/products/product-list";
 import Pagination from "~/app/components/products-page/pagination";
 import FilterProducts from "~/app/components/products-page/filter-products";
-
+import { useRouter, useParams } from "next/navigation";
+import { useGetAllProductsQuery } from "~/redux/services/catalog/product-api";
 function ProductsPage() {
+  const { products } = useParams();
+  const { data, isSuccess } = useGetAllProductsQuery({ CategoryId: products });
+  const router = useRouter();
+
   const [valueSorted, setValueSorted] = useState(null);
 
   const typesSoft = [
@@ -27,46 +32,7 @@ function ProductsPage() {
       id: Math.random(),
     },
   ];
-  const data = {
-    title: "APPLE AUTHORISED RESELLER",
-    products: [
-      {
-        image: "/images/products/iphone.png",
-        name: "iphone 11 (64GB) - Chinh hãng  VN/A",
-        price: 10390000,
-      },
-      {
-        image: "/images/products/iphone.png",
-        name: "iphone 11 (64GB) - Chinh hãng  VN/A",
-        price: 10390000,
-      },
-      {
-        image: "/images/products/iphone.png",
-        name: "iphone 11 (64GB) - Chinh hãng  VN/A",
-        price: 10390000,
-      },
-      {
-        image: "/images/products/laptop.jpg",
-        name: "iphone 11 (64GB) - Chinh hãng  VN/A",
-        price: 10390000,
-      },
-      {
-        image: "/images/products/iphone.png",
-        name: "iphone 11 (64GB) - Chinh hãng  VN/A",
-        price: 10390000,
-      },
-      {
-        image: "/images/products/iphone.png",
-        name: "iphone 11 (64GB) - Chinh hãng  VN/A",
-        price: 10390000,
-      },
-      {
-        image: "/images/products/iphone.png",
-        name: "iphone 11 (64GB) - Chinh hãng  VN/A",
-        price: 10390000,
-      },
-    ],
-  };
+
   const filterData = [
     {
       id: Math.random(),
@@ -152,7 +118,7 @@ function ProductsPage() {
               />
             </div>
             <div className="my-4">
-              <ProductList products={data.products} />
+              {isSuccess && <ProductList products={data.data} />}
             </div>
 
             <div className="mx-auto">
