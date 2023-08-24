@@ -4,6 +4,7 @@ import customFetchBase from "~/redux/api/customFetchBase";
 const cartApi = createApi({
   reducerPath: "cartApi",
   baseQuery: customFetchBase,
+  tagTypes: ["Post", "Delete", "Update"],
   endpoints: (builder) => {
     return {
       getCartDetail: builder.query({
@@ -13,6 +14,7 @@ const cartApi = createApi({
             method: "GET",
           };
         },
+        providesTags: ["Post", "Delete", "Update"],
         async onQueryStarted(args, { dispatch, queryFulfilled }) {
           try {
             const { data } = await queryFulfilled;
@@ -30,9 +32,10 @@ const cartApi = createApi({
             },
           };
         },
+        invalidatesTags: ["Update"],
       }),
 
-      //add pro
+      //add product
       addProduct: builder.mutation({
         query: (data) => {
           return {
@@ -41,6 +44,7 @@ const cartApi = createApi({
             body: data,
           };
         },
+        invalidatesTags: ["Post"],
       }),
       removeProduct: builder.mutation({
         query: (productId) => {

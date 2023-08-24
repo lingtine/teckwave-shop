@@ -63,6 +63,7 @@ function LoginPage() {
             <Input
               label={"Password"}
               required
+              type="password"
               value={formData.password}
               onChange={(e) => {
                 dispatch(changePassword(e.target.value));

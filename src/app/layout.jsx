@@ -16,6 +16,7 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning={true} className={inter.className}>
         <Providers>{children}</Providers>
         <ToastContainer />
+        <div id="modal-root"></div>
       </body>
     </html>
   );

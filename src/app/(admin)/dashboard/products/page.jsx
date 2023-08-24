@@ -5,18 +5,24 @@ import Link from "next/link";
 import { IoAddCircleOutline } from "react-icons/io5";
 import Image from "next/image";
 import {
-  useGetAllProductsQuery,
   useDeleteProductMutation,
+  useGetAllProductsByParameterMutation,
 } from "~/redux/services/catalog/product-api";
 import Table from "~/app/components/table/table";
 import { AiFillEdit } from "react-icons/ai";
 import { CiCircleRemove } from "react-icons/ci";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Pagination from "~/app/components/products-page/pagination";
 function Products() {
-  const { data: productsData, isSuccess } = useGetAllProductsQuery();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [getProducts, { data: productsData, isSuccess, isError, isLoading }] =
+    useGetAllProductsByParameterMutation();
   const [removeProduct, result] = useDeleteProductMutation();
   let configProductsData = [];
+
+  useEffect(() => {
+    getProducts({ PageIndex: currentPage });
+  }, [currentPage]);
   if (isSuccess) {
     configProductsData = [
       {
@@ -87,7 +93,7 @@ function Products() {
   }
 
   return (
-    <div>
+    <div className="mb-20">
       <div className="flex justify-between">
         <div>Products</div>
         <div>
@@ -105,8 +111,17 @@ function Products() {
           <Table data={productsData.data} config={configProductsData}></Table>
         )}
       </div>
-      <div>
-        <Pagination />
+      <div className="flex justify-center">
+        {isSuccess && (
+          <Pagination
+            totalCount={productsData.totalCount}
+            pageIndex={productsData.pageIndex}
+            pageSize={productsData.pageSize}
+            changePage={(numberPage) => {
+              setCurrentPage(numberPage);
+            }}
+          />
+        )}
       </div>
     </div>
   );

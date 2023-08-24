@@ -3,6 +3,7 @@ import customFetchBase from "~/redux/api/customFetchBase";
 const warehouserApi = createApi({
   reducerPath: "warehouserApi",
   baseQuery: customFetchBase,
+  tagTypes: ["remove", "update", "create"],
   endpoints(builder) {
     return {
       fetchAllWarehousers: builder.query({
@@ -13,6 +14,7 @@ const warehouserApi = createApi({
             params: parameter,
           };
         },
+        providesTags: ["create", "remove", "update"],
       }),
       addWarehouser: builder.mutation({
         query: (data) => {
@@ -22,6 +24,7 @@ const warehouserApi = createApi({
             body: data,
           };
         },
+        invalidatesTags: ["create"],
       }),
       getWarehouser: builder.query({
         query: (warehouserId) => {
@@ -39,6 +42,7 @@ const warehouserApi = createApi({
             body: data,
           };
         },
+        invalidatesTags: ["update"],
       }),
       removeWarehouser: builder.mutation({
         query: (warehouserId) => {
@@ -47,6 +51,7 @@ const warehouserApi = createApi({
             method: "DELETE",
           };
         },
+        invalidatesTags: ["remove"],
       }),
       restoreWarehouser: builder.mutation({
         query: (warehouserId) => {

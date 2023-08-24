@@ -1,7 +1,7 @@
 export const formatPrice = (number) => {
-  let USDollar = new Intl.NumberFormat("en-US", {
+  let VND = new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "USD",
+    currency: "VND",
   });
-  return USDollar.format(number);
+  return VND.format(number);
 };

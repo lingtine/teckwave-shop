@@ -16,19 +16,21 @@ function ProductCarousel({ products = [], lengthCarousel = 4 }) {
     setCurrentIndex(currentIndex + 1);
   };
 
+  const renderProducts = products.map((product, index) => (
+    <div
+      key={product.id}
+      className={`max-w-[270px] flex-shrink-0  mx-4 tra duration-700 ease-in-out h-fit`}
+      style={{
+        transform: `translateX(-${112 * currentIndex}%)`,
+      }}
+    >
+      <ProductCart product={product} />
+    </div>
+  ));
+
   return (
     <div className="relative flex w-full overflow-x-hidden py-8">
-      {products.map((product, index) => (
-        <div
-          key={index}
-          className={`max-w-[270px] flex-shrink-0  mx-4 tra duration-700 ease-in-out h-fit`}
-          style={{
-            transform: `translateX(-${112 * currentIndex}%)`,
-          }}
-        >
-          <ProductCart key={index} product={product} />
-        </div>
-      ))}
+      {renderProducts}
       <div>
         <button
           onClick={onPrev}

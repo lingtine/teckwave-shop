@@ -5,8 +5,27 @@ import BoxProducts from "~/app/components/home-page/box-products";
 import NavBar from "~/app/components/home-page/navbar";
 import ProductCarousel from "~/app/components/products/product-carousel";
 import AboutUs from "~/app/components/home-page/about-us";
+import { useGetProductsHomePageQuery } from "~/redux/services/catalog/product-api";
 
 function HomePage() {
+  const { data, isSuccess } = useGetProductsHomePageQuery();
+
+  let renderData;
+  if (isSuccess) {
+    renderData = data.data.map((group) => {
+      return (
+        <BoxProducts
+          key={group.groupId}
+          heading={group.groupName}
+          type={"Category group"}
+          data={group}
+        >
+          <ProductCarousel products={group.products} />
+        </BoxProducts>
+      );
+    });
+  }
+
   return (
     <div className="container mx-auto ">
       <div className="flex min-h-0">
@@ -22,9 +41,8 @@ function HomePage() {
           />
         </div>
       </div>
-      {/* <BoxProducts heading={"Category"} type={"This Month"} data={data}>
-        <ProductCarousel products={data.products} />
-      </BoxProducts>
+      {renderData}
+      {/* 
       <BoxProducts heading={"Category"} type={"This Month"} data={data}>
         <ProductCarousel products={data.products} />
       </BoxProducts>

@@ -3,20 +3,45 @@ import Image from "next/image";
 import Link from "next/link";
 import { BiCartAdd } from "react-icons/bi";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   useAddToWishListMutation,
   useRemoveToWishListMutation,
 } from "~/redux/services/customer/customer-api";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import useDebounce from "~/hooks/use-debounce";
 function ProductCart({ product }) {
-  console.log(product);
-  const [status, setStatus] = useState(false);
+  const { user } = useSelector((state) => state.user);
+  const { wishList } = useSelector((state) => state.wishListSlice);
+  const found = wishList?.find((item) => item.productId === product.id);
+  const [status, setStatus] = useState(!!found);
+  const debounceValue = useDebounce(status, 500);
+
+  const [addWistList, resultAddWishList] = useAddToWishListMutation();
+  const [removeWistList, resultRemoveWishList] = useRemoveToWishListMutation();
   const handleAddProduct = () => {};
   let numberFormat = new Intl.NumberFormat("vi", {
     style: "currency",
     currency: "VND",
   });
-
+  useEffect(() => {
+    if (resultAddWishList.isSuccess) {
+      toast.success("Add to wish list success");
+    }
+  }, [resultAddWishList.isSuccess]);
+  useEffect(() => {
+    if (resultRemoveWishList.isSuccess) {
+      toast.success("Remove to wish list success");
+    }
+  }, [resultRemoveWishList.isSuccess]);
+  useEffect(() => {
+    if (debounceValue) {
+      addWistList(product.id);
+    } else {
+      removeWistList(product.id);
+    }
+  }, [debounceValue]);
   const renderAction = (
     <div>
       <div
@@ -39,7 +64,7 @@ function ProductCart({ product }) {
   return (
     <div className="relative group">
       <Link
-        href={"/san-pham/" + "iphone"}
+        href={`/san-pham/${product.id}`}
         className="flex flex-col p-2 bg-white rounded-xl justify-between shadow-xl min-h-[250px]"
       >
         <div className="flex justify-center w-full my-8  items-center">
@@ -60,7 +85,7 @@ function ProductCart({ product }) {
           </div>
         </div>
       </Link>
-      {renderAction}
+      {user && renderAction}
     </div>
   );
 }

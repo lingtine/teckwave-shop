@@ -5,18 +5,20 @@ import Link from "next/link";
 import { IoAddCircleOutline } from "react-icons/io5";
 import Image from "next/image";
 import {
-  useGetAllProductsQuery,
-  useDeleteProductMutation,
-} from "~/redux/services/catalog/product-api";
+  useFetchAllSpecificationQuery,
+  useDeleteSpecificationMutation,
+} from "~/redux/services/catalog/specification-api";
 import Table from "~/app/components/table/table";
 import { AiFillEdit } from "react-icons/ai";
 import { CiCircleRemove } from "react-icons/ci";
 import { useEffect } from "react";
 function Products() {
-  const { data: productsData, isSuccess } = useGetAllProductsQuery();
-  const [removeProduct, result] = useDeleteProductMutation();
+  const { data: specificationData, isSuccess } =
+    useFetchAllSpecificationQuery();
+  const [removeProduct, result] = useDeleteSpecificationMutation();
   let configProductsData = [];
   if (isSuccess) {
+    console.log(specificationData);
     configProductsData = [
       {
         label: "Product Name",
@@ -75,7 +77,9 @@ function Products() {
               >
                 <CiCircleRemove />
               </button>
-              <Link href={`/dashboard/products/edit-product/${data.id}`}>
+              <Link
+                href={`/dashboard/specification/edit-specification/${data.id}`}
+              >
                 <AiFillEdit></AiFillEdit>
               </Link>
             </div>
@@ -88,20 +92,23 @@ function Products() {
   return (
     <div>
       <div className="flex justify-between">
-        <div>Products</div>
+        <div>Specification</div>
         <div>
           <Link
-            href={"/dashboard/products/add-product"}
+            href={"/dashboard/specification/add-specification"}
             className="flex items-center bg-secondary-3 text-primary px-2 py-4 rounded-sm text-sm hover:opacity-90"
           >
             <IoAddCircleOutline />
-            <span className="mx-2">Add Products</span>
+            <span className="mx-2">Add Specification</span>
           </Link>
         </div>
       </div>
       <div className="my-8 w-full">
-        {isSuccess && productsData.data && (
-          <Table data={productsData.data} config={configProductsData}></Table>
+        {isSuccess && specificationData.data && (
+          <Table
+            data={specificationData.data}
+            config={configProductsData}
+          ></Table>
         )}
       </div>
     </div>

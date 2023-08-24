@@ -28,7 +28,6 @@ const customFetchBase = async (args, api, extraOptions) => {
     result.error.status === 401 &&
     result.error.data === null
   ) {
-    console.log(result.error);
     if (!mutex.isLocked()) {
       const release = await mutex.acquire();
 
@@ -49,7 +48,6 @@ const customFetchBase = async (args, api, extraOptions) => {
           await api.dispatch(changeAuth(refreshResult.data.data));
           result = await baseQuery(args, api, extraOptions);
         } else {
-          console.log(refreshResult.data);
           api.dispatch(logout());
           api.dispatch(logoutAuth());
         }

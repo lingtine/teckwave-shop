@@ -43,7 +43,7 @@ function Register() {
 
     if (password === confirmPassword) {
       if (!dataForm.showCode) {
-        verifyEmail(email);
+        verifyEmail({ email: email });
       } else {
         const number = new Number(code);
 

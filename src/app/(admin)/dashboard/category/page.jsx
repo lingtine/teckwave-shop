@@ -18,21 +18,12 @@ function Category() {
   const [removeCategory, result] = useRemoveCategoryMutation();
   let configCategoryData = [];
   if (isSuccess) {
+    console.log(data);
     configCategoryData = [
       {
         label: "Category Name",
         render: (data) => {
-          return (
-            <div className="flex items-center">
-              <Image
-                src={data.imageUrl}
-                alt={data.name}
-                width={100}
-                height={80}
-              />
-              <div>{data.name}</div>
-            </div>
-          );
+          return <div className="">{data.name}</div>;
         },
       },
       {

@@ -62,9 +62,7 @@ const authApi = createApi({
               await setCookie("refreshToken", data.refreshToken);
               await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
             }
-          } catch (error) {
-            console.log(error);
-          }
+          } catch (error) {}
         },
       }),
       register: builder.mutation({

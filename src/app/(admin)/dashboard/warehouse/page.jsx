@@ -9,29 +9,20 @@ import Table from "~/app/components/table/table";
 import { AiFillEdit } from "react-icons/ai";
 import { CiCircleRemove } from "react-icons/ci";
 import {
-  useFetchAllSuppliersQuery,
-  useRemoveSupplierMutation,
-} from "~/redux/services/warehouse/supplier-api";
+  useFetchAllWarehousersQuery,
+  useRemoveWarehouserMutation,
+} from "~/redux/services/warehouse/warehouse-api";
 function Products() {
-  const { data, isSuccess } = useFetchAllSuppliersQuery();
-  const [remove, result] = useRemoveSupplierMutation();
+  const { data, isSuccess } = useFetchAllWarehousersQuery();
+  const [remove, result] = useRemoveWarehouserMutation();
   let configData = [];
   if (isSuccess) {
+    console.log(data);
     configData = [
       {
         label: "Supplier Name",
         render: (data) => {
-          return (
-            <div>
-              <Image
-                src={data.imageUrl}
-                alt={data.name}
-                width={100}
-                height={80}
-              />
-              <div>{data.name}</div>
-            </div>
-          );
+          return <div>{data.name}</div>;
         },
       },
       {
@@ -46,32 +37,21 @@ function Products() {
           return data.email;
         },
       },
-      {
-        label: "Fax",
-        render: (data) => {
-          return <div className="text-center">{data.fax}</div>;
-        },
-      },
-      {
-        label: "Hotline",
-        render: (data) => {
-          return <div className="text-center">{data.hotLine}</div>;
-        },
-      },
-      {
-        label: "Fax",
-        render: (data) => {
-          return <div className="text-center">{data.fax}</div>;
-        },
-      },
+
       {
         label: "Status",
         render: (data) => {
-          return data.isActive ? (
-            <div className="text-center">Active</div>
-          ) : (
+          return data.isDelete ? (
             <div className="text-center">None</div>
+          ) : (
+            <div className="text-center">Active</div>
           );
+        },
+      },
+      {
+        label: "Type",
+        render: (data) => {
+          return <div className="text-center">{data.type}</div>;
         },
       },
       {
@@ -82,12 +62,12 @@ function Products() {
               <button
                 className="mx-4"
                 onClick={() => {
-                  removeProduct(data.id);
+                  remove(data.id);
                 }}
               >
                 <CiCircleRemove />
               </button>
-              <Link href={`/dashboard/supplier/edit-supplier/${data.id}`}>
+              <Link href={`/dashboard/warehouse/edit-warehouse/${data.id}`}>
                 <AiFillEdit></AiFillEdit>
               </Link>
             </div>
@@ -100,14 +80,14 @@ function Products() {
   return (
     <div>
       <div className="flex justify-between">
-        <div>Supplier</div>
+        <div>Warehouse</div>
         <div>
           <Link
-            href={"/dashboard/supplier/add-supplier"}
+            href={"/dashboard/warehouse/add-warehouse"}
             className="flex items-center bg-secondary-3 text-primary px-2 py-4 rounded-sm text-sm hover:opacity-90"
           >
             <IoAddCircleOutline />
-            <span className="mx-2">Add Supplier</span>
+            <span className="mx-2">Add Warehouse</span>
           </Link>
         </div>
       </div>

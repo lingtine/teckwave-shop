@@ -13,10 +13,18 @@ const productApi = createApi({
           return {
             url: "catalogs/products/",
             method: "GET",
-            parameter,
           };
         },
         providesTags: ["Post", "Delete", "Update"],
+      }),
+      getAllProductsByParameter: builder.mutation({
+        query: (parameter) => {
+          return {
+            url: "catalogs/products/",
+            method: "GET",
+            params: parameter,
+          };
+        },
       }),
       searchProducts: builder.mutation({
         query: (value) => {
@@ -156,6 +164,7 @@ export const {
   //products
   useGetAllProductsQuery,
   useSearchProductsMutation,
+  useGetAllProductsByParameterMutation,
   //product
   useAddProductMutation,
   useDeleteProductMutation,

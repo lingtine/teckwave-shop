@@ -6,16 +6,25 @@ import Image from "next/image";
 import {
   useFetchAllBrandsQuery,
   useDeleteBrandMutation,
+  useFetchBrandsByParametersMutation,
 } from "~/redux/services/catalog/brand-api";
 import Table from "~/app/components/table/table";
 import { AiFillEdit } from "react-icons/ai";
 import { CiCircleRemove } from "react-icons/ci";
 import { IoAddCircleOutline } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import Pagination from "~/app/components/products-page/pagination";
 function Products() {
-  const { data: brandData, isSuccess } = useFetchAllBrandsQuery();
+  const [getBrands, { isSuccess, data: brandData }] =
+    useFetchBrandsByParametersMutation();
+  const [currentPage, setCurrentPage] = useState(0);
   const [removeBrand, result] = useDeleteBrandMutation();
   let configData = [];
+  useEffect(() => {
+    getBrands({ PageIndex: currentPage });
+  }, [currentPage]);
   if (isSuccess) {
+    console.log(brandData);
     configData = [
       {
         label: "Brand Name",
@@ -80,6 +89,17 @@ function Products() {
         {isSuccess && brandData.data && (
           <Table data={brandData.data} config={configData}></Table>
         )}
+
+        <div className="flex justify-center my-4">
+          {isSuccess && (
+            <Pagination
+              pageIndex={currentPage}
+              changePage={setCurrentPage}
+              pageSize={brandData.pageSize}
+              totalCount={brandData.totalCount}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

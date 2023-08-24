@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-function BoxProducts({ heading, type, children }) {
+function BoxProducts({ heading, type, children, data }) {
   return (
     <div className="mt-10">
       <div className="flex justify-between">
@@ -19,7 +19,7 @@ function BoxProducts({ heading, type, children }) {
         </div>
         <div className="flex items-end">
           <Link
-            href={"/"}
+            href={`/${data.groupId}`}
             className="bg-color-btn-2 px-12 py-4 text-color-text-primary text-base rounded"
           >
             View all

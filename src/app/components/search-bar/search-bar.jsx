@@ -28,14 +28,16 @@ function SearchBar() {
       renderSearchResult = data.data.map((product) => {
         return (
           <li className="flex border-b last:border-none py-2 " key={product.id}>
-            <Link href={`/đâs/${product.id}`}>
-              <Image
-                src={product.imageUrl}
-                alt={product.name}
-                width={50}
-                height={30}
-              />
-              <div className="mx-4">
+            <Link href={`/đâs/${product.id}`} className="flex items-center">
+              <div className="min-w-[80]">
+                <Image
+                  src={product.imageUrl}
+                  alt={product.name}
+                  width={40}
+                  height={30}
+                />
+              </div>
+              <div className="mx-4 flex-1">
                 <h6 className="text-base font-semibold">{product.name}</h6>
                 <p className="text-sm text-secondary-3">
                   {formatPrice(product.unitPrice)}
@@ -93,9 +95,11 @@ function SearchBar() {
           <BiSearch></BiSearch>
         </button>
       </div>
-      {debounceSearch && (
+      {debounceSearch && isSuccess && (
         <div className="z-50 absolute w-full py-2 px-3 bg-white top-[120%] border border-slate-300 rounded">
-          <ul className="">{renderSearchResult}</ul>
+          <ul className="max-h-[400px] overflow-y-scroll">
+            {renderSearchResult}
+          </ul>
         </div>
       )}
     </div>

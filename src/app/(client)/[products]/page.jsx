@@ -1,15 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SelectBox from "~/app/components/select-box/select-box";
 import ProductList from "~/app/components/products/product-list";
 import Pagination from "~/app/components/products-page/pagination";
 import FilterProducts from "~/app/components/products-page/filter-products";
 import { useRouter, useParams } from "next/navigation";
-import { useGetAllProductsQuery } from "~/redux/services/catalog/product-api";
+import { useGetAllProductsByParameterMutation } from "~/redux/services/catalog/product-api";
 function ProductsPage() {
   const { products } = useParams();
-  const { data, isSuccess } = useGetAllProductsQuery({ CategoryId: products });
+  const [currentPage, setCurrentPage] = useState(0);
+  const [getProducts, { data, isSuccess, isError, isLoading }] =
+    useGetAllProductsByParameterMutation();
   const router = useRouter();
 
   const [valueSorted, setValueSorted] = useState(null);
@@ -18,18 +20,34 @@ function ProductsPage() {
     {
       label: "a-z",
       id: Math.random(),
+      value: {
+        OrderBy: "Name",
+        IsOrderDesc: false,
+      },
     },
     {
       label: "z-a",
       id: Math.random(),
+      value: {
+        OrderBy: "Name",
+        IsOrderDesc: true,
+      },
     },
     {
       label: "low-hight",
       id: Math.random(),
+      value: {
+        OrderBy: "Price",
+        IsOrderDesc: false,
+      },
     },
     {
       label: "hight-low",
       id: Math.random(),
+      value: {
+        OrderBy: "Price",
+        IsOrderDesc: true,
+      },
     },
   ];
 
@@ -101,7 +119,15 @@ function ProductsPage() {
       ],
     },
   ];
-
+  useEffect(() => {
+    const parameter = {
+      CategoryGroupId: products,
+      pageIndex: currentPage,
+      ...valueSorted?.value,
+    };
+    console.log(parameter);
+    getProducts(parameter);
+  }, [getProducts, currentPage, valueSorted]);
   return (
     <div className="container mx-auto  ">
       <div className="grid grid-flow-row grid-cols-6 gap-2">
@@ -122,7 +148,16 @@ function ProductsPage() {
             </div>
 
             <div className="mx-auto">
-              <Pagination />
+              {isSuccess && (
+                <Pagination
+                  totalCount={data.totalCount}
+                  pageIndex={data.pageIndex}
+                  pageSize={data.pageSize}
+                  changePage={(numberPage) => {
+                    setCurrentPage(numberPage);
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>

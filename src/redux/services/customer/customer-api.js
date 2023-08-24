@@ -4,18 +4,19 @@ import { setUser } from "~/redux/features/auth/user-slice";
 import authApi from "../authentication/auth-api";
 import cartApi from "../orders/cart-api";
 import customFetchBase from "~/redux/api/customFetchBase";
+import { setWishList } from "~/redux/features/auth/wish-list-slice";
 
 const customerApi = createApi({
   reducerPath: "customerApi",
   baseQuery: customFetchBase,
-  tagTypes: ["update"],
+  tagTypes: ["update", "add-wish-list"],
   endpoints(builder) {
     return {
       getAllCustomers: builder.query({
         query: () => {
           return {
             method: "GET",
-            url: "customers/customers/",
+            url: "customers/customers",
           };
         },
       }),
@@ -31,6 +32,7 @@ const customerApi = createApi({
             const { data } = await queryFulfilled;
             await dispatch(setUser(data.data));
             await dispatch(cartApi.endpoints.getCartDetail.initiate(null));
+            await dispatch(customerApi.endpoints.getWishList.initiate(null));
           } catch (error) {
             await dispatch(authApi.endpoints.refreshToken.initiate(null));
           }
@@ -91,6 +93,13 @@ const customerApi = createApi({
             method: "GET",
           };
         },
+        providesTags: ["update"],
+        async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
+          try {
+            const { data } = await queryFulfilled;
+            await dispatch(setWishList(data.data));
+          } catch (error) {}
+        },
       }),
       addToWishList: builder.mutation({
         query: (productId) => {
@@ -99,6 +108,7 @@ const customerApi = createApi({
             method: "POST",
           };
         },
+        invalidatesTags: ["update"],
       }),
       removeToWishList: builder.mutation({
         query: (productId) => {

@@ -15,6 +15,16 @@ const brandApi = createApi({
         },
         providesTags: ["Post", "Delete", "Update"],
       }),
+      fetchBrandsByParameters: builder.mutation({
+        query: (parameters) => {
+          return {
+            url: "catalogs/brands/",
+            method: "GET",
+            params: parameters,
+          };
+        },
+        providesTags: ["Post", "Delete", "Update"],
+      }),
       addBrand: builder.mutation({
         query: (data) => {
           return {
@@ -62,5 +72,6 @@ export const {
   useDeleteBrandMutation,
   useGetBrandQuery,
   useUpdateBrandMutation,
+  useFetchBrandsByParametersMutation,
 } = brandApi;
 export default brandApi;

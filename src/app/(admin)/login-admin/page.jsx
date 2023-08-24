@@ -17,7 +17,7 @@ function LoginAdmin() {
   const loginAdmin = useSelector((state) => state.loginAdminForm);
   const { user } = useSelector((state) => state.user);
 
-  const [login, { isLoading, isSuccess, data }] = useLoginMutation();
+  const [login, { isLoading, isError, isSuccess, data }] = useLoginMutation();
   const router = useRouter();
   let jwt;
   useEffect(() => {
@@ -28,7 +28,10 @@ function LoginAdmin() {
         toast.error("Đây không phải là tài khoảng Admin");
       }
     }
-  }, [isSuccess]);
+    if (isError) {
+      toast.error("loi dang nhap");
+    }
+  }, [isSuccess, isError]);
   useEffect(() => {
     if (user) {
       router.push("/dashboard");
