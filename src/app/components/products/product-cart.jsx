@@ -1,4 +1,6 @@
 "use client";
+
+import Button from "../button/button";
 import Image from "next/image";
 import Link from "next/link";
 import { BiCartAdd } from "react-icons/bi";
@@ -62,30 +64,32 @@ function ProductCart({ product }) {
   );
 
   return (
-    <div className="relative group">
-      <Link
-        href={`/san-pham/${product.id}`}
-        className="flex flex-col p-2 bg-white rounded-xl justify-between shadow-xl min-h-[250px]"
-      >
-        <div className="flex justify-center w-full my-8  items-center">
+    <div className="relative flex w-full flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+      <Link href={`/${product.name}/${product.id}`}>
+        <div className="relative mx-4 mt-4 h-48 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700">
           <Image
             alt={product.name}
             src={product.imageUrl}
-            width={70}
-            height={50}
+            fill
             className="object-contain"
           />
         </div>
-        <div className="flex flex-col px-4">
-          <h5 className="uppercase font-semibold text-sm text-center">
-            {product.name}
-          </h5>
-          <div className="text-center my-1 text-secondary-3 font-semibold ">
-            {numberFormat.format(product.unitPrice)}
+        <div className="p-6">
+          <div className="mb-2 flex flex-col min-h-[82px]">
+            <h5 className="line-clamp-2 font-sans text-lg font-bold leading-relaxed text-blue-gray-900 antialiased">
+              {product.name}
+            </h5>
+            <p className="block font-sans text-base font-medium leading-relaxed text-blue-gray-900 antialiased">
+              {numberFormat.format(product.unitPrice)}
+            </p>
           </div>
         </div>
       </Link>
-      {user && renderAction}
+      <div className="p-6 pt-0">
+        <Button full secondary className="font-bold">
+          Add to Cart
+        </Button>
+      </div>
     </div>
   );
 }

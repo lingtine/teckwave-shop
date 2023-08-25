@@ -6,49 +6,40 @@ import InputTextArea from "~/app/components/input/input-textarea";
 
 import { useParams, useRouter } from "next/navigation";
 import {
-  changeProductName,
-  changeAllValue,
+  changeName,
+  changeCategoryGroupId,
   changeDescription,
-  changeImage,
-  changePrice,
-} from "~/redux/features/product/update-product-form-slice";
+} from "~/redux/features/product/category/form-edit-category-slice";
 import { useGetProductQuery } from "~/redux/services/catalog/product-api";
 import { useDispatch, useSelector } from "react-redux";
 import { useUpdateProductMutation } from "~/redux/services/catalog/product-api";
 import { useEffect } from "react";
 import InputImage from "~/app/components/input/InputImage";
-function EditProduct() {
+import {
+  useGetCategoryQuery,
+  useUpdateCategoryMutation,
+} from "~/redux/services/catalog/category-api";
+function EditCategory() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const router = useRouter();
-  const dataForm = useSelector((state) => state.formEditSpecification);
-  const { data, isLoading, isSuccess } = useGetProductQuery(id);
-  const [updateProduct, result] = useUpdateProductMutation();
+  const dataForm = useSelector((state) => state.formEditCategorySlice);
+  const { data, isLoading, isSuccess } = useGetCategoryQuery(id);
+  const [updateCategory, result] = useUpdateCategoryMutation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let formData = new FormData();
-    formData.append("Name", dataForm.productName);
-    formData.append("Description", dataForm.description);
-    formData.append("UnitPrice", dataForm.price);
-    if (dataForm.image) formData.append("Image", dataForm.image[0]);
 
-    updateProduct([dataForm.id, formData]);
+    updateCategory(dataForm);
   };
 
-  if (result.isSuccess) {
-    router.push("/dashboard/products");
-  }
+  useEffect(() => {
+    if (result.isSuccess) {
+      router.push("/dashboard/products");
+    }
+  }, [result.isSuccess]);
   useEffect(() => {
     if (isSuccess) {
-      dispatch(
-        changeAllValue({
-          id: data.data.id,
-          productName: data.data.name,
-          price: data.data.unitPrice,
-          description: data.data.description,
-        })
-      );
     }
   }, [isSuccess]);
 
@@ -57,32 +48,15 @@ function EditProduct() {
       <h2 className="my-2 text-lg text-primary-1 font-bold">Update Product</h2>
       <div className="flex -mx-2">
         <div className="flex-[0_0_50%] px-2">
-          <InputImage
-            onChange={(image) => {
-              dispatch(changeImage(image));
-            }}
-          />
-        </div>
-        <div className="flex-[0_0_50%] px-2">
           <ul>
             <li className="text-sm font-semibold">Product Information</li>
             <li className="my-4">
               <Input
                 label={"Product Name"}
-                value={dataForm.productName}
+                value={dataForm.name}
                 onChange={(e) => {
-                  dispatch(changeProductName(e.target.value));
+                  dispatch(changeName(e.target.value));
                 }}
-              ></Input>
-            </li>
-            <li className="my-4">
-              <Input
-                label={"Price"}
-                value={dataForm.price}
-                onChange={(e) => {
-                  dispatch(changePrice(e.target.value));
-                }}
-                type="number"
               ></Input>
             </li>
             <li className="my-4">
@@ -99,11 +73,11 @@ function EditProduct() {
       </div>
       <div className="flex justify-end">
         <Button secondary small type={"submit"}>
-          Update Product
+          Update Category
         </Button>
       </div>
     </form>
   );
 }
 
-export default EditProduct;
+export default EditCategory;

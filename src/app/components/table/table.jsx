@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-
+import { Card, Typography } from "@material-tailwind/react";
 function Table({ data, config, keyFn }) {
   const renderLabel = config.map((colum) => {
     if (!!colum.header) {
@@ -7,8 +7,17 @@ function Table({ data, config, keyFn }) {
     }
 
     return (
-      <th key={colum.label} className="p-2">
-        {colum.label}
+      <th
+        key={colum.label}
+        className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
+      >
+        <Typography
+          variant="small"
+          color="blue-gray"
+          className="font-normal leading-none opacity-70"
+        >
+          {colum.label}
+        </Typography>
       </th>
     );
   });
@@ -16,23 +25,23 @@ function Table({ data, config, keyFn }) {
   const renderedRow = data.map((dataColum, index) => {
     const renderedColumns = config.map((colum) => {
       return (
-        <td key={colum.label} className="p-2 mx-auto">
-          {colum.render(dataColum)}
+        <td key={colum.label} className="p-4">
+          <Typography variant="small" color="blue-gray" className="font-normal">
+            {colum.render(dataColum)}
+          </Typography>
         </td>
       );
     });
     return (
-      <tr key={index} className="border-b ">
+      <tr key={index} className="even:bg-blue-gray-50/50">
         {renderedColumns}
       </tr>
     );
   });
   return (
-    <table className="table-fixed border-spacing-2 w-full">
+    <table className="table-auto border-spacing-2 w-full">
       <thead className="">
-        <tr className="border-b-2 bg-secondary-3 text-primary ">
-          {renderLabel}
-        </tr>
+        <tr>{renderLabel}</tr>
       </thead>
       <tbody>{renderedRow}</tbody>
     </table>

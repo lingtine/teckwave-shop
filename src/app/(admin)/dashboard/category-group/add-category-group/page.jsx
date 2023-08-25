@@ -54,7 +54,7 @@ function AddProducts() {
               </li>
               <li className="my-4">
                 <Input
-                  label={"Category Group Name"}
+                  label={"Name Category Group "}
                   value={dataForm.name}
                   onChange={(e) => {
                     dispatch(changeName(e.target.value));
@@ -73,7 +73,7 @@ function AddProducts() {
               </li>
               <li>
                 <Button secondary small type={"submit"}>
-                  Create Product
+                  Create category group
                 </Button>
               </li>
             </ul>

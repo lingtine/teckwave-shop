@@ -1,5 +1,5 @@
 import classNames from "classnames";
-
+import { Button as ButtonMaterial } from "@material-tailwind/react/components/Button";
 function Button({
   children,
   leftIcon,
@@ -8,16 +8,18 @@ function Button({
   //styles
   primary,
   secondary,
+  primary1,
   warning,
   success,
   danger,
   rounded,
-  outline,
-  className,
 
+  className,
+  outline,
+  gradient,
+  text,
   //size
   large,
-  normal,
   small,
   full,
   //
@@ -29,6 +31,7 @@ function Button({
     {
       "border-slate-500 bg-teal-500 text-white hover:bg-teal-400": primary,
       "border-secondary-3 bg-secondary-3 text-white": secondary,
+      "": primary1,
       "border-yellow-500 bg-yellow-500 text-white": warning,
       "border-green-500 bg-green-500 text-white": success,
       "border-red-500 bg-red-500 text-white": danger,
@@ -40,19 +43,40 @@ function Button({
       "text-green-500": outline && success,
       "text-red-500": outline && danger,
       "py-2 px-4 text-sm": small,
-      "px-10 py-3 text-base": normal,
       "py-4 px-12 text-lg": large,
       "w-full flex justify-center py-2 ": full,
       "opacity-50 cursor-not-allowed": hidden,
     },
     className
   );
+
+  let size = "md";
+  if (small) {
+    size = "sm";
+  } else if (large) {
+    size = "lg";
+  }
+
+  let variants = "filled";
+  if (outline) {
+    variants = "outlined";
+  } else if (gradient) {
+    variants = "gradient";
+  } else if (gradient) {
+    variants = "text";
+  }
   return (
-    <button className={styles} {...props}>
+    <ButtonMaterial
+      variant={variants}
+      size={size}
+      className={styles}
+      {...props}
+      fullWidth={full}
+    >
       {leftIcon && <span className="mr-2">{leftIcon}</span>}
       <span>{children}</span>
       {rightIcon && <span className="ml-2">{rightIcon}</span>}
-    </button>
+    </ButtonMaterial>
   );
 }
 

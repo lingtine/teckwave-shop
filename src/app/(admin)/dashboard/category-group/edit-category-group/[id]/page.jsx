@@ -6,22 +6,31 @@ import InputTextArea from "~/app/components/input/input-textarea";
 
 import { useParams, useRouter } from "next/navigation";
 import {
+  changeAllValue,
   changeDescription,
   changeName,
 } from "~/redux/features/product/category-group/form-edit-category-group-slice";
 import { useDispatch, useSelector } from "react-redux";
+import { useGetCategoryGroupQuery } from "~/redux/services/catalog/category-group-api";
 import { useUpdateCategoryGroupMutation } from "~/redux/services/catalog/category-group-api";
+import { useEffect } from "react";
 function EditProduct() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const router = useRouter();
+
   const dataForm = useSelector((state) => state.formEditCategoryGroup);
   const [updateCategory, result] = useUpdateCategoryGroupMutation();
-
+  const { data, isSuccess } = useGetCategoryGroupQuery(id);
   const handleSubmit = (e) => {
     e.preventDefault();
     updateCategory([id, dataForm]);
   };
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(changeAllValue(data.data));
+    }
+  }, [isSuccess]);
 
   return (
     <form onSubmit={handleSubmit}>

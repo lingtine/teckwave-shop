@@ -29,13 +29,15 @@ function Products() {
         label: "Product Name",
         render: (data) => {
           return (
-            <div>
-              <Image
-                src={data.imageUrl}
-                alt={data.name}
-                width={100}
-                height={80}
-              />
+            <div className="flex max-w-[200px] gap-4 justify-between">
+              <div className="relative w-20 h-20">
+                <Image
+                  src={data.imageUrl}
+                  alt={data.name}
+                  fill
+                  className="object-contain"
+                />
+              </div>
               <div>{data.name}</div>
             </div>
           );

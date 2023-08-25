@@ -12,8 +12,12 @@ import {
   useRemoveCategoryMutation,
 } from "~/redux/services/catalog/category-api";
 import { useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
 function Category() {
-  const { data, isSuccess } = useFetchCategoriesQuery();
+  const { pageNumber } = useParams();
+  const { data, isSuccess } = useFetchCategoriesQuery({
+    PageIndex: pageNumber,
+  });
   const [removeCategory, result] = useRemoveCategoryMutation();
   let configCategoryData = [];
   if (isSuccess) {
@@ -81,7 +85,7 @@ function Category() {
           {isSuccess && (
             <Pagination
               url={"/dashboard/category"}
-              pageIndex={0}
+              pageIndex={pageNumber}
               totalCount={data.totalCount}
               pageSize={data.pageSize}
             />

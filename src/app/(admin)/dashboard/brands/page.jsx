@@ -14,6 +14,7 @@ import { CiCircleRemove } from "react-icons/ci";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import Pagination from "~/app/components/products-page/pagination";
+import { toast } from "react-toastify";
 function Products() {
   const [getBrands, { isSuccess, data: brandData }] =
     useFetchBrandsByParametersMutation();
@@ -23,6 +24,11 @@ function Products() {
   useEffect(() => {
     getBrands({ PageIndex: currentPage });
   }, [currentPage]);
+  useEffect(() => {
+    if (result.isSuccess) {
+      toast.success("Delete success");
+    }
+  }, [result.isSuccess]);
   if (isSuccess) {
     console.log(brandData);
     configData = [

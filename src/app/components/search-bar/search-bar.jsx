@@ -1,5 +1,12 @@
 "use client";
-
+import {
+  List,
+  ListItem,
+  ListItemPrefix,
+  Avatar,
+  Card,
+  Typography,
+} from "@material-tailwind/react";
 import Image from "next/image";
 import { BiSearch } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,32 +34,41 @@ function SearchBar() {
     if (data.data.length !== 0) {
       renderSearchResult = data.data.map((product) => {
         return (
-          <li className="flex border-b last:border-none py-2 " key={product.id}>
+          <ListItem
+            className="flex border-b last:border-none py-2 "
+            key={product.id}
+          >
             <Link href={`/đâs/${product.id}`} className="flex items-center">
-              <div className="min-w-[80]">
+              <ListItemPrefix className="min-w-[80]">
                 <Image
                   src={product.imageUrl}
                   alt={product.name}
                   width={40}
                   height={30}
                 />
-              </div>
+              </ListItemPrefix>
               <div className="mx-4 flex-1">
-                <h6 className="text-base font-semibold">{product.name}</h6>
-                <p className="text-sm text-secondary-3">
+                <Typography
+                  variant="h6"
+                  color="blue-gray"
+                  className="line-clamp-2"
+                >
+                  {product.name}
+                </Typography>
+                <Typography
+                  variant="small"
+                  color="gray"
+                  className="font-normal"
+                >
                   {formatPrice(product.unitPrice)}
-                </p>
+                </Typography>
               </div>
             </Link>
-          </li>
+          </ListItem>
         );
       });
     } else if (data.data.length === 0) {
-      renderSearchResult = (
-        <div className="absolute s w-full py-2 px-3 bg-white top-[120%] border border-slate-300 rounded">
-          <div className="min-h-[50px]">No Result</div>
-        </div>
-      );
+      renderSearchResult = <ListItem>No Result</ListItem>;
     }
   }
 
@@ -97,9 +113,9 @@ function SearchBar() {
       </div>
       {debounceSearch && isSuccess && (
         <div className="z-50 absolute w-full py-2 px-3 bg-white top-[120%] border border-slate-300 rounded">
-          <ul className="max-h-[400px] overflow-y-scroll">
+          <List className="max-h-[400px] overflow-y-scroll ">
             {renderSearchResult}
-          </ul>
+          </List>
         </div>
       )}
     </div>

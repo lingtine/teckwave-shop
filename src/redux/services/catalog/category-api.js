@@ -11,7 +11,7 @@ const categoryApi = createApi({
           return {
             url: "catalogs/categories/",
             method: "GET",
-            parameters,
+            params: parameters,
           };
         },
         providesTags: ["Post", "Delete", "Update"],
@@ -24,6 +24,7 @@ const categoryApi = createApi({
             params: parameters,
           };
         },
+        providesTags: ["Post", "Delete", "Update"],
       }),
       updateCategory: builder.mutation({
         query: ([id, data]) => {

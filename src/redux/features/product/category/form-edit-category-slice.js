@@ -3,13 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   name: "",
   description: "",
-  categoryGroupId: "",
+  categoryGroup: null,
 };
 
 const formEditCategory = createSlice({
-  name: "formEditCategory",
+  name: "formEditCategorySlice",
   initialState,
   reducers: {
+    changeAllValue(state, action) {
+      state.name = action.payload.name;
+      state.description = action.payload.description;
+    },
     changeName(state, action) {
       state.name = action.payload;
     },

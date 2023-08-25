@@ -65,6 +65,7 @@ function LoginAdmin() {
               <div className="my-4">
                 <Input
                   label={"Password"}
+                  type="password"
                   value={loginAdmin.password}
                   onChange={(e) => {
                     dispatch(changePassword(e.target.value));
