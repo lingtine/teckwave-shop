@@ -29,6 +29,7 @@ import formAddReportSlice from "./features/warehouses/report/form-add-report-sli
 import formAddSupplierSlice from "./features/warehouses/supplier/form-add-supplier-slice";
 import formAddWarehouseSlice from "./features/warehouses/warehouse/form-add-warehouse-slice";
 import wishListSlice from "./features/auth/wish-list-slice";
+import formAddSpecificationSlice from "./features/warehouses/specification/form-add-specification-slice";
 import {
   pokemonApi,
   addressApi,
@@ -82,6 +83,7 @@ const store = configureStore({
     [formAddWarehouseSlice.name]: formAddWarehouseSlice.reducer,
     [formAddReportSlice.name]: formAddReportSlice.reducer,
     [wishListSlice.name]: wishListSlice.reducer,
+    [formAddSpecification.name]: formAddSpecification.reducer,
 
     //api
     [pokemonApi.reducerPath]: pokemonApi.reducer,

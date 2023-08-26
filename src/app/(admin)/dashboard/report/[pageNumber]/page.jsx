@@ -11,8 +11,12 @@ import { useFetchAllReportsQuery } from "~/redux/services/warehouse/report-api";
 import SelectedReportStatus from "~/app/components/admin/selected-report-status";
 import { Spinner } from "@material-tailwind/react/components/Spinner";
 import Pagination from "~/app/components/pagination/pagination";
+import { useParams } from "next/navigation";
 function Report() {
-  const { data, isSuccess, isFetching } = useFetchAllReportsQuery();
+  const { pageNumber } = useParams();
+  const { data, isSuccess, isFetching } = useFetchAllReportsQuery({
+    PageIndex: pageNumber,
+  });
   let configData, content;
   if (isSuccess) {
     configData = [
@@ -79,7 +83,7 @@ function Report() {
         <div className="flex justify-center">
           <Pagination
             totalCount={data.totalCount}
-            pageIndex={0}
+            pageIndex={pageNumber}
             pageSize={data.pageSize}
             url={"/dashboard/report"}
           />

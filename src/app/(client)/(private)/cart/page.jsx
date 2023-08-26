@@ -30,7 +30,6 @@ function CartPage() {
         </div>
       );
     } else {
-      console.log(cart.items);
       // renderPage = (
       //   <div className="grid grid-flow-col grid-cols-3 gap-4">
       //     <div className="col-span-2 bg-white p-8 shadow-lg rounded-lg">

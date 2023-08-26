@@ -11,8 +11,10 @@ import {
   useFetchCategoryGroupsQuery,
   useRemoveCategoryGroupMutation,
 } from "~/redux/services/catalog/category-group-api";
+
+import { Spinner } from "@material-tailwind/react/components/Spinner";
 function CategoryGroup() {
-  const { data, isSuccess } = useFetchCategoryGroupsQuery();
+  const { data, isSuccess, isFetching } = useFetchCategoryGroupsQuery();
   const [removeCategory, result] = useRemoveCategoryGroupMutation();
   let configCategoryGroup = [];
   if (isSuccess) {
@@ -58,6 +60,22 @@ function CategoryGroup() {
     ];
   }
 
+  let content;
+
+  if (isFetching) {
+    content = (
+      <div className="min-h-[400px] flex justify-center items-center">
+        <Spinner className="h-16 w-16 text-gray-900/50"></Spinner>
+      </div>
+    );
+  } else if (isSuccess) {
+    content = (
+      <div className="my-8 w-full">
+        <Table data={data.data} config={configCategoryGroup}></Table>
+      </div>
+    );
+  }
+
   return (
     <div>
       <div className="flex justify-between">
@@ -72,11 +90,7 @@ function CategoryGroup() {
           </Link>
         </div>
       </div>
-      <div className="my-8 w-full">
-        {isSuccess && data.data && (
-          <Table data={data.data} config={configCategoryGroup}></Table>
-        )}
-      </div>
+      {content}
     </div>
   );
 }

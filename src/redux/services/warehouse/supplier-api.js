@@ -3,12 +3,18 @@ import customFetchBase from "~/redux/api/customFetchBase";
 const supplierApi = createApi({
   reducerPath: "supplierApi",
   baseQuery: customFetchBase,
+  tagTypes: ["create", "update", "remove"],
   endpoints(builder) {
     return {
       fetchAllSuppliers: builder.query({
-        query: () => {
-          return { method: "GET", url: "warehouses/suppliers/" };
+        query: (parameters) => {
+          return {
+            method: "GET",
+            url: "warehouses/suppliers/",
+            params: parameters,
+          };
         },
+        providesTags: ["create", "update", "remove"],
       }),
       addSupplier: builder.mutation({
         query: (data) => {
@@ -18,6 +24,7 @@ const supplierApi = createApi({
             body: data,
           };
         },
+        invalidatesTags: ["create"],
       }),
       getSupplier: builder.query({
         query: (supplierId) => {
@@ -35,6 +42,7 @@ const supplierApi = createApi({
             body: data,
           };
         },
+        invalidatesTags: ["update"],
       }),
       removeSupplier: builder.mutation({
         query: (supplierId) => {
@@ -43,6 +51,7 @@ const supplierApi = createApi({
             method: "DELETE",
           };
         },
+        invalidatesTags: ["remove"],
       }),
       restoreSupplier: builder.mutation({
         query: (supplierId) => {

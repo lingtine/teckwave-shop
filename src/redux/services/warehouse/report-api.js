@@ -3,6 +3,7 @@ import customFetchBase from "~/redux/api/customFetchBase";
 const reportApi = createApi({
   reducerPath: "reportApi",
   baseQuery: customFetchBase,
+  tagTypes: ["post", "update", "approve", "inspect", "cancel"],
   endpoints(builder) {
     return {
       fetchAllReports: builder.query({
@@ -13,6 +14,7 @@ const reportApi = createApi({
             params: parameter,
           };
         },
+        providesTags: ["post", "update", "approve", "inspect", "cancel"],
       }),
       addReport: builder.mutation({
         query: (data) => {
@@ -22,6 +24,7 @@ const reportApi = createApi({
             body: data,
           };
         },
+        invalidatesTags: ["post"],
       }),
       getReport: builder.query({
         query: (reportId) => {
@@ -38,6 +41,7 @@ const reportApi = createApi({
             method: "POST",
           };
         },
+        invalidatesTags: ["approve"],
       }),
       inspectReport: builder.mutation({
         query: (reportId) => {
@@ -46,6 +50,7 @@ const reportApi = createApi({
             method: "POST",
           };
         },
+        invalidatesTags: ["inspect"],
       }),
       cancelReport: builder.mutation({
         query: (reportId) => {
@@ -54,6 +59,7 @@ const reportApi = createApi({
             url: `warehouses/reports/cancel/${reportId}/`,
           };
         },
+        invalidatesTags: ["cancel"],
       }),
     };
   },

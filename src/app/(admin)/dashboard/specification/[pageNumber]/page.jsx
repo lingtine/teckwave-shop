@@ -2,45 +2,32 @@
 
 import Link from "next/link";
 
+import { IoAddCircleOutline } from "react-icons/io5";
 import Image from "next/image";
 import {
-  useFetchAllBrandsQuery,
-  useDeleteBrandMutation,
-} from "~/redux/services/catalog/brand-api";
-import { Spinner } from "@material-tailwind/react/components/Spinner";
+  useFetchAllSpecificationQuery,
+  useDeleteSpecificationMutation,
+} from "~/redux/services/catalog/specification-api";
 import Table from "~/app/components/table/table";
 import { AiFillEdit } from "react-icons/ai";
 import { CiCircleRemove } from "react-icons/ci";
-import { IoAddCircleOutline } from "react-icons/io5";
-import { useEffect, useState } from "react";
 import Pagination from "~/app/components/pagination/pagination";
-import { toast } from "react-toastify";
-function Products() {
-  const { data, isSuccess, isFetching } = useFetchAllBrandsQuery();
-  const [currentPage, setCurrentPage] = useState(0);
-  const [removeBrand, result] = useDeleteBrandMutation();
-  let configData = [];
-  useEffect(() => {
-    if (result.isSuccess) {
-      toast.success("Delete success");
-    }
-  }, [result.isSuccess]);
+import { Spinner } from "@material-tailwind/react/components/Spinner";
+import { useParams } from "next/navigation";
+
+function Specification() {
+  const { pageNumber } = useParams();
+  const { data, isSuccess, isFetching } = useFetchAllSpecificationQuery({
+    PageIndex: pageNumber,
+  });
+  const [remove, result] = useDeleteSpecificationMutation();
+  let configData, content;
   if (isSuccess) {
     configData = [
       {
-        label: "Brand Name",
+        label: "Specification Name",
         render: (data) => {
-          return (
-            <div className="flex items-center justify-evenly px-8">
-              <Image
-                src={data.imageUrl}
-                alt={data.name}
-                width={50}
-                height={30}
-              />
-              <div className="mx-4">{data.name}</div>
-            </div>
-          );
+          return <div className="text-center">{data.name}</div>;
         },
       },
       {
@@ -57,22 +44,22 @@ function Products() {
               <button
                 className="mx-4"
                 onClick={() => {
-                  removeBrand(data.id);
+                  remove(data.id);
                 }}
               >
                 <CiCircleRemove />
               </button>
-              <Link href={`/dashboard/brands/edit-brand/${data.id}`}>
+              {/* <Link
+                href={`/dashboard/specification/edit-specification/${data.id}`}
+              >
                 <AiFillEdit></AiFillEdit>
-              </Link>
+              </Link> */}
             </div>
           );
         },
       },
     ];
   }
-
-  let content;
   if (isFetching) {
     content = (
       <div className="min-h-[400px] flex justify-center items-center">
@@ -81,31 +68,33 @@ function Products() {
     );
   } else if (isSuccess) {
     content = (
-      <div className="my-8 w-full">
-        <Table data={data.data} config={configData}></Table>
-        <div className="flex justify-center my-4">
+      <>
+        <div className="my-8 w-full">
+          <Table data={data.data} config={configData}></Table>
+        </div>
+        <div className="flex justify-center">
           <Pagination
-            url={"/dashboard/brands"}
-            pageIndex={currentPage}
-            pageSize={data.pageSize}
             totalCount={data.totalCount}
+            pageIndex={pageNumber}
+            pageSize={data.pageSize}
+            url={"/dashboard/specification"}
           />
         </div>
-      </div>
+      </>
     );
   }
 
   return (
     <div>
       <div className="flex justify-between">
-        <div>Brands</div>
+        <div>Specification</div>
         <div>
           <Link
-            href={"/dashboard/brands/add-brand"}
+            href={"/dashboard/specification/add-specification"}
             className="flex items-center bg-secondary-3 text-primary px-2 py-4 rounded-sm text-sm hover:opacity-90"
           >
             <IoAddCircleOutline />
-            <span className="mx-2">Add brand</span>
+            <span className="mx-2">Add Specification</span>
           </Link>
         </div>
       </div>
@@ -114,4 +103,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default Specification;

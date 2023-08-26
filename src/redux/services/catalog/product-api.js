@@ -13,6 +13,7 @@ const productApi = createApi({
           return {
             url: "catalogs/products/",
             method: "GET",
+            params: parameter,
           };
         },
         providesTags: ["Post", "Delete", "Update"],

@@ -7,10 +7,11 @@ const brandApi = createApi({
   endpoints(builder) {
     return {
       fetchAllBrands: builder.query({
-        query: () => {
+        query: (parameters) => {
           return {
             url: "catalogs/brands/",
             method: "GET",
+            params: parameters,
           };
         },
         providesTags: ["Post", "Delete", "Update"],

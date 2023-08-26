@@ -6,7 +6,6 @@ function Orders() {
   const { data, isSuccess } = useGetAllOrderQuery();
 
   if (isSuccess) {
-    console.log(data);
   }
 
   return <div>orders page</div>;

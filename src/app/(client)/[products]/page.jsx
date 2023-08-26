@@ -7,6 +7,7 @@ import Pagination from "~/app/components/products-page/pagination";
 import FilterProducts from "~/app/components/products-page/filter-products";
 import { useRouter, useParams } from "next/navigation";
 import { useGetAllProductsByParameterMutation } from "~/redux/services/catalog/product-api";
+import SkeletonCard from "~/app/components/skeleton/skeleton-cards";
 function ProductsPage() {
   const { products } = useParams();
   const [currentPage, setCurrentPage] = useState(0);
@@ -125,9 +126,32 @@ function ProductsPage() {
       pageIndex: currentPage,
       ...valueSorted?.value,
     };
-    console.log(parameter);
     getProducts(parameter);
   }, [getProducts, currentPage, valueSorted]);
+
+  let content;
+  if (isLoading) {
+    content = <SkeletonCard times={8} />;
+  } else if (data) {
+    content = (
+      <>
+        <div className="my-4">{<ProductList products={data.data} />}</div>
+        <div className="mx-auto">
+          {isSuccess && (
+            <Pagination
+              totalCount={data.totalCount}
+              pageIndex={data.pageIndex}
+              pageSize={data.pageSize}
+              changePage={(numberPage) => {
+                setCurrentPage(numberPage);
+              }}
+            />
+          )}
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="container mx-auto  ">
       <div className="grid grid-flow-row grid-cols-6 gap-2">
@@ -143,22 +167,7 @@ function ProductsPage() {
                 onChange={setValueSorted}
               />
             </div>
-            <div className="my-4">
-              {isSuccess && <ProductList products={data.data} />}
-            </div>
-
-            <div className="mx-auto">
-              {isSuccess && (
-                <Pagination
-                  totalCount={data.totalCount}
-                  pageIndex={data.pageIndex}
-                  pageSize={data.pageSize}
-                  changePage={(numberPage) => {
-                    setCurrentPage(numberPage);
-                  }}
-                />
-              )}
-            </div>
+            {content}
           </div>
         </div>
       </div>

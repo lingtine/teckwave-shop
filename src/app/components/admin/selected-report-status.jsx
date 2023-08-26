@@ -24,26 +24,24 @@ function SelectedReportStatus({ data, reportId }) {
 
   useEffect(() => {
     const { role } = jwtDecode(auth.accessToken);
+
     if (option.label === "Approved" && data === "Creative") {
-      if (role === "Employee") {
+      let adminRole = role.find((role) => role === "Admin");
+
+      if (!adminRole) {
         toast.error("You do not have Approved permission");
         setOption({ label: "Creative" });
-      }
-      if (role === "Admin") {
+      } else {
         approve(reportId);
       }
     }
     if (option.label === "Inspected" && data === "Approved") {
       inspect(reportId);
     }
-    if (option.label === "Cancelled") {
+    if (option.label === "Cancelled" && data !== "Cancelled") {
       cancelled(reportId);
     }
-
-    if (approvedSuccess) toast.success("Approved success");
-    if (inspectSuccess) toast.success("Inspected success");
-    if (cancelledSuccess) toast.success("Cancelled success");
-  }, [option, approvedSuccess, inspectSuccess, cancelledSuccess]);
+  }, [option]);
 
   if (data === "Creative") {
     options = [
@@ -74,6 +72,22 @@ function SelectedReportStatus({ data, reportId }) {
       {
         id: Math.random().toString(),
         label: "Cancelled",
+      },
+    ];
+  }
+  if (data === "Cancelled") {
+    options = [
+      {
+        id: Math.random().toString(),
+        label: "Cancelled",
+      },
+    ];
+  }
+  if (data === "Inspected") {
+    options = [
+      {
+        id: Math.random().toString(),
+        label: "Inspected",
       },
     ];
   }

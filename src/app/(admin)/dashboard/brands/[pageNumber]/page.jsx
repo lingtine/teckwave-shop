@@ -3,23 +3,28 @@
 import Link from "next/link";
 
 import Image from "next/image";
+import { Spinner } from "@material-tailwind/react/components/Spinner";
 import {
   useFetchAllBrandsQuery,
   useDeleteBrandMutation,
 } from "~/redux/services/catalog/brand-api";
-import { Spinner } from "@material-tailwind/react/components/Spinner";
 import Table from "~/app/components/table/table";
 import { AiFillEdit } from "react-icons/ai";
 import { CiCircleRemove } from "react-icons/ci";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import Pagination from "~/app/components/pagination/pagination";
+import { useParams } from "next/navigation";
 import { toast } from "react-toastify";
 function Products() {
-  const { data, isSuccess, isFetching } = useFetchAllBrandsQuery();
-  const [currentPage, setCurrentPage] = useState(0);
+  const { pageNumber } = useParams();
+  const { data, isSuccess, isFetching } = useFetchAllBrandsQuery({
+    PageIndex: pageNumber,
+  });
+
   const [removeBrand, result] = useDeleteBrandMutation();
   let configData = [];
+
   useEffect(() => {
     if (result.isSuccess) {
       toast.success("Delete success");
@@ -73,6 +78,7 @@ function Products() {
   }
 
   let content;
+
   if (isFetching) {
     content = (
       <div className="min-h-[400px] flex justify-center items-center">
@@ -83,10 +89,11 @@ function Products() {
     content = (
       <div className="my-8 w-full">
         <Table data={data.data} config={configData}></Table>
+
         <div className="flex justify-center my-4">
           <Pagination
             url={"/dashboard/brands"}
-            pageIndex={currentPage}
+            pageIndex={pageNumber}
             pageSize={data.pageSize}
             totalCount={data.totalCount}
           />

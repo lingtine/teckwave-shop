@@ -6,35 +6,36 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IconButton } from "@material-tailwind/react/components/IconButton";
 import Button from "../button/button";
 function Pagination({ url, pageIndex, pageSize, totalCount }) {
-  const maxSizePage = Math.floor(totalCount / pageSize);
+  const maxSizePage = Math.floor(totalCount / pageSize) + 1;
   const router = useRouter();
-  let renderItemPage = [];
-  for (let i = 0; i <= maxSizePage; i++) {
-    renderItemPage.push(
-      <li key={i}>
-        <Link href={i === 0 ? `${url}` : `${url}/${i}`}>
-          <IconButton variant={pageIndex == i ? "filled" : "text"}>
-            {i + 1}
-          </IconButton>
-        </Link>
-      </li>
-    );
-  }
+  let renderItemPage;
+
+  renderItemPage = Array(maxSizePage)
+    .fill(0)
+    .map((_, index) => {
+      return (
+        <li key={index}>
+          <Link href={index === 0 ? `${url}` : `${url}/${index}`}>
+            <IconButton variant={pageIndex == index ? "filled" : "text"}>
+              {index + 1}
+            </IconButton>
+          </Link>
+        </li>
+      );
+    });
 
   const handleBack = () => {
     if (pageIndex !== 0) {
-      if (pageIndex == 1) {
+      if (pageIndex === 1) {
         router.push(`${url}`);
       } else {
         router.push(`${url}/${pageIndex - 1}`);
       }
     }
   };
-  console.log(pageIndex);
-  console.log(maxSizePage);
 
   const handleForward = () => {
-    if (pageIndex != maxSizePage) {
+    if (pageIndex !== maxSizePage) {
       router.push(`${url}/${pageIndex + 1}`);
     }
   };
@@ -57,7 +58,7 @@ function Pagination({ url, pageIndex, pageSize, totalCount }) {
         <Button
           onClick={handleForward}
           rightIcon={<IoIosArrowForward />}
-          disabled={pageIndex == maxSizePage}
+          disabled={maxSizePage === 1 || pageIndex === maxSizePage}
         >
           next
         </Button>

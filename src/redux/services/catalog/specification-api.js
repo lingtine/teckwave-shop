@@ -3,6 +3,7 @@ import customFetchBase from "~/redux/api/customFetchBase";
 const specificationApi = createApi({
   reducerPath: "specificationApi",
   baseQuery: customFetchBase,
+  tagTypes: ["create", "delete", "update"],
   endpoints(builder) {
     return {
       fetchAllSpecification: builder.query({
@@ -13,6 +14,7 @@ const specificationApi = createApi({
             params: parameters,
           };
         },
+        providesTags: ["create", "delete", "update"],
       }),
       addSpecification: builder.mutation({
         query: (data) => {
@@ -22,6 +24,7 @@ const specificationApi = createApi({
             body: data,
           };
         },
+        invalidatesTags: ["create"],
       }),
       getSpecification: builder.query({
         query: (specificationId) => {
@@ -39,6 +42,7 @@ const specificationApi = createApi({
             body: data,
           };
         },
+        invalidatesTags: ["update"],
       }),
       deleteSpecification: builder.mutation({
         query: (specificationId) => {
@@ -47,6 +51,7 @@ const specificationApi = createApi({
             method: "DELETE",
           };
         },
+        invalidatesTags: ["update"],
       }),
     };
   },

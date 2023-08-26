@@ -11,57 +11,25 @@ import {
 import Table from "~/app/components/table/table";
 import { AiFillEdit } from "react-icons/ai";
 import { CiCircleRemove } from "react-icons/ci";
-import { useEffect } from "react";
+import Pagination from "~/app/components/pagination/pagination";
+import { Spinner } from "@material-tailwind/react/components/Spinner";
+
 function Products() {
-  const { data: specificationData, isSuccess } =
-    useFetchAllSpecificationQuery();
-  const [removeProduct, result] = useDeleteSpecificationMutation();
-  let configProductsData = [];
+  const { data, isSuccess, isFetching } = useFetchAllSpecificationQuery();
+  const [remove, result] = useDeleteSpecificationMutation();
+  let configData, content;
   if (isSuccess) {
-    console.log(specificationData);
-    configProductsData = [
+    configData = [
       {
-        label: "Product Name",
+        label: "Specification Name",
         render: (data) => {
-          return (
-            <div>
-              <Image
-                src={data.imageUrl}
-                alt={data.name}
-                width={100}
-                height={80}
-              />
-              <div>{data.name}</div>
-            </div>
-          );
+          return <div className="text-center">{data.name}</div>;
         },
       },
       {
         label: "Description",
         render: (data) => {
           return data.description;
-        },
-      },
-      {
-        label: "Unit Price",
-        render: (data) => {
-          return data.unitPrice;
-        },
-      },
-      {
-        label: "Number Star",
-        render: (data) => {
-          return <div className="text-center">{data.numberOfStar}</div>;
-        },
-      },
-      {
-        label: "Status",
-        render: (data) => {
-          return data.isActive ? (
-            <div className="text-center">Active</div>
-          ) : (
-            <div className="text-center">None</div>
-          );
         },
       },
       {
@@ -72,21 +40,44 @@ function Products() {
               <button
                 className="mx-4"
                 onClick={() => {
-                  removeProduct(data.id);
+                  remove(data.id);
                 }}
               >
                 <CiCircleRemove />
               </button>
-              <Link
+              {/* <Link
                 href={`/dashboard/specification/edit-specification/${data.id}`}
               >
                 <AiFillEdit></AiFillEdit>
-              </Link>
+              </Link> */}
             </div>
           );
         },
       },
     ];
+  }
+  if (isFetching) {
+    content = (
+      <div className="min-h-[400px] flex justify-center items-center">
+        <Spinner className="h-16 w-16 text-gray-900/50"></Spinner>
+      </div>
+    );
+  } else if (isSuccess) {
+    content = (
+      <>
+        <div className="my-8 w-full">
+          <Table data={data.data} config={configData}></Table>
+        </div>
+        <div className="flex justify-center">
+          <Pagination
+            totalCount={data.totalCount}
+            pageIndex={0}
+            pageSize={data.pageSize}
+            url={"/dashboard/specification"}
+          />
+        </div>
+      </>
+    );
   }
 
   return (
@@ -103,14 +94,7 @@ function Products() {
           </Link>
         </div>
       </div>
-      <div className="my-8 w-full">
-        {isSuccess && specificationData.data && (
-          <Table
-            data={specificationData.data}
-            config={configProductsData}
-          ></Table>
-        )}
-      </div>
+      {content}
     </div>
   );
 }

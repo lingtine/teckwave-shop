@@ -12,8 +12,6 @@ function WishList() {
   const { wishList } = useSelector((state) => state.wishListSlice);
   let renderWishList;
 
-  console.log(wishList);
-
   const handleRemove = () => {};
   if (wishList) {
     if (wishList.length !== 0)

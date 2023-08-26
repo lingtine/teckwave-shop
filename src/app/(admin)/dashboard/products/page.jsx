@@ -6,25 +6,21 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import Image from "next/image";
 import {
   useDeleteProductMutation,
+  useGetAllProductsQuery,
   useGetAllProductsByParameterMutation,
 } from "~/redux/services/catalog/product-api";
+import { Spinner } from "@material-tailwind/react/components/Spinner";
 import Table from "~/app/components/table/table";
 import { AiFillEdit } from "react-icons/ai";
 import { CiCircleRemove } from "react-icons/ci";
-import { useEffect, useState } from "react";
-import Pagination from "~/app/components/products-page/pagination";
+import Pagination from "~/app/components/pagination/pagination";
 function Products() {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [getProducts, { data: productsData, isSuccess, isError, isLoading }] =
-    useGetAllProductsByParameterMutation();
+  const { data, isSuccess, isError, isFetching } = useGetAllProductsQuery();
   const [removeProduct, result] = useDeleteProductMutation();
-  let configProductsData = [];
+  let configData, content;
 
-  useEffect(() => {
-    getProducts({ PageIndex: currentPage });
-  }, [currentPage]);
   if (isSuccess) {
-    configProductsData = [
+    configData = [
       {
         label: "Product Name",
         render: (data) => {
@@ -94,6 +90,30 @@ function Products() {
     ];
   }
 
+  if (isFetching) {
+    content = (
+      <div className="min-h-[400px] flex justify-center items-center">
+        <Spinner className="h-16 w-16 text-gray-900/50"></Spinner>
+      </div>
+    );
+  } else if (isSuccess) {
+    content = (
+      <>
+        <div className="my-8 w-full">
+          <Table data={data.data} config={configData}></Table>
+        </div>
+        <div className="flex justify-center">
+          <Pagination
+            totalCount={data.totalCount}
+            pageIndex={data.pageIndex}
+            pageSize={data.pageSize}
+            url={"/dashboard/products"}
+          />
+        </div>
+      </>
+    );
+  }
+
   return (
     <div className="mb-20">
       <div className="flex justify-between">
@@ -108,23 +128,7 @@ function Products() {
           </Link>
         </div>
       </div>
-      <div className="my-8 w-full">
-        {isSuccess && productsData.data && (
-          <Table data={productsData.data} config={configProductsData}></Table>
-        )}
-      </div>
-      <div className="flex justify-center">
-        {isSuccess && (
-          <Pagination
-            totalCount={productsData.totalCount}
-            pageIndex={productsData.pageIndex}
-            pageSize={productsData.pageSize}
-            changePage={(numberPage) => {
-              setCurrentPage(numberPage);
-            }}
-          />
-        )}
-      </div>
+      {content}
     </div>
   );
 }

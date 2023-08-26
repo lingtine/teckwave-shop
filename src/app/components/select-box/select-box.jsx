@@ -45,11 +45,11 @@ function SelectBox({ options = [], placeholder, selected, onChange }) {
           onClick={handleDropDown}
           className="flex items-center justify-between"
         >
-          <h3>{selected ? selected.label : placeholder || "Select..."}</h3>
-          {isOpened ? <BiDownArrow /> : <BiLeftArrow />}
+          <p>{selected ? selected.label : placeholder || "Select..."}</p>
+          {isOpened && options.length !== 1 ? <BiDownArrow /> : <BiLeftArrow />}
         </div>
       </div>
-      {isOpened && (
+      {isOpened && options.length !== 1 && (
         <ul className="absolute w-full h-fit min-h-[20px] left-0 py-3 px-2 bg-white rounded-es-2xl rounded-ee-2xl shadow-lg z-30">
           {renderOptions}
         </ul>

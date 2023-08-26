@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Card, Typography } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react/components/Typography";
 function Table({ data, config, keyFn }) {
   const renderLabel = config.map((colum) => {
     if (!!colum.header) {
@@ -12,6 +12,7 @@ function Table({ data, config, keyFn }) {
         className="border-b border-blue-gray-100 bg-blue-gray-50 p-4"
       >
         <Typography
+          component={"span"}
           variant="small"
           color="blue-gray"
           className="font-normal leading-none opacity-70"
@@ -26,7 +27,12 @@ function Table({ data, config, keyFn }) {
     const renderedColumns = config.map((colum) => {
       return (
         <td key={colum.label} className="p-4">
-          <Typography variant="small" color="blue-gray" className="font-normal">
+          <Typography
+            component={"span"}
+            variant="small"
+            color="blue-gray"
+            className="font-normal"
+          >
             {colum.render(dataColum)}
           </Typography>
         </td>
@@ -38,6 +44,7 @@ function Table({ data, config, keyFn }) {
       </tr>
     );
   });
+
   return (
     <table className="table-auto border-spacing-2 w-full">
       <thead className="">

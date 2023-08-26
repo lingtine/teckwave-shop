@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 import { IoAddCircleOutline } from "react-icons/io5";
-import Image from "next/image";
 
 import Table from "~/app/components/table/table";
 import { AiFillEdit } from "react-icons/ai";
@@ -12,11 +11,15 @@ import {
   useFetchAllSuppliersQuery,
   useRemoveSupplierMutation,
 } from "~/redux/services/warehouse/supplier-api";
+import Pagination from "~/app/components/pagination/pagination";
+import { Spinner } from "@material-tailwind/react/components/Spinner";
+
 function Products() {
-  const { data, isSuccess } = useFetchAllSuppliersQuery();
+  const { data, isSuccess, isFetching } = useFetchAllSuppliersQuery();
   const [remove, result] = useRemoveSupplierMutation();
-  let configData = [];
+  let configData, content;
   if (isSuccess) {
+    console.log(data);
     configData = [
       {
         label: "Supplier Name",
@@ -71,6 +74,30 @@ function Products() {
     ];
   }
 
+  if (isFetching) {
+    content = (
+      <div className="min-h-[400px] flex justify-center items-center">
+        <Spinner className="h-16 w-16 text-gray-900/50"></Spinner>
+      </div>
+    );
+  } else if (isSuccess) {
+    content = (
+      <>
+        <div className="my-8 w-full">
+          <Table data={data.data} config={configData}></Table>
+        </div>
+        <div className="flex justify-center">
+          <Pagination
+            totalCount={data.totalCount}
+            pageIndex={0}
+            pageSize={data.pageSize}
+            url={"/dashboard/supplier"}
+          />
+        </div>
+      </>
+    );
+  }
+
   return (
     <div>
       <div className="flex justify-between">
@@ -85,11 +112,7 @@ function Products() {
           </Link>
         </div>
       </div>
-      <div className="my-8 w-full">
-        {isSuccess && data.data && (
-          <Table data={data.data} config={configData}></Table>
-        )}
-      </div>
+      {content}
     </div>
   );
 }
