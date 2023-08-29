@@ -19,7 +19,6 @@ function Products() {
   const [remove, result] = useRemoveSupplierMutation();
   let configData, content;
   if (isSuccess) {
-    console.log(data);
     configData = [
       {
         label: "Supplier Name",

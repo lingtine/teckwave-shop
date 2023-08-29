@@ -34,10 +34,18 @@ const formAddReportSlice = createSlice({
     changeAddProduct(state, action) {
       state.products.push(action.payload);
     },
+    changeRemoveProduct(state, action) {
+      const dataUpdate = state.products.filter((item) => {
+        return item.id !== action.payload.id;
+      });
+
+      state.products = dataUpdate;
+    },
     changeQuantity(state, action) {
       const updateArray = state.products.map((product) => {
         return product.id === action.payload.id ? action.payload : product;
       });
+
       state.products = updateArray;
     },
   },
@@ -52,6 +60,7 @@ export const {
   changeAddProduct,
   changeQuantity,
   cleanData,
+  changeRemoveProduct,
 } = formAddReportSlice.actions;
 
 export default formAddReportSlice;

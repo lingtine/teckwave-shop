@@ -4,15 +4,88 @@ import Image from "next/image";
 import { TiDelete } from "react-icons/ti";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
-import InputQuantity from "~/app/components/input-quanlity/input-quanlity";
 import { useGetCartDetailQuery } from "~/redux/services/orders/cart-api";
 import { useSelector } from "react-redux";
 import { TbShoppingCartPlus } from "react-icons/tb";
+import { useGetListProductsByIdQuery } from "~/redux/services/catalog/product-api";
+import Table from "~/app/components/table/table";
+import { formatPrice } from "~/utils/formatPrice";
+import CartItemQuantity from "~/app/components/cart/cart-item-quantity";
 function CartPage() {
   const { cart } = useSelector((state) => state.cart);
-
+  const arrayId = cart?.items.map((item) => item.productId);
+  const { data, isSuccess } = useGetListProductsByIdQuery(arrayId, {
+    refetchOnMountOrArgChange: true,
+  });
   let renderPage;
-  if (cart) {
+  let dataTable, configData;
+  configData = [
+    {
+      label: "Product Name",
+      render: (data) => {
+        return (
+          <div className="flex gap-4 max-w-[300px]">
+            <div className="relative w-20 h-20">
+              <Image
+                fill
+                className="object-contain"
+                alt={data.productName}
+                src={data.productImage}
+              />
+            </div>
+            <div className="flex-1">{data.productName}</div>
+          </div>
+        );
+      },
+    },
+    {
+      label: "Price",
+      render: (data) => {
+        return (
+          <div className="text-center">{formatPrice(data.productPrice)}</div>
+        );
+      },
+    },
+    {
+      label: "Quantity",
+      render: (data) => {
+        return (
+          <div className="text-center">
+            <CartItemQuantity data={data} />
+          </div>
+        );
+      },
+    },
+
+    {
+      label: "Total",
+      render: (data) => {
+        return (
+          <div className="text-center">
+            {formatPrice(data.quantity * data.productPrice)}
+          </div>
+        );
+      },
+    },
+  ];
+  if (isSuccess) {
+    dataTable = cart?.items.map((item) => {
+      const product = data.data.find(
+        (product) => item.productId === product.id
+      );
+
+      return {
+        ...item,
+        productName: product.name,
+        productImage: product.imageUrl,
+        productPrice: product.unitPrice,
+      };
+    });
+    const totalCount = dataTable.reduce((accumulator, curr) => {
+      let total = curr.quantity * curr.productPrice;
+      return accumulator + total;
+    }, 0);
+    console.log(totalCount);
     if (cart.items.length === 0) {
       renderPage = (
         <div className=" min-h-[400px] flex-col flex justify-center items-center">
@@ -30,53 +103,43 @@ function CartPage() {
         </div>
       );
     } else {
-      // renderPage = (
-      //   <div className="grid grid-flow-col grid-cols-3 gap-4">
-      //     <div className="col-span-2 bg-white p-8 shadow-lg rounded-lg">
-      //       <div>
-      //         <ul className="flex justify-between items-center py-4">
-      //           <li className="min-w-[360px]">Item</li>
-      //           <div className="flex justify-between flex-1">
-      //             <li className="">Price</li>
-      //             <li className="">Quantity</li>
-      //             <li className="">Subtotal</li>
-      //           </div>
-      //         </ul>
-      //       </div>
-      //       {/* <ul>{renderCart}</ul> */}
-      //       <Link
-      //         href={"/"}
-      //         className="my-2 flex items-center p-4 rounded-md border font-medium text-gray-800 text-base hover:bg-secondary-3 hover:text-primary w-fit"
-      //       >
-      //         <IoIosArrowBack />
-      //         <span className="ml-4">Continue Shopping</span>
-      //       </Link>
-      //     </div>
-      //     <div className="p-8 bg-white rounded h-fit border border-primary-1">
-      //       <h3 className="text-1xl font-bold dark:text-white">Summary</h3>
-      //       <div className="">
-      //         <div className="flex justify-between py-4 border-b ">
-      //           <h5>Subtotal:</h5>
-      //           <p className="font-bold">30000</p>
-      //         </div>
-      //         <div className="flex justify-between py-4 border-b">
-      //           <h5>Shipping:</h5>
-      //           <p className="font-bold">30000</p>
-      //         </div>
-      //       </div>
-      //       <div className="flex justify-between my-4 text-xl">
-      //         <h5>Total</h5>
-      //         <p className="font-bold">30000</p>
-      //       </div>
-      //       <Link
-      //         href={"/checkout"}
-      //         className="block text-center py-3 border bg-secondary-3 text-primary w-full rounded-lg hover:opacity-90"
-      //       >
-      //         Check out
-      //       </Link>
-      //     </div>
-      //   </div>
-      // );
+      renderPage = (
+        <div className="grid grid-flow-col grid-cols-3 gap-4">
+          <div className="col-span-2 bg-white p-8 shadow-lg rounded-lg">
+            {isSuccess && <Table config={configData} data={dataTable} />}
+            <Link
+              href={"/"}
+              className="my-2 flex items-center p-4 rounded-md border font-medium text-gray-800 text-base hover:bg-secondary-3 hover:text-primary w-fit"
+            >
+              <IoIosArrowBack />
+              <span className="ml-4">Continue Shopping</span>
+            </Link>
+          </div>
+          <div className="p-8 bg-white rounded h-fit border border-primary-1">
+            <h3 className="text-1xl font-bold dark:text-white">Summary</h3>
+            <div className="">
+              <div className="flex justify-between py-4 border-b ">
+                <h5>Subtotal:</h5>
+                <p className="font-bold">{formatPrice(totalCount)}</p>
+              </div>
+              <div className="flex justify-between py-4 border-b">
+                <h5>Shipping:</h5>
+                <p className="font-bold">{formatPrice(0)}</p>
+              </div>
+            </div>
+            <div className="flex justify-between my-4 text-xl">
+              <h5>Total</h5>
+              <p className="font-bold">{formatPrice(totalCount)}</p>
+            </div>
+            <Link
+              href={"/checkout"}
+              className="block text-center py-3 border bg-secondary-3 text-primary w-full rounded-lg hover:opacity-90"
+            >
+              Check out
+            </Link>
+          </div>
+        </div>
+      );
     }
   }
 

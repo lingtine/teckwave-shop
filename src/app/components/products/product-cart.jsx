@@ -10,58 +10,82 @@ import {
   useAddToWishListMutation,
   useRemoveToWishListMutation,
 } from "~/redux/services/customer/customer-api";
+
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import useDebounce from "~/hooks/use-debounce";
+
+import { useAddProductMutation } from "~/redux/services/orders/cart-api";
+import { Rating } from "@material-tailwind/react";
 function ProductCart({ product }) {
   const { user } = useSelector((state) => state.user);
-  const { wishList } = useSelector((state) => state.wishListSlice);
-  const found = wishList?.find((item) => item.productId === product.id);
-  const [status, setStatus] = useState(!!found);
-  const debounceValue = useDebounce(status, 500);
+  //const { wishList } = useSelector((state) => state.wishListSlice);
+  const [addProduct, result] = useAddProductMutation();
 
-  const [addWistList, resultAddWishList] = useAddToWishListMutation();
-  const [removeWistList, resultRemoveWishList] = useRemoveToWishListMutation();
-  const handleAddProduct = () => {};
+  // const found = wishList?.find((item) => item.productId === product.id);
+  // const [status, setStatus] = useState(!!found);
+  // const debounceValue = useDebounce(status, 500);
+
+  // const [addWistList, resultAddWishList] = useAddToWishListMutation();
+  // const [removeWistList, resultRemoveWishList] = useRemoveToWishListMutation();
+
   let numberFormat = new Intl.NumberFormat("vi", {
     style: "currency",
     currency: "VND",
   });
+  // useEffect(() => {
+  //   if (resultAddWishList.isSuccess) {
+  //     toast.success("Add to wish list success");
+  //   }
+  // }, [resultAddWishList.isSuccess]);
+  // useEffect(() => {
+  //   if (resultRemoveWishList.isSuccess) {
+  //     toast.success("Remove to wish list success");
+  //   }
+  // }, [resultRemoveWishList.isSuccess]);
+  // useEffect(() => {
+  //   if (debounceValue) {
+  //     addWistList(product.id);
+  //   } else {
+  //     removeWistList(product.id);
+  //   }
+  // }, [debounceValue]);
+  // const renderAction = (
+  //   <div>
+  //     <div
+  //       onClick={() => {
+  //         setStatus(!status);
+  //       }}
+  //       className="absolute text-xl text-secondary-3 p-2.5 rounded-full right-1  top-6"
+  //     >
+  //       {status ? <AiFillHeart /> : <AiOutlineHeart />}
+  //     </div>
+  //     <div
+  //       onClick={handleAddProduct}
+  //       className="cursor-pointer absolute group-hover:block hidden bg-secondary-3 text-white p-2.5 rounded-full right-4 top-[50%] text-lg text-center"
+  //     >
+  //       <BiCartAdd />
+  //     </div>
+  //   </div>
+  // );
+  //function
   useEffect(() => {
-    if (resultAddWishList.isSuccess) {
-      toast.success("Add to wish list success");
+    if (result.isSuccess) {
+      toast.success("Add product Success");
     }
-  }, [resultAddWishList.isSuccess]);
-  useEffect(() => {
-    if (resultRemoveWishList.isSuccess) {
-      toast.success("Remove to wish list success");
+    if (result.isError) {
+      toast.error("error");
     }
-  }, [resultRemoveWishList.isSuccess]);
-  useEffect(() => {
-    if (debounceValue) {
-      addWistList(product.id);
-    } else {
-      removeWistList(product.id);
-    }
-  }, [debounceValue]);
-  const renderAction = (
-    <div>
-      <div
-        onClick={() => {
-          setStatus(!status);
-        }}
-        className="absolute text-xl text-secondary-3 p-2.5 rounded-full right-1  top-6"
-      >
-        {status ? <AiFillHeart /> : <AiOutlineHeart />}
-      </div>
-      <div
-        onClick={handleAddProduct}
-        className="cursor-pointer absolute group-hover:block hidden bg-secondary-3 text-white p-2.5 rounded-full right-4 top-[50%] text-lg text-center"
-      >
-        <BiCartAdd />
-      </div>
-    </div>
-  );
+  }, [result.isSuccess, result.isError]);
+
+  const handleAddToCart = () => {
+    addProduct({
+      productId: product.id,
+      productName: product.name,
+      quantity: 1,
+      unitPrice: product.unitPrice,
+    });
+  };
 
   return (
     <div className="relative flex w-full flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
@@ -76,19 +100,29 @@ function ProductCart({ product }) {
         </div>
         <div className="p-6">
           <div className="mb-2 flex flex-col min-h-[82px]">
-            <h5 className="line-clamp-2 font-sans text-lg font-bold leading-relaxed text-blue-gray-900 antialiased">
+            <h5 className="line-clamp-1 font-sans text-lg font-bold leading-relaxed text-blue-gray-900 antialiased">
               {product.name}
             </h5>
+            <Rating value={product.numberOfStar} readonly />
             <p className="block font-sans text-base font-medium leading-relaxed text-blue-gray-900 antialiased">
               {numberFormat.format(product.unitPrice)}
             </p>
           </div>
         </div>
       </Link>
-      <div className="p-6 pt-0">
-        <Button full secondary className="font-bold">
-          Add to Cart
-        </Button>
+      <div className="p-4 pt-0">
+        {product.isInStock ? (
+          <Button
+            full
+            secondary
+            className="font-bold"
+            onClick={handleAddToCart}
+          >
+            Add to Cart
+          </Button>
+        ) : (
+          <div className="font-bold">Out Of Stock</div>
+        )}
       </div>
     </div>
   );

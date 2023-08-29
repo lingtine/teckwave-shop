@@ -5,11 +5,11 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 function LayoutPrivate({ children }) {
-  const { user } = useSelector((state) => state.user);
+  const { accessToken } = useSelector((state) => state.authSlice);
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
+    if (!accessToken) {
       router.push("/login");
     }
   }, []);

@@ -36,6 +36,29 @@ function ProductContent({ product }) {
     }
   };
 
+  let handleAction;
+  if (product.isInStock) {
+    handleAction = (
+      <>
+        <InputQuantity onChange={setValue} quantity={value}></InputQuantity>
+        <Button
+          onClick={handleAddToCart}
+          secondary
+          small
+          className="mx-4 px-2 inline-block"
+        >
+          Buy Now
+        </Button>
+      </>
+    );
+  } else {
+    handleAction = (
+      <div className="uppercase font-bold text-lg text-secondary-3">
+        Out of Stock
+      </div>
+    );
+  }
+
   return (
     <div className="flex -mx-[35px] my-10">
       <div className="flex-[0_0_62.5%] max-w-[62.5%] px-[35px]">
@@ -55,17 +78,7 @@ function ProductContent({ product }) {
             {product.description}
           </p>
         </div>
-        <div className=" flex py-8 items-center">
-          <InputQuantity onChange={setValue} quantity={value}></InputQuantity>
-          <Button
-            onClick={handleAddToCart}
-            secondary
-            small
-            className="mx-4 px-2 inline-block"
-          >
-            Buy Now
-          </Button>
-        </div>
+        <div className="flex py-8 items-center">{handleAction}</div>
         <div className="mb-8">
           <div className="flex items-center p-4 border rounded-t-md  border-color-text-black">
             <div className="text-4xl ">

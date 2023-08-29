@@ -1,27 +1,29 @@
 import Image from "next/image";
 import { formatPrice } from "~/utils/formatPrice";
+import { ListItem, ListItemPrefix, Typography } from "@material-tailwind/react";
 function ProductItem({ product }) {
-  const price = formatPrice(999);
   return (
-    <li className="flex justify-between w-full items-center">
+    <ListItem className="flex justify-between w-full items-center">
       <div className="flex items-center">
-        <Image
-          src={product.image}
-          alt={product.name}
-          width={100}
-          height={100}
-          className="h-full"
-        />
+        <ListItemPrefix className="flex items-center relative w-20 h-20">
+          <Image
+            className="object-contain"
+            src={product.productImage}
+            alt={product.productName}
+            fill
+          />
+        </ListItemPrefix>
         <div>
-          <h4 className="text-base">{product.name}</h4>
-          <h5 className="text-xs text-gray-400 leading-normal">
-            {product.subTile}
-          </h5>
-          <p className="text-base">{price}</p>
+          <Typography variant="h6" color="blue-gray">
+            {product.productName}
+          </Typography>
+          <Typography variant="small" color="gray" className="font-normal">
+            {formatPrice(product.productPrice)}
+          </Typography>
         </div>
       </div>
-      <div>{product.quality}</div>
-    </li>
+      <div>{product.quantity}</div>
+    </ListItem>
   );
 }
 

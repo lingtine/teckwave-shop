@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Fragment } from "react";
 import { Typography } from "@material-tailwind/react/components/Typography";
 function Table({ data, config, keyFn }) {
@@ -27,14 +28,14 @@ function Table({ data, config, keyFn }) {
     const renderedColumns = config.map((colum) => {
       return (
         <td key={colum.label} className="p-4">
-          <Typography
+          <div
             component={"span"}
             variant="small"
             color="blue-gray"
             className="font-normal"
           >
             {colum.render(dataColum)}
-          </Typography>
+          </div>
         </td>
       );
     });

@@ -93,6 +93,17 @@ const productApi = createApi({
           };
         },
       }),
+      getListProductsById: builder.query({
+        query: (data) => {
+          return {
+            url: "catalogs/products/list",
+            method: "POST",
+            body: {
+              ids: data,
+            },
+          };
+        },
+      }),
       restoreProduct: builder.mutation({
         query: (id) => {
           return {
@@ -166,6 +177,7 @@ export const {
   useGetAllProductsQuery,
   useSearchProductsMutation,
   useGetAllProductsByParameterMutation,
+  useGetListProductsByIdQuery,
   //product
   useAddProductMutation,
   useDeleteProductMutation,

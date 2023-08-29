@@ -27,9 +27,7 @@ const cartApi = createApi({
           return {
             method: "PUT",
             url: "orders/carts/",
-            body: {
-              ...data,
-            },
+            body: data,
           };
         },
         invalidatesTags: ["Update"],
@@ -53,6 +51,7 @@ const cartApi = createApi({
             method: "DELETE",
           };
         },
+        invalidatesTags: ["Delete"],
       }),
     };
   },

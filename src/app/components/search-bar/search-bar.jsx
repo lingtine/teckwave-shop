@@ -3,8 +3,6 @@ import {
   List,
   ListItem,
   ListItemPrefix,
-  Avatar,
-  Card,
   Typography,
 } from "@material-tailwind/react";
 import Image from "next/image";
@@ -34,11 +32,14 @@ function SearchBar() {
     if (data.data.length !== 0) {
       renderSearchResult = data.data.map((product) => {
         return (
-          <ListItem
-            className="flex border-b last:border-none py-2 "
+          <Link
+            href={`/${product.name}/${product.id}`}
             key={product.id}
+            onClick={() => {
+              dispatch(changeSearchValue(""));
+            }}
           >
-            <Link href={`/đâs/${product.id}`} className="flex items-center">
+            <ListItem className="flex border-b last:border-none py-2 ">
               <ListItemPrefix className="min-w-[80]">
                 <Image
                   src={product.imageUrl}
@@ -63,8 +64,8 @@ function SearchBar() {
                   {formatPrice(product.unitPrice)}
                 </Typography>
               </div>
-            </Link>
-          </ListItem>
+            </ListItem>
+          </Link>
         );
       });
     } else if (data.data.length === 0) {

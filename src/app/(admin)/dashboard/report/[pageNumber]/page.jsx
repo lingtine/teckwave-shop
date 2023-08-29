@@ -8,7 +8,6 @@ import Table from "~/app/components/table/table";
 import { AiFillEdit } from "react-icons/ai";
 import { CiCircleRemove } from "react-icons/ci";
 import { useFetchAllReportsQuery } from "~/redux/services/warehouse/report-api";
-import SelectedReportStatus from "~/app/components/admin/selected-report-status";
 import { Spinner } from "@material-tailwind/react/components/Spinner";
 import Pagination from "~/app/components/pagination/pagination";
 import { useParams } from "next/navigation";
@@ -29,14 +28,7 @@ function Report() {
       {
         label: "Status",
         render: (data) => {
-          return (
-            <div className="flex justify-center">
-              <SelectedReportStatus
-                reportId={data.id}
-                data={data.reportStatus}
-              />
-            </div>
-          );
+          return <div className="text-center">{data.reportStatus}</div>;
         },
       },
       {

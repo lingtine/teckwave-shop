@@ -18,6 +18,7 @@ import authReducer from "./features/auth/auth-slice";
 import cartReducer from "./features/cart/cart";
 import formAddBrandSlice from "./features/dashboard/brand/form-add-brand-slice";
 import formUpdateBrandSlice from "./features/dashboard/brand/form-update-brand-slice";
+import formAddSpecificationProductSlice from "./features/product/form-add-specification-product-slice";
 
 import formAddCategorySlice from "./features/product/category/form-add-category-slice";
 import formEditCategorySlice from "./features/product/category/form-edit-category-slice";
@@ -29,7 +30,9 @@ import formAddReportSlice from "./features/warehouses/report/form-add-report-sli
 import formAddSupplierSlice from "./features/warehouses/supplier/form-add-supplier-slice";
 import formAddWarehouseSlice from "./features/warehouses/warehouse/form-add-warehouse-slice";
 import wishListSlice from "./features/auth/wish-list-slice";
-import formAddSpecificationSlice from "./features/warehouses/specification/form-add-specification-slice";
+import formCreateDiscountEventSlice from "./features/warehouses/discount/form-create-discount-slice";
+import formCreateCouponSlice from "./features/warehouses/discount/form-create-coupon-slice";
+
 import {
   pokemonApi,
   addressApi,
@@ -83,7 +86,11 @@ const store = configureStore({
     [formAddWarehouseSlice.name]: formAddWarehouseSlice.reducer,
     [formAddReportSlice.name]: formAddReportSlice.reducer,
     [wishListSlice.name]: wishListSlice.reducer,
-    [formAddSpecification.name]: formAddSpecification.reducer,
+    [formCreateDiscountEventSlice.name]: formCreateDiscountEventSlice.reducer,
+
+    [formCreateCouponSlice.name]: formCreateCouponSlice.reducer,
+    [formAddSpecificationProductSlice.name]:
+      formAddSpecificationProductSlice.reducer,
 
     //api
     [pokemonApi.reducerPath]: pokemonApi.reducer,

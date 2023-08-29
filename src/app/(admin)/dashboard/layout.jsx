@@ -6,12 +6,12 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function AdminLayout({ children }) {
-  const { user } = useSelector((state) => state.user);
+  const { accessToken } = useSelector((state) => state.authSlice);
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
-      router.push("/login-admin");
+    if (!accessToken) {
+      router.push("/login");
     }
   }, []);
 

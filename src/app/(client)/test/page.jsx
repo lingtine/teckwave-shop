@@ -1,9 +1,9 @@
-import SkeletonTableList from "~/app/components/skeleton/skeleton-table-items";
+import SkeletonProductDetail from "~/app/components/skeleton/skeleton-product-detail";
 
 function Test() {
   return (
     <div>
-      <SkeletonTableList times={4} />
+      <SkeletonProductDetail />
     </div>
   );
 }

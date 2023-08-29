@@ -1,8 +1,10 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import customFetchBase from "~/redux/api/customFetchBase";
+
 const discountEventApi = createApi({
   reducerPath: "discountEventApi",
   baseQuery: customFetchBase,
+  tagTypes: ["create", "update", "remove", "update-status"],
   endpoints(builder) {
     return {
       getAllDiscountEvent: builder.query({
@@ -13,6 +15,7 @@ const discountEventApi = createApi({
             params: parameters,
           };
         },
+        providesTags: ["create", "update", "remove", "update-status"],
       }),
       createDiscountEvent: builder.mutation({
         query: (data) => {
@@ -22,6 +25,7 @@ const discountEventApi = createApi({
             body: data,
           };
         },
+        invalidatesTags: ["create"],
       }),
       getDiscountEvent: builder.query({
         query: (discountEventId) => {
@@ -39,6 +43,7 @@ const discountEventApi = createApi({
             body: data,
           };
         },
+        invalidatesTags: ["update"],
       }),
       removeDiscountEvent: builder.mutation({
         query: (discountEventId) => {
@@ -47,14 +52,16 @@ const discountEventApi = createApi({
             url: `discounts/discounts/${discountEventId}`,
           };
         },
+        invalidatesTags: ["remove"],
       }),
       changeStatusDiscountEvent: builder.mutation({
         query: ([discountEventId, status]) => {
           return {
-            method: "POST",
+            method: "PATCH",
             url: `discounts/discounts/${discountEventId}/${status}`,
           };
         },
+        invalidatesTags: ["update-status"],
       }),
     };
   },

@@ -3,6 +3,7 @@ import customFetchBase from "~/redux/api/customFetchBase";
 const couponApi = createApi({
   reducerPath: "coupon",
   baseQuery: customFetchBase,
+  tagTypes: ["create", "update", "remove"],
   endpoints(builder) {
     return {
       getAllCoupon: builder.query({
@@ -12,6 +13,7 @@ const couponApi = createApi({
             method: "GET",
           };
         },
+        providesTags: ["create", "remove", "update"],
       }),
       createCoupon: builder.mutation({
         query: (data) => {
@@ -21,6 +23,7 @@ const couponApi = createApi({
             body: data,
           };
         },
+        invalidatesTags: ["create"],
       }),
       getCoupon: builder.query({
         query: (couponId) => {
@@ -38,6 +41,7 @@ const couponApi = createApi({
             body: data,
           };
         },
+        invalidatesTags: ["update"],
       }),
       removeCoupon: builder.mutation({
         query: (couponId) => {
@@ -46,15 +50,17 @@ const couponApi = createApi({
             url: `discounts/coupons/${couponId}`,
           };
         },
+        invalidatesTags: ["remove"],
       }),
       changeStatusCoupon: builder.mutation({
         query: ([couponId, status]) => {
           return {
-            method: "POST",
+            method: "PUT",
             url: `discounts/coupons/${couponId}/update-status`,
             params: status,
           };
         },
+        invalidatesTags: ["update"],
       }),
     };
   },

@@ -44,6 +44,9 @@ const checkoutSlice = createSlice({
     changeNote(state, action) {
       state.note = action.payload;
     },
+    clearData() {
+      return initialState;
+    },
   },
 });
 
@@ -58,4 +61,5 @@ export const {
   changeStreet,
   changeStreetNumber,
   changeWard,
+  clearData,
 } = checkoutSlice.actions;

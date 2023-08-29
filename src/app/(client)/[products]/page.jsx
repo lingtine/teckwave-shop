@@ -127,6 +127,7 @@ function ProductsPage() {
       ...valueSorted?.value,
     };
     getProducts(parameter);
+    window.scrollTo(0, 0);
   }, [getProducts, currentPage, valueSorted]);
 
   let content;

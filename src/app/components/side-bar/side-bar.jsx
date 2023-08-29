@@ -88,6 +88,18 @@ function SideBar() {
       current: segment === "specification",
       icon: <LiaFileInvoiceDollarSolid />,
     },
+    {
+      label: "Discount",
+      href: "/dashboard/discount",
+      current: segment === "discount",
+      icon: <LiaFileInvoiceDollarSolid />,
+    },
+    {
+      label: "Coupons",
+      href: "/dashboard/coupons",
+      current: segment === "coupons",
+      icon: <LiaFileInvoiceDollarSolid />,
+    },
   ];
 
   const renderNav = nav.map((item, index) => {

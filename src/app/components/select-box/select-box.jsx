@@ -49,7 +49,7 @@ function SelectBox({ options = [], placeholder, selected, onChange }) {
           {isOpened && options.length !== 1 ? <BiDownArrow /> : <BiLeftArrow />}
         </div>
       </div>
-      {isOpened && options.length !== 1 && (
+      {isOpened && options.length !== 0 && (
         <ul className="absolute w-full h-fit min-h-[20px] left-0 py-3 px-2 bg-white rounded-es-2xl rounded-ee-2xl shadow-lg z-30">
           {renderOptions}
         </ul>
