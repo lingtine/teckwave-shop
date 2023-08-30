@@ -11,9 +11,12 @@ const cartSLice = createSlice({
     setCart(state, action) {
       state.cart = action.payload;
     },
+    clearData() {
+      return initialState;
+    },
   },
 });
 
 export default cartSLice.reducer;
 
-export const { setCart } = cartSLice.actions;
+export const { setCart, clearData } = cartSLice.actions;

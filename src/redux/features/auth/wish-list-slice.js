@@ -12,11 +12,11 @@ const wishListSlice = createSlice({
     setWishList(state, action) {
       state.wishList = action.payload;
     },
-    removeWishList(state, action) {
+    clearWishList(state, action) {
       return initialState;
     },
   },
 });
 
-export const { setWishList } = wishListSlice.actions;
+export const { setWishList, clearWishList } = wishListSlice.actions;
 export default wishListSlice;

@@ -5,6 +5,8 @@ import { changeAuth } from "~/redux/features/auth/auth-slice";
 import { setCookie, getCookie } from "cookies-next";
 import { logout } from "~/redux/features/auth/auth-slice";
 import { logout as userLogout } from "~/redux/features/auth/user-slice";
+import { clearData } from "~/redux/features/cart/cart";
+import { clearWishList } from "~/redux/features/auth/wish-list-slice";
 import jwtDecode from "jwt-decode";
 
 import customFetchBase from "~/redux/api/customFetchBase";
@@ -26,6 +28,8 @@ const authApi = createApi({
             await queryFulfilled;
             await dispatch(logout());
             await dispatch(userLogout());
+            await dispatch(clearData());
+            await dispatch(clearWishList());
           } catch (error) {}
         },
       }),
