@@ -42,16 +42,6 @@ function HomePage() {
         </div>
       </div>
       {renderData}
-      {/* 
-      <BoxProducts heading={"Category"} type={"This Month"} data={data}>
-        <ProductCarousel products={data.products} />
-      </BoxProducts>
-      <BoxProducts heading={"Category"} type={"This Month"} data={data}>
-        <ProductCarousel products={data.products} />
-      </BoxProducts>
-      <BoxProducts heading={"Category"} type={"This Month"} data={data}>
-        <ProductCarousel products={data.products} />
-      </BoxProducts> */}
       <AboutUs />
     </div>
   );

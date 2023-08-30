@@ -4,14 +4,15 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-
+import jwtDecode from "jwt-decode";
 export default function AdminLayout({ children }) {
   const { accessToken } = useSelector((state) => state.authSlice);
   const router = useRouter();
 
   useEffect(() => {
-    if (!accessToken) {
-      router.push("/login");
+    const info = jwtDecode(accessToken);
+    if (!accessToken || info?.role === "Customer") {
+      router.push("/login-admin");
     }
   }, []);
 
