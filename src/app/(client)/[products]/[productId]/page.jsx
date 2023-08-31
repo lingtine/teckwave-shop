@@ -19,13 +19,17 @@ function ProductDetailPage() {
     document.title = "Product Detail";
   }, []);
   if (isFetching) {
-    content = <SkeletonProductDetail />;
+    content = (
+      <div className="my-20">
+        <SkeletonProductDetail />
+      </div>
+    );
   } else if (isSuccess) {
     content = <ProductContent product={productData.data} />;
   }
   return (
     <div>
-      <div className="container mx-auto ">{content}</div>
+      <div className="container mx-auto">{content}</div>
     </div>
   );
 }

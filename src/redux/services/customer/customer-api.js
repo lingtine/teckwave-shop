@@ -9,7 +9,12 @@ import { setWishList } from "~/redux/features/auth/wish-list-slice";
 const customerApi = createApi({
   reducerPath: "customerApi",
   baseQuery: customFetchBase,
-  tagTypes: ["update", "add-wish-list", "add-delivery-info"],
+  tagTypes: [
+    "update",
+    "add-wish-list",
+    "add-delivery-info",
+    "update-delivery-info",
+  ],
   endpoints(builder) {
     return {
       getAllCustomers: builder.query({
@@ -35,7 +40,7 @@ const customerApi = createApi({
             await dispatch(customerApi.endpoints.getWishList.initiate(null));
           } catch (error) {}
         },
-        providesTags: ["update", "add-delivery-info"],
+        providesTags: ["update", "add-delivery-info", "update-delivery-info"],
       }),
 
       //delivery info
@@ -58,13 +63,14 @@ const customerApi = createApi({
         invalidatesTags: ["add-delivery-info"],
       }),
       updateDeliveryInfo: builder.mutation({
-        query: (deliveryInfoId, data) => {
+        query: ([deliveryInfoId, data]) => {
           return {
             url: `customers/customers/delivery-infos/${deliveryInfoId}`,
             method: "PUT",
             body: data,
           };
         },
+        invalidatesTags: ["update-delivery-info"],
       }),
       deleteDeliveryInfo: builder.mutation({
         query: (deliveryInfoId) => {

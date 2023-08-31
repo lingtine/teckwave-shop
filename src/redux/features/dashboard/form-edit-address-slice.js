@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  name: "string",
+  name: "",
   address: {
     number: "",
     street: "",
@@ -16,6 +16,16 @@ const editAddressSlice = createSlice({
   name: "editAddressSlice",
   initialState,
   reducers: {
+    changeAllData(state, action) {
+      const { address, name, phoneNumber } = action.payload;
+      state.name = name;
+      state.phoneNumber = phoneNumber;
+      state.address.city = address.city;
+      state.address.district = address.district;
+      state.address.number = address.number;
+      state.address.street = address.street;
+      state.address.ward = address.ward;
+    },
     changeName(state, action) {
       state.name = action.payload;
     },
@@ -37,6 +47,9 @@ const editAddressSlice = createSlice({
     changePhoneNumber(state, action) {
       state.phoneNumber = action.payload;
     },
+    clearForm() {
+      return initialState;
+    },
   },
 });
 
@@ -50,4 +63,6 @@ export const {
   changePhoneNumber,
   changeStreet,
   changeWard,
+  clearForm,
+  changeAllData,
 } = editAddressSlice.actions;

@@ -42,7 +42,7 @@ function AddressContent({ data }) {
       </div>
       <div>
         <Link
-          href={`/dashboard/account/my-address/${data.id}/edit-address`}
+          href={`/account/my-address/edit-address/${data.id}`}
           className="underline text-primary-1 hover:opacity-80 "
         >
           Edit Address

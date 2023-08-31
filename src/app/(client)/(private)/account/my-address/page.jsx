@@ -6,7 +6,6 @@ import AddressContent from "~/app/components/my-address/address-content";
 import { useParams } from "next/navigation";
 import { useGetCustomerQuery } from "~/redux/services/customer/customer-api";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
 
 function MyAddress() {
   const { user } = useSelector((state) => state.user);
@@ -16,7 +15,6 @@ function MyAddress() {
   renderData = user?.deliveryInfos.map((address) => {
     return <AddressContent data={address} key={address.id} />;
   });
-  console.log(renderData);
 
   return (
     <div className="px-4 border">

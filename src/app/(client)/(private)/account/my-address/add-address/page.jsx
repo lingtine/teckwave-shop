@@ -125,7 +125,7 @@ function AddAddress() {
             <Link href={`/account/my-address`}>
               <Button outline>Trở về</Button>
             </Link>
-            <Button secondary normal type={"submit"}>
+            <Button secondary type={"submit"}>
               Add Address
             </Button>
           </li>

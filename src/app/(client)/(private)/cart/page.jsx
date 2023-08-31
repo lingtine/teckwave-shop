@@ -12,6 +12,7 @@ import Table from "~/app/components/table/table";
 import { formatPrice } from "~/utils/formatPrice";
 import CartItemQuantity from "~/app/components/cart/cart-item-quantity";
 import { useEffect } from "react";
+import Button from "~/app/components/button/button";
 function CartPage() {
   const { cart } = useSelector((state) => state.cart);
   const arrayId = cart?.items.map((item) => item.productId);
@@ -89,7 +90,7 @@ function CartPage() {
       let total = curr.quantity * curr.productPrice;
       return accumulator + total;
     }, 0);
-    console.log(totalCount);
+
     if (cart.items.length === 0) {
       renderPage = (
         <div className=" min-h-[400px] flex-col flex justify-center items-center">
@@ -98,11 +99,8 @@ function CartPage() {
           </div>
 
           <h4 className="text-4xl my-8 font-semibold ">The cart is empty</h4>
-          <Link
-            className="py-2 px-4 border bg-secondary-3 text-primary rounded-lg"
-            href={"/"}
-          >
-            Back to shop
+          <Link href={"/"}>
+            <Button>Back to shop</Button>
           </Link>
         </div>
       );
@@ -111,12 +109,8 @@ function CartPage() {
         <div className="grid grid-flow-col grid-cols-3 gap-4">
           <div className="col-span-2 bg-white p-8 shadow-lg rounded-lg">
             {isSuccess && <Table config={configData} data={dataTable} />}
-            <Link
-              href={"/"}
-              className="my-2 flex items-center p-4 rounded-md border font-medium text-gray-800 text-base hover:bg-secondary-3 hover:text-primary w-fit"
-            >
-              <IoIosArrowBack />
-              <span className="ml-4">Continue Shopping</span>
+            <Link href={"/"}>
+              <Button leftIcon={<IoIosArrowBack />}>Continue Shopping</Button>
             </Link>
           </div>
           <div className="p-8 bg-white rounded h-fit border border-primary-1">
@@ -135,11 +129,10 @@ function CartPage() {
               <h5>Total</h5>
               <p className="font-bold">{formatPrice(totalCount)}</p>
             </div>
-            <Link
-              href={"/checkout"}
-              className="block text-center py-3 border bg-secondary-3 text-primary w-full rounded-lg hover:opacity-90"
-            >
-              Check out
+            <Link href={"/checkout"}>
+              <Button full secondary large className="text-lg ">
+                Check out
+              </Button>
             </Link>
           </div>
         </div>
