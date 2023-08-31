@@ -86,7 +86,7 @@ function CartPage() {
         productPrice: product.unitPrice,
       };
     });
-    const totalCount = dataTable.reduce((accumulator, curr) => {
+    const totalCount = dataTable?.reduce((accumulator, curr) => {
       let total = curr.quantity * curr.productPrice;
       return accumulator + total;
     }, 0);

@@ -44,7 +44,7 @@ function Checkout() {
         productPrice: product.unitPrice,
       };
     });
-    totalCount = productsData.reduce((accumulator, curr) => {
+    totalCount = productsData?.reduce((accumulator, curr) => {
       let total = curr.quantity * curr.productPrice;
       return accumulator + total;
     }, 0);
