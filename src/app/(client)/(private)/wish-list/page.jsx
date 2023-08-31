@@ -6,12 +6,15 @@ import { useGetWishListQuery } from "~/redux/services/customer/customer-api";
 import { useSelector } from "react-redux";
 import { BsFillBagHeartFill } from "react-icons/bs";
 import ProductList from "~/app/components/products/product-list";
+import { useEffect } from "react";
 
 function WishList() {
   const user = useSelector((state) => state.user);
   const { wishList } = useSelector((state) => state.wishListSlice);
   let renderWishList;
-
+  useEffect(() => {
+    document.title = "Wish List";
+  }, []);
   const handleRemove = () => {};
   if (wishList) {
     if (wishList.length !== 0)

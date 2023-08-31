@@ -13,7 +13,9 @@ function AccountLayout({ children }) {
   const router = useRouter();
 
   const segment = useSelectedLayoutSegment();
-
+  useEffect(() => {
+    document.title = "Account";
+  }, []);
   const nav = [
     {
       label: "My Profile",
@@ -30,11 +32,11 @@ function AccountLayout({ children }) {
       href: "/account/my-orders",
       current: "my-orders" === segment,
     },
-    {
-      label: "Rest Password",
-      href: "/account/reset-password",
-      current: "reset-password" === segment,
-    },
+    // {
+    //   label: "Rest Password",
+    //   href: "/account/reset-password",
+    //   current: "reset-password" === segment,
+    // },
   ];
 
   const renderNav = nav.map((item, index) => {

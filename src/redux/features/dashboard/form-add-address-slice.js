@@ -31,8 +31,14 @@ const formAddAddressSlice = createSlice({
     changeCity(state, action) {
       state.address.city = action.payload;
     },
+    changeNumberStreet(state, action) {
+      state.address.number = action.payload;
+    },
     changePhoneNumber(state, action) {
       state.phoneNumber = action.payload;
+    },
+    clearForm() {
+      return initialState;
     },
   },
 });
@@ -45,4 +51,6 @@ export const {
   changePhoneNumber,
   changeStreet,
   changeWard,
+  clearForm,
+  changeNumberStreet,
 } = formAddAddressSlice.actions;

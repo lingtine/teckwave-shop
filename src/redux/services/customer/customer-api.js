@@ -9,7 +9,7 @@ import { setWishList } from "~/redux/features/auth/wish-list-slice";
 const customerApi = createApi({
   reducerPath: "customerApi",
   baseQuery: customFetchBase,
-  tagTypes: ["update", "add-wish-list"],
+  tagTypes: ["update", "add-wish-list", "add-delivery-info"],
   endpoints(builder) {
     return {
       getAllCustomers: builder.query({
@@ -33,11 +33,9 @@ const customerApi = createApi({
             await dispatch(setUser(data.data));
             await dispatch(cartApi.endpoints.getCartDetail.initiate(null));
             await dispatch(customerApi.endpoints.getWishList.initiate(null));
-          } catch (error) {
-            await dispatch(authApi.endpoints.refreshToken.initiate(null));
-          }
+          } catch (error) {}
         },
-        providesTags: ["update"],
+        providesTags: ["update", "add-delivery-info"],
       }),
 
       //delivery info
@@ -57,6 +55,7 @@ const customerApi = createApi({
             body: deliveryInfos,
           };
         },
+        invalidatesTags: ["add-delivery-info"],
       }),
       updateDeliveryInfo: builder.mutation({
         query: (deliveryInfoId, data) => {
@@ -78,8 +77,8 @@ const customerApi = createApi({
       changeDeliveryInfoDefault: builder.mutation({
         query: (deliveryInfoId) => {
           return {
-            url: `customers/customers/delivery-infos/${deliveryInfoId}/default`,
-            method: "PUT",
+            url: `customers/customers/delivery-infos/${deliveryInfoId}`,
+            method: "PATCH",
           };
         },
         invalidatesTags: ["update"],

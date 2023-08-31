@@ -24,6 +24,9 @@ function Register() {
   const [verifyEmail, verifyEmailResult] = useVerifyEmailMutation();
   const [register, registerResult] = useRegisterMutation();
 
+  useEffect(() => {
+    document.title = "Register";
+  }, []);
   const router = useRouter();
   useEffect(() => {
     if (verifyEmailResult.isSuccess) {
@@ -52,84 +55,82 @@ function Register() {
     }
   };
   return (
-    <div className="my-20">
-      <div className="container mx-auto flex justify-center">
-        <form
-          onSubmit={handleSubmit}
-          action=""
-          className="border px-10 py-5 border-color-text-black rounded-sm min-w-[400px]"
-        >
-          <div className="my-8">
-            <h3 className=" text-3xl font-semibold mb-4">Register</h3>
-            <div className="text-slate-400 text-sm ">
-              You are ready have an account?{" "}
-              {
-                <Link href={"/login"} className="text-red-500 hover:underline">
-                  Login
-                </Link>
-              }
-            </div>
+    <div className="container mx-auto flex justify-center my-16">
+      <form
+        onSubmit={handleSubmit}
+        action=""
+        className="border px-10 py-5 min-w-[400px]  shadow-xl rounded-xl"
+      >
+        <div className="my-8">
+          <h3 className=" text-3xl font-semibold mb-4">Register</h3>
+          <div className="text-slate-400 text-sm ">
+            You are ready have an account?{" "}
+            {
+              <Link href={"/login"} className="text-red-500 hover:underline">
+                Login
+              </Link>
+            }
           </div>
+        </div>
+        <div className="my-4">
+          <Input
+            label={"Name"}
+            type="text"
+            value={dataForm.name}
+            onChange={(e) => {
+              dispatch(changeName(e.target.value));
+            }}
+          />
+        </div>
+        <div className="my-4">
+          <Input
+            label={"Email"}
+            type="email"
+            value={dataForm.email}
+            onChange={(e) => {
+              dispatch(changeEmail(e.target.value));
+            }}
+          />
+        </div>
+        <div className="my-4">
+          <Input
+            label={"Password"}
+            type="password"
+            value={dataForm.password}
+            onChange={(e) => {
+              dispatch(changePassword(e.target.value));
+            }}
+          />
+        </div>
+        <div className="my-4">
+          <Input
+            label={"Confirm Password"}
+            type="password"
+            value={dataForm.confirmPassword}
+            onChange={(e) => {
+              dispatch(changeConfirmPassword(e.target.value));
+            }}
+          />
+        </div>
+        {dataForm.showCode && (
           <div className="my-4">
             <Input
-              label={"Name"}
-              type="text"
-              value={dataForm.name}
+              label={"Code"}
+              type="Number"
+              value={dataForm.code}
               onChange={(e) => {
-                dispatch(changeName(e.target.value));
+                dispatch(changeCode(e.target.value));
               }}
             />
           </div>
-          <div className="my-4">
-            <Input
-              label={"Email"}
-              type="email"
-              value={dataForm.email}
-              onChange={(e) => {
-                dispatch(changeEmail(e.target.value));
-              }}
-            />
-          </div>
-          <div className="my-4">
-            <Input
-              label={"Password"}
-              type="password"
-              value={dataForm.password}
-              onChange={(e) => {
-                dispatch(changePassword(e.target.value));
-              }}
-            />
-          </div>
-          <div className="my-4">
-            <Input
-              label={"Confirm Password"}
-              type="password"
-              value={dataForm.confirmPassword}
-              onChange={(e) => {
-                dispatch(changeConfirmPassword(e.target.value));
-              }}
-            />
-          </div>
-          {dataForm.showCode && (
-            <div className="my-4">
-              <Input
-                label={"Code"}
-                type="Number"
-                value={dataForm.code}
-                onChange={(e) => {
-                  dispatch(changeCode(e.target.value));
-                }}
-              />
-            </div>
-          )}
+        )}
 
-          <div className="my-4">
-            <Button secondary full type="submit">
-              Register
-            </Button>
-          </div>
-        </form>
-      </div>
+        <div className="my-4">
+          <Button secondary full type="submit">
+            Register
+          </Button>
+        </div>
+      </form>
     </div>
   );
 }

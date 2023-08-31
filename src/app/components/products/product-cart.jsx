@@ -10,10 +10,11 @@ import {
   useAddToWishListMutation,
   useRemoveToWishListMutation,
 } from "~/redux/services/customer/customer-api";
-
+import { Card } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import useDebounce from "~/hooks/use-debounce";
+import { formatPrice } from "~/utils/formatPrice";
 
 import { useAddProductMutation } from "~/redux/services/orders/cart-api";
 import { Rating } from "@material-tailwind/react";
@@ -29,10 +30,6 @@ function ProductCart({ product }) {
   // const [addWistList, resultAddWishList] = useAddToWishListMutation();
   // const [removeWistList, resultRemoveWishList] = useRemoveToWishListMutation();
 
-  let numberFormat = new Intl.NumberFormat("vi", {
-    style: "currency",
-    currency: "VND",
-  });
   // useEffect(() => {
   //   if (resultAddWishList.isSuccess) {
   //     toast.success("Add to wish list success");
@@ -90,22 +87,23 @@ function ProductCart({ product }) {
   return (
     <div className="relative flex w-full flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
       <Link href={`/${product.name}/${product.id}`}>
-        <div className="relative mx-4 mt-4 h-48 overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700">
+        <div className="relative h-48 w-full mx-4 mt-4  overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700">
           <Image
             alt={product.name}
             src={product.imageUrl}
             fill
+            sizes="w-full h-full"
             className="object-contain"
           />
         </div>
-        <div className="p-6">
+        <div className="p-6 mt-4">
           <div className="mb-2 flex flex-col min-h-[82px]">
             <h5 className="line-clamp-1 font-sans text-lg font-bold leading-relaxed text-blue-gray-900 antialiased">
               {product.name}
             </h5>
             <Rating value={product.numberOfStar} readonly />
             <p className="block font-sans text-base font-medium leading-relaxed text-blue-gray-900 antialiased">
-              {numberFormat.format(product.unitPrice)}
+              {formatPrice(product.unitPrice)}
             </p>
           </div>
         </div>
@@ -121,7 +119,7 @@ function ProductCart({ product }) {
             Add to Cart
           </Button>
         ) : (
-          <div className="font-bold">Out Of Stock</div>
+          <div className="font-bold py-1 text-center">Out Of Stock</div>
         )}
       </div>
     </div>

@@ -18,6 +18,7 @@ function ProductImageContent({ imageUrl, images, alt }) {
                   onClick={() => {
                     setCurrImage(index);
                   }}
+                  priority={true}
                   src={image.url}
                   width={170}
                   height={138}
@@ -27,7 +28,13 @@ function ProductImageContent({ imageUrl, images, alt }) {
           })}
       </div>
       <div className="relative col-span-3">
-        <Image src={imageUrl} alt={alt} width={400} height={300} />
+        <Image
+          priority={true}
+          src={imageUrl}
+          alt={alt}
+          width={400}
+          height={300}
+        />
       </div>
     </div>
   );

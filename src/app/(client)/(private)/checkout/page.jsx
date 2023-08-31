@@ -50,6 +50,9 @@ function Checkout() {
     }, 0);
   }
   useEffect(() => {
+    document.title = "Check out";
+  }, []);
+  useEffect(() => {
     if (result.isSuccess) {
       toast.success("OrderSuccess");
       router.push("/");

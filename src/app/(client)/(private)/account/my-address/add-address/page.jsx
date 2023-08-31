@@ -7,7 +7,6 @@ import SelectBox from "~/app/components/select-box/select-box";
 
 import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetAllCityQuery } from "~/redux/services/address/address-api";
 import {
   changeDistrict,
   changeCity,
@@ -15,86 +14,123 @@ import {
   changePhoneNumber,
   changeStreet,
   changeWard,
+  changeNumberStreet,
+  clearForm,
 } from "~/redux/features/dashboard/form-add-address-slice";
 
 import { useAddDeliveryInfosMutation } from "~/redux/services/customer/customer-api";
 import Link from "next/link";
-
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 function AddAddress() {
-  const { data: cityData, isSuccess } = useGetAllCityQuery();
   const dispatch = useDispatch();
-  const { customerId } = useParams();
+  const router = useRouter();
   const dataForm = useSelector((state) => state.addAddressForm);
 
   const [addDeliveryInfos, result] = useAddDeliveryInfosMutation();
 
-  let configCityData;
-  if (isSuccess) {
-    configCityData = cityData.map((city) => {
-      return { ...city, label: city.name, id: city.code };
-    });
-  }
-
+  useEffect(() => {
+    if (result.isSuccess) {
+      router.push("/account/my-address");
+      dispatch(clearForm());
+      toast.success("Add Address Success");
+    } else if (result.isError) {
+      toast.error("Add Address Failed");
+    }
+  }, [result.isSuccess, result.isError]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    addDeliveryInfos(customerId, dataForm);
+    addDeliveryInfos(dataForm);
   };
 
   return (
     <div className="px-10">
       <h1 className="text-xl font-bold text-primary-1">Add Address</h1>
+      <form className="my-8" onSubmit={handleSubmit}>
+        <ul className="flex flex-col gap-4">
+          <li>
+            <Input
+              label={"Name"}
+              required
+              onChange={(e) => {
+                dispatch(changeName(e.target.value));
+              }}
+              value={dataForm.name}
+            />
+          </li>
+          <li>
+            <Input
+              label={"Phone Number"}
+              required
+              onChange={(e) => {
+                dispatch(changePhoneNumber(e.target.value));
+              }}
+              value={dataForm.phoneNumber}
+            />
+          </li>
 
-      <div>
-        <form onSubmit={handleSubmit}>
-          <ul>
-            <li className="my-4">
-              <Input label={"Name"} required />
-            </li>
-            <li className="my-4">
-              <Input label={"Phone Number"} required />
-            </li>
-            <li className="my-4">
-              {isSuccess && (
-                <SelectBox
-                  options={configCityData}
-                  selected={configCityData[0] || ""}
-                  onChange={(city) => {
-                    dispatch(changeCity(city));
-                  }}
-                />
-              )}
-            </li>
-            <li className="my-4">
-              <Input label={"District"} required />
-            </li>
-            <li className="my-4">
-              <InputTextArea label={"Address"} required />
-            </li>
-            {/* <li className="flex my-2 items-center">
-              <h4 className="font-semibold">Type Address: </h4>
-              <div className="mx-2 flex items-center">
-                <input className="mx-2" type="radio" checked />
-                <label>Apartment</label>
-              </div>
-              <div className="mx-2 flex items-center">
-                <input className="mx-2" type="radio" />
-                <label>Company</label>
-              </div>
-            </li> */}
-            <li className="flex justify-end items-center">
-              <Link
-                className="mx-6 btn primary py-2 px-4 border border-primary-1 bg-secondary-2"
-                href={`/dashboard/account/my-address`}
-              >
-                Trở về
-              </Link>
-              <Button secondary normal>
-                Add Address
-              </Button>
-            </li>
-          </ul>
-        </form>
-      </div>
+          <li>
+            <Input
+              label={"City"}
+              required
+              onChange={(e) => {
+                dispatch(changeCity(e.target.value));
+              }}
+              value={dataForm.address.city}
+            />
+          </li>
+          <li>
+            <Input
+              label={"District"}
+              required
+              onChange={(e) => {
+                dispatch(changeDistrict(e.target.value));
+              }}
+              value={dataForm.address.district}
+            />
+          </li>
+          <li>
+            <Input
+              label={"Ward"}
+              required
+              onChange={(e) => {
+                dispatch(changeWard(e.target.value));
+              }}
+              value={dataForm.address.ward}
+            />
+          </li>
+          <li>
+            <Input
+              label={"Street"}
+              required
+              onChange={(e) => {
+                dispatch(changeStreet(e.target.value));
+              }}
+              value={dataForm.address.street}
+            />
+          </li>
+          <li>
+            <Input
+              label={"Street Number"}
+              required
+              onChange={(e) => {
+                dispatch(changeNumberStreet(e.target.value));
+              }}
+              value={dataForm.address.number}
+            />
+          </li>
+
+          <li className="flex justify-end items-center gap-4">
+            <Link href={`/account/my-address`}>
+              <Button outline>Trở về</Button>
+            </Link>
+            <Button secondary normal type={"submit"}>
+              Add Address
+            </Button>
+          </li>
+        </ul>
+      </form>
     </div>
   );
 }

@@ -19,7 +19,7 @@ function ProductCarousel({ products = [], lengthCarousel = 4 }) {
   const renderProducts = products.map((product, index) => (
     <div
       key={product.id}
-      className={`max-w-[270px] flex-shrink-0  mx-4 tra duration-700 ease-in-out h-fit`}
+      className={`w-[270px] flex-shrink-0  mx-4 tra duration-700 ease-in-out h-fit`}
       style={{
         transform: `translateX(-${112 * currentIndex}%)`,
       }}

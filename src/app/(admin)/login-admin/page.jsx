@@ -16,7 +16,9 @@ function LoginAdmin() {
   const dispatch = useDispatch();
   const loginAdmin = useSelector((state) => state.loginAdminForm);
   const { user } = useSelector((state) => state.user);
-
+  useEffect(() => {
+    document.title = "Login Admin";
+  }, []);
   const [login, { isLoading, isError, isSuccess, data }] = useLoginMutation();
   const router = useRouter();
   let jwt;

@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import classNames from "classnames";
 import { useRouter } from "next/navigation";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { IconButton } from "@material-tailwind/react/components/IconButton";
@@ -9,7 +8,6 @@ function Pagination({ url, pageIndex, pageSize, totalCount }) {
   const maxSizePage = Math.floor(totalCount / pageSize) + 1;
   const router = useRouter();
   let renderItemPage;
-
   renderItemPage = Array(maxSizePage)
     .fill(0)
     .map((_, index) => {
@@ -42,7 +40,7 @@ function Pagination({ url, pageIndex, pageSize, totalCount }) {
 
   return (
     <ul className="flex items-center gap-2 bg-white py-1 px-2 rounded-md">
-      <li className="gap-2">
+      <li>
         <Button
           onClick={handleBack}
           leftIcon={<IoIosArrowBack />}
@@ -54,7 +52,7 @@ function Pagination({ url, pageIndex, pageSize, totalCount }) {
 
       {renderItemPage}
 
-      <li className="gap-2">
+      <li>
         <Button
           onClick={handleForward}
           rightIcon={<IoIosArrowForward />}

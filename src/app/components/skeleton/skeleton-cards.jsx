@@ -6,8 +6,9 @@ function SkeletonCard({ times }) {
     .map((_, i) => {
       return (
         <div
+          key={i}
           role="status"
-          className="w-80 p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700"
+          className="w-72 p-4 border border-gray-200 rounded shadow animate-pulse md:p-6 dark:border-gray-700"
         >
           <div className="flex items-center justify-center h-48 mb-4 bg-gray-300 rounded dark:bg-gray-700">
             <AiFillPicture />
@@ -26,7 +27,7 @@ function SkeletonCard({ times }) {
         </div>
       );
     });
-  return <div className="flex gap-4 flex-wrap">{boxes}</div>;
+  return <div className="flex justify-center gap-4 flex-wrap">{boxes}</div>;
 }
 
 export default SkeletonCard;

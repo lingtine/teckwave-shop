@@ -13,18 +13,18 @@ import {
   changeMessage,
   changePhoneNumber,
 } from "~/redux/features/contact/contact-form-slice";
-import { useFetchCategoryGroupsQuery } from "~/redux/services/catalog/category-group-api";
+import { useEffect } from "react";
 function ContactPage() {
   const dispatch = useDispatch();
   const formValues = useSelector((state) => {
     return state.contactForm;
   });
-
-  const { data, error, isLoading } = useFetchCategoryGroupsQuery();
-
+  useEffect(() => {
+    document.title = "Contact";
+  }, []);
   const renderForm = (
     <form className="flex flex-col justify-between px-8 py-10 h-full">
-      <div className="flex justify-between">
+      <div className="flex justify-between gap-4">
         <Input
           label={"Your Name"}
           required

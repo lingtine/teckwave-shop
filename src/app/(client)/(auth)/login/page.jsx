@@ -11,12 +11,17 @@ import { useLoginMutation } from "~/redux/services/authentication/auth-api";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Button from "~/app/components/button/button";
 
 function LoginPage() {
   const dispatch = useDispatch();
   const router = useRouter();
   const formData = useSelector((state) => state.loginForm);
   const [login, { isSuccess }] = useLoginMutation();
+  useEffect(() => {
+    document.title = "Login";
+  }, []);
+
   useEffect(() => {
     if (isSuccess) {
       toast.success("Login Success");
@@ -80,12 +85,9 @@ function LoginPage() {
             </a>
           </div> */}
 
-          <button
-            className="my-4 w-full bg-secondary-3 hover:opacity-90 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
+          <Button full secondary type="submit" className="my-6">
             Login
-          </button>
+          </Button>
         </form>
         <p className="text-center text-gray-500 text-xs">
           &copy;2020 Acme Corp. All rights reserved.

@@ -8,7 +8,9 @@ import jwtDecode from "jwt-decode";
 export default function AdminLayout({ children }) {
   const { accessToken } = useSelector((state) => state.authSlice);
   const router = useRouter();
-
+  useEffect(() => {
+    document.title = "Dashboard";
+  }, []);
   useEffect(() => {
     const info = jwtDecode(accessToken);
     if (!accessToken || info?.role === "Customer") {

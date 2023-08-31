@@ -4,10 +4,10 @@ import Link from "next/link";
 import Button from "../button/button";
 import { BsHouseDoor } from "react-icons/bs";
 import { LiaCitySolid } from "react-icons/lia";
-import { useUpdateDeliveryInfoDefaultMutation } from "~/redux/services/customer/customer-api";
+import { useChangeDeliveryInfoDefaultMutation } from "~/redux/services/customer/customer-api";
 
 function AddressContent({ data }) {
-  const [setAddressDefault, result] = useUpdateDeliveryInfoDefaultMutation();
+  const [setAddressDefault, result] = useChangeDeliveryInfoDefaultMutation();
   return (
     <div className="flex justify-between items-center py-4">
       <div>
@@ -38,21 +38,6 @@ function AddressContent({ data }) {
               {data.address.city}
             </p>
           </li>
-          {/* <li className="flex my-1 items-center">
-            <div className="flex items-center text-secondary-3 ml-32">
-              {0 === 0 ? (
-                <>
-                  <BsHouseDoor />
-                  <p className="mx-2">Nhà riêng</p>
-                </>
-              ) : (
-                <>
-                  <LiaCitySolid />
-                  <p className="mx-2">Công Ty</p>
-                </>
-              )}
-            </div>
-          </li> */}
         </ul>
       </div>
       <div>
@@ -66,8 +51,9 @@ function AddressContent({ data }) {
           onClick={() => {
             setAddressDefault(data.id);
           }}
-          primary
+          primary1
           small
+          text={data.isDefault}
           hidden={data.isDefault}
           className="my-2"
         >

@@ -11,6 +11,7 @@ import { useGetListProductsByIdQuery } from "~/redux/services/catalog/product-ap
 import Table from "~/app/components/table/table";
 import { formatPrice } from "~/utils/formatPrice";
 import CartItemQuantity from "~/app/components/cart/cart-item-quantity";
+import { useEffect } from "react";
 function CartPage() {
   const { cart } = useSelector((state) => state.cart);
   const arrayId = cart?.items.map((item) => item.productId);
@@ -68,6 +69,9 @@ function CartPage() {
       },
     },
   ];
+  useEffect(() => {
+    document.title = "Cart";
+  }, []);
   if (isSuccess) {
     dataTable = cart?.items.map((item) => {
       const product = data.data.find(

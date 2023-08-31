@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 function MyAccount() {
   const dispatch = useDispatch();
   const dataForm = useSelector((state) => state.editProfileForm);
-  // const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   // useEffect(() => {
   //   if (user) {
   //     dispatch(changeEmail(user.data.email));
@@ -21,64 +21,24 @@ function MyAccount() {
   //   }
   // }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-
   const [data, setData] = useState("2023-08-02T14:04:57.697");
   return (
     <div className="px-10 border-l">
       <div className="my-4">
-        <h3 className="text-lg text-secondary-3">Edit Your Profile</h3>
+        <h3 className="text-lg font-semibold text-secondary-3">Your Profile</h3>
       </div>
-      <form
-        className="p-2 grid grid-cols-2 w-full gap-10"
-        action=""
-        onSubmit={handleSubmit}
-      >
-        <Input
-          label={"Name"}
-          value={dataForm.name}
-          onChange={(e) => {
-            dispatch(changeName(e.target.value));
-          }}
-        />
-        {/* <Input
-          label={"Gender"}
-          value={dataForm.gender}
-          onChange={(e) => {
-            dispatch(changeGender(e.target.value));
-          }}
-        /> */}
-        <Input
-          label={"Email"}
-          value={dataForm.email}
-          onChange={(e) => {
-            dispatch(changeEmail(e.target.value));
-          }}
-        />
-        {/* <Input
-          label={"Phone"}
-          value={dataForm.phone}
-          onChange={(e) => {
-            dispatch(changePhone(e.target.value));
-          }}
-        /> */}
-        {/* <Input
-          label={"DoB"}
-          type="date"
-          value={dataForm.dob || ""}
-          onChange={(e) => {
-            dispatch(changeDoB(e.target.value));
-          }}
-        /> */}
-
-        <div className="col-span-2 flex justify-end">
-          <Button secondary normal type="submit">
-            Save Changes
-          </Button>
+      <div>
+        <div className="flex flex-col gap-4">
+          <div className="flex gap-4">
+            <p>Name: </p>
+            <p>{user?.name}</p>
+          </div>
+          <div className="flex gap-4">
+            <p>Email: </p>
+            <p>{user?.email}</p>
+          </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

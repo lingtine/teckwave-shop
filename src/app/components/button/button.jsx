@@ -62,7 +62,7 @@ function Button({
     variants = "outlined";
   } else if (gradient) {
     variants = "gradient";
-  } else if (gradient) {
+  } else if (text) {
     variants = "text";
   }
   return (

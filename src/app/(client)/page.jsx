@@ -6,10 +6,12 @@ import NavBar from "~/app/components/home-page/navbar";
 import ProductCarousel from "~/app/components/products/product-carousel";
 import AboutUs from "~/app/components/home-page/about-us";
 import { useGetProductsHomePageQuery } from "~/redux/services/catalog/product-api";
-
+import { useEffect } from "react";
 function HomePage() {
   const { data, isSuccess } = useGetProductsHomePageQuery();
-
+  useEffect(() => {
+    document.title = "Home";
+  }, []);
   let renderData;
   if (isSuccess) {
     renderData = data.data.map((group) => {
@@ -37,6 +39,7 @@ function HomePage() {
             alt="banner"
             width={750}
             height={450}
+            priority
             className="w-full"
           />
         </div>
