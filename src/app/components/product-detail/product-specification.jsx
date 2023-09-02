@@ -60,9 +60,7 @@ function ProductSpecification({ data }) {
   return (
     <div className="my-8">
       <div className="flex justify-between items-center my-4">
-        <h3 className="text-lg font-semibold text-secondary-3">
-          Specifications
-        </h3>
+        <h3 className="text-xl font-bold text-secondary-3">Specifications</h3>
         <Link
           href={`/dashboard/products/productDetail/${data.id}/add-specification`}
         >

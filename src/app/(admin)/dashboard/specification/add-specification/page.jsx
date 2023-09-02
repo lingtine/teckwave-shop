@@ -38,44 +38,42 @@ function AddSpecification() {
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <h2 className="my-2 text-lg text-primary-1 font-bold">
         Add Specification
       </h2>
-      <form onSubmit={handleSubmit}>
-        <div className="flex -mx-2">
-          <div className="flex-[0_0_50%] px-2">
-            <ul>
-              <li className="text-sm font-semibold">
-                Specification Information
-              </li>
-              <li className="my-4">
-                <Input
-                  label={"Specification Name"}
-                  value={dataForm.name}
-                  onChange={(e) => {
-                    dispatch(changeName(e.target.value));
-                  }}
-                ></Input>
-              </li>
-              <li className="my-4">
-                <InputTextArea
-                  label={"Description"}
-                  value={dataForm.description}
-                  onChange={(e) => {
-                    dispatch(changeDescription(e.target.value));
-                  }}
-                ></InputTextArea>
-              </li>
-            </ul>
-          </div>
-        </div>
 
-        <Button secondary small type={"submit"}>
-          Create Specification
-        </Button>
-      </form>
-    </div>
+      <div className="flex -mx-2">
+        <div className="flex-[0_0_50%] px-2">
+          <ul>
+            <li className="text-sm font-semibold">Specification Information</li>
+            <li className="my-4">
+              <Input
+                label={"Specification Name"}
+                value={dataForm.name}
+                onChange={(e) => {
+                  dispatch(changeName(e.target.value));
+                }}
+              ></Input>
+            </li>
+            <li className="my-4">
+              <InputTextArea
+                label={"Description"}
+                value={dataForm.description}
+                onChange={(e) => {
+                  dispatch(changeDescription(e.target.value));
+                }}
+              ></InputTextArea>
+            </li>
+            <li className="flex justify-end">
+              <Button small type={"submit"}>
+                Create Specification
+              </Button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </form>
   );
 }
 

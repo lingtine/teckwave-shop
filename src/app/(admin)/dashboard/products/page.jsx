@@ -14,6 +14,8 @@ import Table from "~/app/components/table/table";
 import { AiFillEdit } from "react-icons/ai";
 import { CiCircleRemove } from "react-icons/ci";
 import Pagination from "~/app/components/pagination/pagination";
+import { formatPrice } from "~/utils/formatPrice";
+import Button from "~/app/components/button/button";
 function Products() {
   const { data, isSuccess, isError, isFetching } = useGetAllProductsQuery();
   const [removeProduct, result] = useDeleteProductMutation();
@@ -25,30 +27,33 @@ function Products() {
         label: "Product Name",
         render: (data) => {
           return (
-            <div className="flex max-w-[200px] gap-4 justify-between">
-              <div className="relative w-20 h-20">
+            <div className="flex  gap-4 ">
+              <div className="relative w-24 h-20 min-w-[96px]">
                 <Image
                   src={data.imageUrl}
                   alt={data.name}
                   fill
+                  sizes="100vw"
                   className="object-contain"
                 />
               </div>
-              <div>{data.name}</div>
+              <div className="flex-1">{data.name}</div>
             </div>
           );
         },
       },
-      {
-        label: "Description",
-        render: (data) => {
-          return data.description;
-        },
-      },
+      // {
+      //   label: "Description",
+      //   render: (data) => {
+      //     return data.description;
+      //   },
+      // },
       {
         label: "Unit Price",
         render: (data) => {
-          return data.unitPrice;
+          return (
+            <div className="text-center">{formatPrice(data.unitPrice)}</div>
+          );
         },
       },
       {
@@ -118,17 +123,12 @@ function Products() {
 
   return (
     <div className="mb-20">
-      <div className="flex justify-between">
-        <div>Products</div>
-        <div>
-          <Link
-            href={"/dashboard/products/add-product"}
-            className="flex items-center bg-secondary-3 text-primary px-2 py-4 rounded-sm text-sm hover:opacity-90"
-          >
-            <IoAddCircleOutline />
-            <span className="mx-2">Add Products</span>
-          </Link>
-        </div>
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold">Products</h3>
+
+        <Link href={"/dashboard/products/add-product"}>
+          <Button leftIcon={<IoAddCircleOutline />}>Add Products</Button>
+        </Link>
       </div>
       {content}
     </div>

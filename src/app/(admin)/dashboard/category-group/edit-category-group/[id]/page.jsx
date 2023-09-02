@@ -26,6 +26,12 @@ function EditProduct() {
     e.preventDefault();
     updateCategory([id, dataForm]);
   };
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      router.push("/dashboard/category-group");
+    }
+  }, [result.isSuccess]);
   useEffect(() => {
     if (isSuccess) {
       dispatch(changeAllValue(data.data));
@@ -38,7 +44,6 @@ function EditProduct() {
         Update Category Group
       </h2>
       <div className="flex -mx-2">
-        <div className="flex-[0_0_50%] px-2"></div>
         <div className="flex-[0_0_50%] px-2">
           <ul>
             <li className="text-sm font-semibold">
@@ -62,13 +67,13 @@ function EditProduct() {
                 }}
               ></InputTextArea>
             </li>
+            <li className="flex justify-end">
+              <Button small type={"submit"}>
+                Update
+              </Button>
+            </li>
           </ul>
         </div>
-      </div>
-      <div className="flex justify-end">
-        <Button secondary small type={"submit"}>
-          Update
-        </Button>
       </div>
     </form>
   );

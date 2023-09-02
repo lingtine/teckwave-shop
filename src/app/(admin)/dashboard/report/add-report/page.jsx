@@ -98,9 +98,10 @@ function AddProducts() {
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <h2 className="my-2 text-lg text-primary-1 font-bold">Add Report</h2>
-      <form onSubmit={handleSubmit} className="flex -mx-2">
+
+      <div className="flex">
         <div className="flex-[0_0_50%] px-2">
           <SelectedProduct />
         </div>
@@ -163,13 +164,15 @@ function AddProducts() {
                 }}
               ></InputTextArea>
             </li>
+            <li className="flex justify-end">
+              <Button small type={"submit"}>
+                Create Report
+              </Button>
+            </li>
           </ul>
-          <Button secondary small type={"submit"}>
-            Create Report
-          </Button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 }
 

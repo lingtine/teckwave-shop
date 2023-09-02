@@ -12,6 +12,7 @@ import {
   useRemoveCategoryMutation,
 } from "~/redux/services/catalog/category-api";
 import { useEffect } from "react";
+import Button from "~/app/components/button/button";
 function Category() {
   const { data, isSuccess, isFetching } = useFetchCategoriesQuery();
   const [removeCategory, result] = useRemoveCategoryMutation();
@@ -84,19 +85,14 @@ function Category() {
   }
   return (
     <div>
-      <div className="flex justify-between">
-        <div>Category</div>
-        <div className="">
-          <Link
-            href={"/dashboard/category/add-category"}
-            className="flex items-center bg-secondary-3 text-primary px-2 py-4 rounded-sm text-sm hover:opacity-90"
-          >
-            <IoAddCircleOutline />
-            <span className="mx-2">Add category</span>
-          </Link>
-        </div>
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold">Category</h3>
+
+        <Link href={"/dashboard/category/add-category"}>
+          <Button leftIcon={<IoAddCircleOutline />}>Create category</Button>
+        </Link>
       </div>
-      <div>{content}</div>
+      {content}
     </div>
   );
 }

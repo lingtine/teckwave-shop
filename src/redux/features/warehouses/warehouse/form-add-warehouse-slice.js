@@ -6,45 +6,22 @@ const initialState = {
   email: "",
   address: "",
   fax: "",
-  hotLine: "",
-  warehouseType: "",
+  hotline: "",
 };
 
 const formAddWarehouseSlice = createSlice({
   name: "formAddWarehouseSlice",
   initialState,
   reducers: {
-    changeName(state, action) {
-      state.name = action.payload;
+    changeField(state, action) {
+      const { field, value } = action.payload;
+      state[field] = value;
     },
-    changeDescription(state, action) {
-      state.description = action.payload;
-    },
-    changeEmail(state, action) {
-      state.email = action.payload;
-    },
-    changeAddress(state, action) {
-      state.address = action.payload;
-    },
-    changFax(state, action) {
-      state.fax = action.payload;
-    },
-    changeHotLine(state, action) {
-      state.hotLine = action.payload;
-    },
-    changeWarehouseType(state, action) {
-      state.warehouseType = action.payload;
+    clearForm() {
+      return initialState;
     },
   },
 });
 
-export const {
-  changFax,
-  changeAddress,
-  changeDescription,
-  changeEmail,
-  changeHotLine,
-  changeName,
-  changeWarehouseType,
-} = formAddWarehouseSlice.actions;
+export const { changeField, clearForm } = formAddWarehouseSlice.actions;
 export default formAddWarehouseSlice;

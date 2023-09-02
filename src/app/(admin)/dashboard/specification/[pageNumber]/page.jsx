@@ -14,6 +14,7 @@ import { CiCircleRemove } from "react-icons/ci";
 import Pagination from "~/app/components/pagination/pagination";
 import { Spinner } from "@material-tailwind/react/components/Spinner";
 import { useParams } from "next/navigation";
+import Button from "~/app/components/button/button";
 
 function Specification() {
   const { pageNumber } = useParams();
@@ -86,17 +87,12 @@ function Specification() {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <div>Specification</div>
-        <div>
-          <Link
-            href={"/dashboard/specification/add-specification"}
-            className="flex items-center bg-secondary-3 text-primary px-2 py-4 rounded-sm text-sm hover:opacity-90"
-          >
-            <IoAddCircleOutline />
-            <span className="mx-2">Add Specification</span>
-          </Link>
-        </div>
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold">Specification</h3>
+
+        <Link href={"/dashboard/specification/add-specification"}>
+          <Button leftIcon={<IoAddCircleOutline />}>Add specification</Button>
+        </Link>
       </div>
       {content}
     </div>

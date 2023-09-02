@@ -3,6 +3,7 @@ import customFetchBase from "~/redux/api/customFetchBase";
 const orderApi = createApi({
   reducerPath: "orderApi",
   baseQuery: customFetchBase,
+  tagTypes: ["update"],
   endpoints(builder) {
     return {
       createOrder: builder.mutation({
@@ -22,14 +23,16 @@ const orderApi = createApi({
             params: parameters,
           };
         },
+        providesTags: ["update"],
       }),
-      updateStatusOrder: builder.mutation({
+      processOrder: builder.mutation({
         query: (orderId) => {
           return {
             method: "POST",
             url: `orders/orders/process/${orderId}`,
           };
         },
+        invalidatesTags: ["update"],
       }),
     };
   },
@@ -39,5 +42,5 @@ export default orderApi;
 export const {
   useCreateOrderMutation,
   useGetAllOrderQuery,
-  useUpdateStatusOrderMutation,
+  useProcessOrderMutation,
 } = orderApi;

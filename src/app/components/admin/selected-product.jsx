@@ -136,7 +136,7 @@ function SelectedProduct() {
           )}
         </div>
       </div>
-      <List className="my-8">
+      <List className="my-2">
         <h4 className="font-semibold text-xl my-4">List Products</h4>
         {dataForm.products.length !== 0 && renderProducts}
       </List>

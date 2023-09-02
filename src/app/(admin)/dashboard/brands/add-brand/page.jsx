@@ -39,7 +39,7 @@ function addBrand() {
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <h2 className="my-2 text-lg text-primary-1 font-bold">Add Brand</h2>
       <div className="flex -mx-2">
         <div className="flex-[0_0_50%] px-2">
@@ -70,15 +70,15 @@ function addBrand() {
                 }}
               ></InputTextArea>
             </li>
+            <li className="flex justify-end">
+              <Button small type={"submit"}>
+                Create brand
+              </Button>
+            </li>
           </ul>
         </div>
       </div>
-      <form onSubmit={handleSubmit} className="flex justify-end">
-        <Button secondary small type={"submit"}>
-          Create brand
-        </Button>
-      </form>
-    </div>
+    </form>
   );
 }
 

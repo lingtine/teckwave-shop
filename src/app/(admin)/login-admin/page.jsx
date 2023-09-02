@@ -57,7 +57,7 @@ function LoginAdmin() {
             <form onSubmit={handleSubmit}>
               <div className="my-4">
                 <Input
-                  label={"email"}
+                  label={"Email"}
                   value={loginAdmin.username}
                   onChange={(e) => {
                     dispatch(changeUserName(e.target.value));

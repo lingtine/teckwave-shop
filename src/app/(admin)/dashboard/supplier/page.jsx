@@ -13,6 +13,7 @@ import {
 } from "~/redux/services/warehouse/supplier-api";
 import Pagination from "~/app/components/pagination/pagination";
 import { Spinner } from "@material-tailwind/react/components/Spinner";
+import Button from "~/app/components/button/button";
 
 function Products() {
   const { data, isSuccess, isFetching } = useFetchAllSuppliersQuery();
@@ -99,17 +100,12 @@ function Products() {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <div>Supplier</div>
-        <div>
-          <Link
-            href={"/dashboard/supplier/add-supplier"}
-            className="flex items-center bg-secondary-3 text-primary px-2 py-4 rounded-sm text-sm hover:opacity-90"
-          >
-            <IoAddCircleOutline />
-            <span className="mx-2">Add Supplier</span>
-          </Link>
-        </div>
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold">Supplier</h3>
+
+        <Link href={"/dashboard/supplier/add-supplier"}>
+          <Button leftIcon={<IoAddCircleOutline />}>Add supplier</Button>
+        </Link>
       </div>
       {content}
     </div>

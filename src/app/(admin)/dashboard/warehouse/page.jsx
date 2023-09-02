@@ -13,6 +13,7 @@ import {
 } from "~/redux/services/warehouse/warehouse-api";
 import Pagination from "~/app/components/pagination/pagination";
 import { Spinner } from "@material-tailwind/react/components/Spinner";
+import Button from "~/app/components/button/button";
 function Products() {
   const { data, isSuccess, isFetching } = useFetchAllWarehousersQuery();
   const [remove, result] = useRemoveWarehouserMutation();
@@ -67,9 +68,9 @@ function Products() {
               >
                 <CiCircleRemove />
               </button>
-              <Link href={`/dashboard/warehouse/edit-warehouse/${data.id}`}>
+              {/* <Link href={`/dashboard/warehouse/edit-warehouse/${data.id}`}>
                 <AiFillEdit></AiFillEdit>
-              </Link>
+              </Link> */}
             </div>
           );
         },
@@ -102,17 +103,12 @@ function Products() {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <div>Warehouse</div>
-        <div>
-          <Link
-            href={"/dashboard/warehouse/add-warehouse"}
-            className="flex items-center bg-secondary-3 text-primary px-2 py-4 rounded-sm text-sm hover:opacity-90"
-          >
-            <IoAddCircleOutline />
-            <span className="mx-2">Add Warehouse</span>
-          </Link>
-        </div>
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold">Warehouse</h3>
+
+        <Link href={"/dashboard/warehouse/add-warehouse"}>
+          <Button leftIcon={<IoAddCircleOutline />}>Add warehouse</Button>
+        </Link>
       </div>
       {content}
     </div>

@@ -119,8 +119,8 @@ function AddProducts() {
               }}
             ></InputTextArea>
           </li>
-          <li>
-            <Button secondary small type={"submit"}>
+          <li className="flex justify-end">
+            <Button small type={"submit"}>
               Create Coupon
             </Button>
           </li>

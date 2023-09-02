@@ -53,10 +53,9 @@ function AddProducts() {
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <h2 className="my-2 text-lg text-primary-1 font-bold">Add Category</h2>
       <div className="flex -mx-2">
-        <div className="flex-[0_0_50%] px-2"></div>
         <div className="flex-[0_0_50%] px-2">
           <ul>
             <li className="text-sm font-semibold">Category Information</li>
@@ -94,15 +93,15 @@ function AddProducts() {
                 }}
               ></InputTextArea>
             </li>
+            <li className="flex justify-end">
+              <Button small type={"submit"}>
+                Create category
+              </Button>
+            </li>
           </ul>
         </div>
       </div>
-      <form onSubmit={handleSubmit} className="flex justify-end">
-        <Button secondary small type={"submit"}>
-          Create category
-        </Button>
-      </form>
-    </div>
+    </form>
   );
 }
 

@@ -45,14 +45,14 @@ function EditCategory() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2 className="my-2 text-lg text-primary-1 font-bold">Update Product</h2>
+      <h2 className="my-2 text-lg text-primary-1 font-bold">Update Category</h2>
       <div className="flex -mx-2">
         <div className="flex-[0_0_50%] px-2">
           <ul>
-            <li className="text-sm font-semibold">Product Information</li>
+            <li className="text-sm font-semibold">Category Information</li>
             <li className="my-4">
               <Input
-                label={"Product Name"}
+                label={"Category Name"}
                 value={dataForm.name}
                 onChange={(e) => {
                   dispatch(changeName(e.target.value));
@@ -68,13 +68,13 @@ function EditCategory() {
                 }}
               ></InputTextArea>
             </li>
+            <li className="flex justify-end">
+              <Button small type={"submit"}>
+                Update Category
+              </Button>
+            </li>
           </ul>
         </div>
-      </div>
-      <div className="flex justify-end">
-        <Button secondary small type={"submit"}>
-          Update Category
-        </Button>
       </div>
     </form>
   );

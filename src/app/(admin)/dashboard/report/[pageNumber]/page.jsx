@@ -11,6 +11,7 @@ import { useFetchAllReportsQuery } from "~/redux/services/warehouse/report-api";
 import { Spinner } from "@material-tailwind/react/components/Spinner";
 import Pagination from "~/app/components/pagination/pagination";
 import { useParams } from "next/navigation";
+import Button from "~/app/components/button/button";
 function Report() {
   const { pageNumber } = useParams();
   const { data, isSuccess, isFetching } = useFetchAllReportsQuery({
@@ -50,9 +51,9 @@ function Report() {
               >
                 <CiCircleRemove />
               </button>
-              <Link href={`/dashboard/products/edit-product/${data.id}`}>
+              {/* <Link href={`/dashboard/products/edit-product/${data.id}`}>
                 <AiFillEdit></AiFillEdit>
-              </Link>
+              </Link> */}
             </div>
           );
         },
@@ -86,17 +87,12 @@ function Report() {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <div>Reports</div>
-        <div>
-          <Link
-            href={"/dashboard/report/add-report"}
-            className="flex items-center bg-secondary-3 text-primary px-2 py-4 rounded-sm text-sm hover:opacity-90"
-          >
-            <IoAddCircleOutline />
-            <span className="mx-2">Add report</span>
-          </Link>
-        </div>
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold">Report</h3>
+
+        <Link href={"/dashboard/report/add-report"}>
+          <Button leftIcon={<IoAddCircleOutline />}>Add report</Button>
+        </Link>
       </div>
       {content}
     </div>

@@ -13,6 +13,7 @@ import {
 } from "~/redux/services/catalog/category-group-api";
 
 import { Spinner } from "@material-tailwind/react/components/Spinner";
+import Button from "~/app/components/button/button";
 function CategoryGroup() {
   const { data, isSuccess, isFetching } = useFetchCategoryGroupsQuery();
   const [removeCategory, result] = useRemoveCategoryGroupMutation();
@@ -78,17 +79,14 @@ function CategoryGroup() {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <div>Category group</div>
-        <div>
-          <Link
-            href={"/dashboard/category-group/add-category-group"}
-            className="flex items-center bg-secondary-3 text-primary px-2 py-4 rounded-sm text-sm hover:opacity-90"
-          >
-            <IoAddCircleOutline />
-            <span className="mx-2">Add Category Group</span>
-          </Link>
-        </div>
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold">Category group</h3>
+
+        <Link href={"/dashboard/category-group/add-category-group"}>
+          <Button leftIcon={<IoAddCircleOutline />}>
+            Create category group
+          </Button>
+        </Link>
       </div>
       {content}
     </div>

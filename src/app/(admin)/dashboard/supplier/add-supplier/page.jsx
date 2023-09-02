@@ -37,10 +37,9 @@ function AddSupplier() {
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <h2 className="my-2 text-lg text-primary-1 font-bold">Add Supplier</h2>
-      <form onSubmit={handleSubmit} className="flex -mx-2">
-        <div className="flex-[0_0_50%] px-2"></div>
+      <div className="flex">
         <div className="flex-[0_0_50%] px-2">
           <ul>
             <li className="text-sm font-semibold">Supplier Information</li>
@@ -89,13 +88,15 @@ function AddSupplier() {
                 }}
               ></InputTextArea>
             </li>
+            <li className="flex justify-end">
+              <Button small type={"submit"}>
+                Create Supplier
+              </Button>
+            </li>
           </ul>
-          <Button secondary small type={"submit"}>
-            Create Supplier
-          </Button>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 }
 

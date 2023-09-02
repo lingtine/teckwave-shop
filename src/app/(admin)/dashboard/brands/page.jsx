@@ -15,6 +15,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import Pagination from "~/app/components/pagination/pagination";
 import { toast } from "react-toastify";
+import Button from "~/app/components/button/button";
 function Products() {
   const { data, isSuccess, isFetching } = useFetchAllBrandsQuery();
   const [currentPage, setCurrentPage] = useState(0);
@@ -97,17 +98,12 @@ function Products() {
 
   return (
     <div>
-      <div className="flex justify-between">
-        <div>Brands</div>
-        <div>
-          <Link
-            href={"/dashboard/brands/add-brand"}
-            className="flex items-center bg-secondary-3 text-primary px-2 py-4 rounded-sm text-sm hover:opacity-90"
-          >
-            <IoAddCircleOutline />
-            <span className="mx-2">Add brand</span>
-          </Link>
-        </div>
+      <div className="flex justify-between items-center">
+        <h3 className="text-xl font-semibold">Brands</h3>
+
+        <Link href={"/dashboard/brands/add-brand"}>
+          <Button leftIcon={<IoAddCircleOutline />}>Create brand</Button>
+        </Link>
       </div>
       {content}
     </div>

@@ -72,7 +72,7 @@ function AddProducts() {
                 ></InputTextArea>
               </li>
               <li>
-                <Button secondary small type={"submit"}>
+                <Button small type={"submit"}>
                   Create category group
                 </Button>
               </li>
