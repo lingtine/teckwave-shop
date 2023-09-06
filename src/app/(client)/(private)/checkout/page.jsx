@@ -10,12 +10,12 @@ import DeliveryInformation from "~/app/components/check-out/delivery-information
 import { useGetListProductsByIdQuery } from "~/redux/services/catalog/product-api";
 import { useGetAllCouponQuery } from "~/redux/services/discount/coupon-api";
 import SelectBox from "~/app/components/select-box/select-box";
-
+import { clearData } from "~/redux/features/cart/cart";
 function Checkout() {
   const [order, result] = useCreateOrderMutation();
   const { cart } = useSelector((state) => state.cart);
   const dataForm = useSelector((state) => state.checkoutForm);
-
+  const dispatch = useDispatch();
   const router = useRouter();
   const arrayId = cart?.items.map((item) => item.productId);
   const { data, isSuccess } = useGetListProductsByIdQuery(arrayId, {
@@ -56,6 +56,7 @@ function Checkout() {
     if (result.isSuccess) {
       toast.success("OrderSuccess");
       router.push("/");
+      dispatch(clearData());
     }
   }, [result.isSuccess]);
   const handleSubmit = (e) => {

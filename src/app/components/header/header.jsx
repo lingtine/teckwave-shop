@@ -10,11 +10,19 @@ import TopBar from "./top-bar";
 import HeaderNavigation from "./header-navigation";
 import { useSelector } from "react-redux";
 import { useLogoutMutation } from "~/redux/services/authentication/auth-api";
-
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 function Header() {
   const { user } = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state.cart);
-  const [logout] = useLogoutMutation();
+  const [logout, { isSuccess }] = useLogoutMutation();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/");
+    }
+  }, [isSuccess]);
   return (
     <header className="min-h-[142px] border-b">
       <TopBar />

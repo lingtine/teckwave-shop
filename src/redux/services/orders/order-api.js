@@ -34,6 +34,14 @@ const orderApi = createApi({
         },
         invalidatesTags: ["update"],
       }),
+      getOrdersCustomer: builder.query({
+        query: () => {
+          return {
+            method: "GET",
+            url: `orders/orders/customer`,
+          };
+        },
+      }),
     };
   },
 });
@@ -43,4 +51,5 @@ export const {
   useCreateOrderMutation,
   useGetAllOrderQuery,
   useProcessOrderMutation,
+  useGetOrdersCustomerQuery,
 } = orderApi;

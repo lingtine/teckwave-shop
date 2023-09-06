@@ -49,19 +49,23 @@ function Orders() {
         },
       },
       {
-        label: "Actions",
+        label: "Status",
         render: (data) => {
           return (
             <div className="flex justify-center items-center gap-4">
-              <Button
-                onClick={() => {
-                  handleProcessingOrder(data.id);
-                }}
-                secondary
-                small
-              >
-                Process
-              </Button>
+              {data.status === "Created" ? (
+                <Button
+                  onClick={() => {
+                    handleProcessingOrder(data.id);
+                  }}
+                  secondary
+                  small
+                >
+                  Process
+                </Button>
+              ) : (
+                data.status
+              )}
               {/* <Link href={`/dashboard/orders/order-detail/${data.id}`}>
                 <AiFillEye />
               </Link> */}
