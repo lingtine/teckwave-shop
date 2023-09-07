@@ -7,7 +7,11 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+      lang="en"
+    >
       <body suppressHydrationWarning className={inter.className}>
         <Providers>{children}</Providers>
         <ToastContainer />
