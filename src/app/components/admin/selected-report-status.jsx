@@ -27,7 +27,7 @@ function SelectedReportStatus({ data, reportId }) {
   useEffect(() => {
     if (approvedSuccess || cancelledSuccess || inspectSuccess) {
       router.push("/dashboard/report");
-      toast.success("Change Status Success");
+      toast.success("Change Status succeeded");
     }
     if (approvedError || cancelledError || inspectError) {
       toast.error("Change Status Failed");

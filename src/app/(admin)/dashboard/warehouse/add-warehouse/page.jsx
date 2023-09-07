@@ -22,7 +22,8 @@ function AddProducts() {
   useEffect(() => {
     if (result.isSuccess) {
       router.push("/dashboard/warehouse");
-      toast.success("Create Success");
+      toast.success("Create succeeded");
+      dispatch(clearForm());
     } else if (result.isError) {
       toast.error("Create Failed");
     }

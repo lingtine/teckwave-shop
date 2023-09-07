@@ -27,6 +27,9 @@ const formAddSupplierSlice = createSlice({
     changePhoneNumber(state, action) {
       state.phoneNumber = action.payload;
     },
+    clearData() {
+      return initialState;
+    },
   },
 });
 
@@ -36,5 +39,6 @@ export const {
   changeEmail,
   changeName,
   changePhoneNumber,
+  clearData,
 } = formAddSupplierSlice.actions;
 export default formAddSupplierSlice;

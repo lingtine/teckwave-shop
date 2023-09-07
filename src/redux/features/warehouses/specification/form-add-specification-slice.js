@@ -16,7 +16,7 @@ const formAddSpecificationSlice = createSlice({
       state.name = action.payload;
     },
 
-    cleanData() {
+    clearData() {
       return initialState;
     },
   },
@@ -24,5 +24,5 @@ const formAddSpecificationSlice = createSlice({
 
 export default formAddSpecificationSlice;
 
-export const { changeName, changeDescription, cleanData } =
+export const { changeName, changeDescription, clearData } =
   formAddSpecificationSlice.actions;

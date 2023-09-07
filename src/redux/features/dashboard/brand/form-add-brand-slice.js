@@ -19,9 +19,12 @@ const formAddBrandSlice = createSlice({
     changeImage(state, action) {
       state.image = action.payload;
     },
+    clearData() {
+      return initialState;
+    },
   },
 });
 
 export default formAddBrandSlice;
-export const { changeName, changeImage, changeDescription } =
+export const { changeName, changeImage, changeDescription, clearData } =
   formAddBrandSlice.actions;

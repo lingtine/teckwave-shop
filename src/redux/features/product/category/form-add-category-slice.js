@@ -19,9 +19,12 @@ const formAddCategory = createSlice({
     changeDescription(state, action) {
       state.description = action.payload;
     },
+    clearData() {
+      return initialState;
+    },
   },
 });
 
 export default formAddCategory;
-export const { changeCategoryGroup, changeDescription, changeName } =
+export const { clearData, changeCategoryGroup, changeDescription, changeName } =
   formAddCategory.actions;

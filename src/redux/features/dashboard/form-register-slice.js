@@ -31,6 +31,9 @@ const formRegisterSlice = createSlice({
     changeShowCode(state, action) {
       state.showCode = true;
     },
+    clearData() {
+      return initialState;
+    },
   },
 });
 
@@ -41,6 +44,7 @@ export const {
   changeCode,
   changeName,
   changeShowCode,
+  clearData,
 } = formRegisterSlice.actions;
 
 export default formRegisterSlice.reducer;

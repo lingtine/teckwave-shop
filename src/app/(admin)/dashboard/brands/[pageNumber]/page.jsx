@@ -28,7 +28,7 @@ function Products() {
 
   useEffect(() => {
     if (result.isSuccess) {
-      toast.success("Delete success");
+      toast.success("Delete succeeded");
     }
   }, [result.isSuccess]);
   if (isSuccess) {

@@ -3,72 +3,26 @@
 import Button from "../button/button";
 import Image from "next/image";
 import Link from "next/link";
-import { BiCartAdd } from "react-icons/bi";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { useEffect, useState } from "react";
-import {
-  useAddToWishListMutation,
-  useRemoveToWishListMutation,
-} from "~/redux/services/customer/customer-api";
-import { Card } from "@material-tailwind/react";
+
+import { useEffect } from "react";
+
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import useDebounce from "~/hooks/use-debounce";
+
 import { formatPrice } from "~/utils/formatPrice";
 
 import { useAddProductMutation } from "~/redux/services/orders/cart-api";
-import { Rating } from "@material-tailwind/react";
+import { Rating } from "@material-tailwind/react/components/Rating";
+import { useRouter } from "next/navigation";
 function ProductCart({ product }) {
-  const { user } = useSelector((state) => state.user);
-  //const { wishList } = useSelector((state) => state.wishListSlice);
+  const { accessToken } = useSelector((state) => state.authSlice);
+  const router = useRouter();
   const [addProduct, result] = useAddProductMutation();
 
-  // const found = wishList?.find((item) => item.productId === product.id);
-  // const [status, setStatus] = useState(!!found);
-  // const debounceValue = useDebounce(status, 500);
-
-  // const [addWistList, resultAddWishList] = useAddToWishListMutation();
-  // const [removeWistList, resultRemoveWishList] = useRemoveToWishListMutation();
-
-  // useEffect(() => {
-  //   if (resultAddWishList.isSuccess) {
-  //     toast.success("Add to wish list success");
-  //   }
-  // }, [resultAddWishList.isSuccess]);
-  // useEffect(() => {
-  //   if (resultRemoveWishList.isSuccess) {
-  //     toast.success("Remove to wish list success");
-  //   }
-  // }, [resultRemoveWishList.isSuccess]);
-  // useEffect(() => {
-  //   if (debounceValue) {
-  //     addWistList(product.id);
-  //   } else {
-  //     removeWistList(product.id);
-  //   }
-  // }, [debounceValue]);
-  // const renderAction = (
-  //   <div>
-  //     <div
-  //       onClick={() => {
-  //         setStatus(!status);
-  //       }}
-  //       className="absolute text-xl text-secondary-3 p-2.5 rounded-full right-1  top-6"
-  //     >
-  //       {status ? <AiFillHeart /> : <AiOutlineHeart />}
-  //     </div>
-  //     <div
-  //       onClick={handleAddProduct}
-  //       className="cursor-pointer absolute group-hover:block hidden bg-secondary-3 text-white p-2.5 rounded-full right-4 top-[50%] text-lg text-center"
-  //     >
-  //       <BiCartAdd />
-  //     </div>
-  //   </div>
-  // );
   //function
   useEffect(() => {
     if (result.isSuccess) {
-      toast.success("Add product Success");
+      toast.success("Add product succeeded");
     }
     if (result.isError) {
       toast.error("error");
@@ -76,12 +30,17 @@ function ProductCart({ product }) {
   }, [result.isSuccess, result.isError]);
 
   const handleAddToCart = () => {
-    addProduct({
-      productId: product.id,
-      productName: product.name,
-      quantity: 1,
-      unitPrice: product.unitPrice,
-    });
+    if (accessToken) {
+      addProduct({
+        productId: product.id,
+        productName: product.name,
+        quantity: 1,
+        unitPrice: product.unitPrice,
+      });
+    } else {
+      toast.info("You must log in first");
+      router.push("/login");
+    }
   };
 
   return (

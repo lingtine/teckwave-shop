@@ -49,7 +49,7 @@ function UpdateAddress() {
 
   useEffect(() => {
     if (result.isSuccess) {
-      toast.success("Update Success");
+      toast.success("Update succeeded");
       router.push("/account/my-address");
       dispatch(clearForm());
     }

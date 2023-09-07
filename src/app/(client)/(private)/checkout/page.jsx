@@ -54,11 +54,14 @@ function Checkout() {
   }, []);
   useEffect(() => {
     if (result.isSuccess) {
-      toast.success("OrderSuccess");
+      toast.success("Order succeeded");
       router.push("/");
       dispatch(clearData());
     }
-  }, [result.isSuccess]);
+    if (result.isError) {
+      toast.success("Order failed");
+    }
+  }, [result.isSuccess, result.isError]);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (coupon === null) {

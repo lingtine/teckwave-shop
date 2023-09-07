@@ -19,7 +19,7 @@ function ProductContent({ product }) {
   const router = useRouter();
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Add to cart Success");
+      toast.success("Add to cart succeeded");
     }
   }, [isSuccess]);
   const handleAddToCart = () => {

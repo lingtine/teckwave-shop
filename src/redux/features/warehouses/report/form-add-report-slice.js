@@ -13,7 +13,7 @@ const formAddReportSlice = createSlice({
   name: "formAddReportSlice",
   initialState,
   reducers: {
-    cleanData() {
+    clearData() {
       return initialState;
     },
     changeFrom(state, action) {
@@ -59,7 +59,7 @@ export const {
   changeTo,
   changeAddProduct,
   changeQuantity,
-  cleanData,
+  clearData,
   changeRemoveProduct,
 } = formAddReportSlice.actions;
 

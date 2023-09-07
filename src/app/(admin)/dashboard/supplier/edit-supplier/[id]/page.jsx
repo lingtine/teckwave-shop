@@ -54,7 +54,7 @@ function EditProduct() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2 className="my-2 text-lg text-primary-1 font-bold">Update Product</h2>
+      <h2 className="my-2 text-lg text-primary-1 font-bold">Update S</h2>
       <div className="flex -mx-2">
         <div className="flex-[0_0_50%] px-2">
           <InputImage

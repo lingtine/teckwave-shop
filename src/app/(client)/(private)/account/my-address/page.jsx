@@ -3,8 +3,7 @@ import Link from "next/link";
 import { AiOutlinePlus } from "react-icons/ai";
 import Button from "~/app/components/button/button";
 import AddressContent from "~/app/components/my-address/address-content";
-import { useParams } from "next/navigation";
-import { useGetCustomerQuery } from "~/redux/services/customer/customer-api";
+
 import { useSelector } from "react-redux";
 
 function MyAddress() {
@@ -20,9 +19,9 @@ function MyAddress() {
     <div className="px-4 border">
       <div className="">
         <div className="border-b py-4 text-xl font-semibold">
-          <h4>My Address</h4>
+          <h4 className="text-secondary-3">My Address</h4>
         </div>
-        <div className="flex justify-end w-full text-base py-8 border-b">
+        <div className="flex justify-end w-full text-base py-4 border-b">
           <Link href={`/account/my-address/add-address`}>
             <Button secondary leftIcon={<AiOutlinePlus />}>
               Add Address

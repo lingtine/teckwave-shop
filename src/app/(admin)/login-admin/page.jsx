@@ -19,27 +19,25 @@ function LoginAdmin() {
   useEffect(() => {
     document.title = "Login Admin";
   }, []);
-  const [login, { isLoading, isError, isSuccess, data }] = useLoginMutation();
+  const [login, { isLoading, isError, isSuccess, data, error }] =
+    useLoginMutation();
   const router = useRouter();
   let jwt;
   useEffect(() => {
     if (isSuccess) {
       jwt = jwtDecode(data.accessToken);
-      if (jwt.role === "Employee") {
+      const found = jwt.role?.find((element) => element === "Employee");
+      if (found) {
+        router.push("/dashboard/orders");
+        toast.success("Login succeeded");
       } else if (jwt.role === "Customer") {
-        toast.error("Đây không phải là tài khoảng Admin");
+        toast.error("You are not the admin");
       }
     }
     if (isError) {
-      toast.error("loi dang nhap");
+      toast.error(error.data.Messages);
     }
   }, [isSuccess, isError]);
-  useEffect(() => {
-    if (user) {
-      router.push("/dashboard");
-      toast.success("Đăng nhập thành công");
-    }
-  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

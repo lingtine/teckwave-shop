@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body suppressHydrationWarning={true} className={inter.className}>
+      <body suppressHydrationWarning className={inter.className}>
         <Providers>{children}</Providers>
         <ToastContainer />
       </body>

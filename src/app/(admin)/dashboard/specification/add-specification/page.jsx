@@ -24,7 +24,7 @@ function AddSpecification() {
   useEffect(() => {
     if (result.isSuccess) {
       router.push("/dashboard/specification");
-      toast.success("Create specification success");
+      toast.success("Create specification succeeded");
     }
     if (result.error) {
       toast.success("Create specification error");

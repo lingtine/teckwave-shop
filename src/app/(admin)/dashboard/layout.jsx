@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import jwtDecode from "jwt-decode";
+import { toast } from "react-toastify";
 export default function AdminLayout({ children }) {
   const { accessToken } = useSelector((state) => state.authSlice);
   const router = useRouter();
@@ -12,9 +13,16 @@ export default function AdminLayout({ children }) {
     document.title = "Dashboard";
   }, []);
   useEffect(() => {
-    const info = jwtDecode(accessToken);
-    if (!accessToken || info?.role === "Customer") {
+    if (!accessToken) {
       router.push("/login-admin");
+      toast.info("You must login first");
+    } else {
+      const info = jwtDecode(accessToken);
+      console.log(info);
+      if (info?.role === "Customer") {
+        router.push("/login-admin");
+        toast.info("You are not Admin");
+      }
     }
   }, []);
 

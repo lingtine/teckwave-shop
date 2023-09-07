@@ -25,7 +25,7 @@ function CouponDetailInformation({ data }) {
       });
     }
     if (result.isSuccess) {
-      toast.success("Change Status Success");
+      toast.success("Change Status succeeded");
       router.push("/dashboard/coupons");
     }
   }, [result.isError, result.isSuccess]);

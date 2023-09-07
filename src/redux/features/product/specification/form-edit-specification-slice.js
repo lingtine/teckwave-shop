@@ -15,8 +15,12 @@ const formEditSpecification = createSlice({
     changeDescription(state, action) {
       state.description = action.payload;
     },
+    clearData() {
+      return initialState;
+    },
   },
 });
 
 export default formEditSpecification;
-export const { changeDescription, changeName } = formEditSpecification.actions;
+export const { changeDescription, changeName, clearData } =
+  formEditSpecification.actions;

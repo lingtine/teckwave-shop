@@ -19,9 +19,12 @@ const formEditCategoryGroup = createSlice({
     changeDescription(state, action) {
       state.description = action.payload;
     },
+    clearData() {
+      return initialState;
+    },
   },
 });
 
 export default formEditCategoryGroup;
-export const { changeDescription, changeName, changeAllValue } =
+export const { clearData, changeDescription, changeName, changeAllValue } =
   formEditCategoryGroup.actions;

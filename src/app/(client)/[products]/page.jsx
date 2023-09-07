@@ -13,7 +13,6 @@ function ProductsPage() {
   const [currentPage, setCurrentPage] = useState(0);
   const [getProducts, { data, isSuccess, isError, isLoading }] =
     useGetAllProductsByParameterMutation();
-  const router = useRouter();
 
   const [valueSorted, setValueSorted] = useState(null);
 
@@ -54,74 +53,7 @@ function ProductsPage() {
   useEffect(() => {
     document.title = "Category";
   }, []);
-  const filterData = [
-    {
-      id: Math.random(),
-      label: "Ram",
-      options: [
-        {
-          id: Math.random(),
-          label: "32GB",
-        },
-        {
-          id: Math.random(),
-          label: "16GB",
-        },
-        {
-          id: Math.random(),
-          label: "64GB",
-        },
-        {
-          id: Math.random(),
-          label: "8GB",
-        },
-      ],
-    },
-    {
-      id: Math.random(),
-      label: "Ram2",
-      options: [
-        {
-          id: Math.random(),
-          label: "32GB",
-        },
-        {
-          id: Math.random(),
-          label: "16GB",
-        },
-        {
-          id: Math.random(),
-          label: "64GB",
-        },
-        {
-          id: Math.random(),
-          label: "8GB",
-        },
-      ],
-    },
-    {
-      id: Math.random(),
-      label: "Ram1",
-      options: [
-        {
-          id: Math.random(),
-          label: "32GB",
-        },
-        {
-          id: Math.random(),
-          label: "16GB",
-        },
-        {
-          id: Math.random(),
-          label: "64GB",
-        },
-        {
-          id: Math.random(),
-          label: "8GB",
-        },
-      ],
-    },
-  ];
+
   useEffect(() => {
     const parameter = {
       CategoryGroupId: products,

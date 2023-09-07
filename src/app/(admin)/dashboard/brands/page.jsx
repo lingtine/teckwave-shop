@@ -23,7 +23,7 @@ function Products() {
   let configData = [];
   useEffect(() => {
     if (result.isSuccess) {
-      toast.success("Delete success");
+      toast.success("Delete succeeded");
     }
   }, [result.isSuccess]);
   if (isSuccess) {
@@ -36,8 +36,8 @@ function Products() {
               <Image
                 src={data.imageUrl}
                 alt={data.name}
-                width={50}
-                height={30}
+                width={80}
+                height={50}
               />
               <div className="mx-4">{data.name}</div>
             </div>
@@ -47,7 +47,7 @@ function Products() {
       {
         label: "Description",
         render: (data) => {
-          return data.description;
+          return <div className=" line-clamp-4">{data.description}</div>;
         },
       },
       {

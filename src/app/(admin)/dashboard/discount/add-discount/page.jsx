@@ -21,7 +21,7 @@ function AddDiscount() {
 
   useEffect(() => {
     if (result.isSuccess) {
-      toast.success("Create Discount Success");
+      toast.success("Create Discount succeeded");
       router.push("/dashboard/discount");
       dispatch(clearData());
     }

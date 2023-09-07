@@ -10,6 +10,7 @@ import {
   changeName,
   changePassword,
   changeShowCode,
+  clearData,
 } from "~/redux/features/dashboard/form-register-slice";
 import { useRegisterMutation } from "~/redux/services/customer/customer-api";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,13 +33,20 @@ function Register() {
     if (verifyEmailResult.isSuccess) {
       toast.info("Check your email to get the code");
       dispatch(changeShowCode());
+    } else if (verifyEmailResult.isError) {
+      toast.error("Errol");
     }
-    if (registerResult.isSuccess) {
-      toast.success("User Register Successfully");
-      router.push("/login");
-    }
-  }, [verifyEmailResult.isSuccess, registerResult.isSuccess]);
+  }, [verifyEmailResult.isSuccess, verifyEmailResult.isError]);
 
+  useEffect(() => {
+    if (registerResult.isSuccess) {
+      toast.success("User Register succeeded");
+      router.push("/login");
+      dispatch(clearData());
+    } else if (registerResult.isError) {
+      toast.error("The code is incorrect");
+    }
+  }, [registerResult.isSuccess, registerResult.isError]);
   const handleSubmit = (e) => {
     e.preventDefault();
 

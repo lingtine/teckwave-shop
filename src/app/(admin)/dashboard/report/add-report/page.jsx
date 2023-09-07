@@ -11,7 +11,7 @@ import {
   changeFrom,
   changeReportType,
   changeTo,
-  cleanData,
+  clearData,
 } from "~/redux/features/warehouses/report/form-add-report-slice";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -65,7 +65,7 @@ function AddProducts() {
   useEffect(() => {
     if (result.isSuccess) {
       router.push("/dashboard/report");
-      dispatch(cleanData());
+      dispatch(clearData());
     }
   }, [result.isSuccess]);
 

@@ -22,7 +22,7 @@ function DiscountInformation({ data }) {
       });
     }
     if (result.isSuccess) {
-      toast.success("Change Status Success");
+      toast.success("Change Status succeeded");
       router.push("/dashboard/discount");
     }
   }, [result.isError, result.isSuccess]);

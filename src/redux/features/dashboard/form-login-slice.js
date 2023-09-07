@@ -15,9 +15,13 @@ const formLoginSlice = createSlice({
     changePassword(state, action) {
       state.password = action.payload;
     },
+    clearData() {
+      return initialState;
+    },
   },
 });
 
-export const { changeEmail, changePassword } = formLoginSlice.actions;
+export const { clearData, changeEmail, changePassword } =
+  formLoginSlice.actions;
 
 export default formLoginSlice.reducer;

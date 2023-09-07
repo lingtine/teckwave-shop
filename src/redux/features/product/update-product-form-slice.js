@@ -30,6 +30,9 @@ const updateProductFormSlice = createSlice({
     changeImage(state, action) {
       state.image = action.payload;
     },
+    clearData() {
+      return initialState;
+    },
   },
 });
 
@@ -39,6 +42,7 @@ export const {
   changePrice,
   changeProductName,
   changeImage,
+  clearData,
 } = updateProductFormSlice.actions;
 
 export default updateProductFormSlice.reducer;

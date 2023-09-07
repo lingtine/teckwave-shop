@@ -64,9 +64,9 @@ function Products() {
               >
                 <CiCircleRemove />
               </button>
-              <Link href={`/dashboard/supplier/edit-supplier/${data.id}`}>
+              {/* <Link href={`/dashboard/supplier/edit-supplier/${data.id}`}>
                 <AiFillEdit></AiFillEdit>
-              </Link>
+              </Link> */}
             </div>
           );
         },
@@ -90,7 +90,7 @@ function Products() {
           <Pagination
             totalCount={data.totalCount}
             pageIndex={0}
-            pageSize={data.pageSize}
+            pageSize={20}
             url={"/dashboard/supplier"}
           />
         </div>

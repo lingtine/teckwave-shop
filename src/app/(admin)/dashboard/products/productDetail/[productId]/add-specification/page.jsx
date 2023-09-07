@@ -35,7 +35,7 @@ function AddSpecification() {
   }
   useEffect(() => {
     if (result.isSuccess) {
-      toast.success("Add Success");
+      toast.success("Add succeeded");
       dispatch(clearData());
       router.push(`/dashboard/products/productDetail/${productId}`);
     } else if (result.isError) {

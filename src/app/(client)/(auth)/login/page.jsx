@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   changeEmail,
   changePassword,
+  clearData,
 } from "~/redux/features/dashboard/form-login-slice";
 import { useLoginMutation } from "~/redux/services/authentication/auth-api";
 import { useEffect } from "react";
@@ -17,17 +18,20 @@ function LoginPage() {
   const dispatch = useDispatch();
   const router = useRouter();
   const formData = useSelector((state) => state.loginForm);
-  const [login, { isSuccess }] = useLoginMutation();
+  const [login, { isSuccess, isError, error }] = useLoginMutation();
   useEffect(() => {
     document.title = "Login";
   }, []);
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Login Success");
+      toast.success("Login succeeded");
+      dispatch(clearData());
       router.push("/");
+    } else if (isError) {
+      toast.error(error.data.Messages);
     }
-  }, [isSuccess]);
+  }, [isSuccess, isError]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

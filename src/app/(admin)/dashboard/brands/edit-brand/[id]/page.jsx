@@ -39,7 +39,7 @@ function EditProduct() {
   useEffect(() => {
     if (result.isSuccess) {
       router.push("/dashboard/brands");
-      toast.success("Success");
+      toast.success("succeeded");
     }
     if (result.isError) {
       toast.error("Error");

@@ -22,7 +22,7 @@ function Header() {
     if (isSuccess) {
       router.push("/");
     }
-  }, [isSuccess]);
+  }, [isSuccess, user, cart]);
   return (
     <header className="min-h-[142px] border-b">
       <TopBar />
@@ -43,7 +43,10 @@ function Header() {
           <div className="flex items-center">
             <SearchBar />
 
-            <Link className="flex items-center relative" href={"/cart"}>
+            <Link
+              className="flex items-center relative"
+              href={user ? "/cart" : "/login"}
+            >
               <BsCart3 className="text-3xl text-color-black ml-6 hover:text-secondary-3"></BsCart3>
               {cart && cart.items.length !== 0 && (
                 <span className="absolute text-xs -right-1.5 bottom-4 bg-red-500 text-white py-0.5 px-1 rounded shadow-lg ">

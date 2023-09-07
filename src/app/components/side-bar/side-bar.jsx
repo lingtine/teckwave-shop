@@ -17,17 +17,11 @@ function SideBar() {
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success("Logout Success");
+      toast.success("Logout succeeded");
       router.push("/login-admin");
     }
   }, [isSuccess]);
   const nav = [
-    {
-      label: "DashBoard",
-      href: "/dashboard",
-      current: segment === null,
-      icon: <BiHomeAlt />,
-    },
     {
       label: "Orders",
       href: "/dashboard/orders",

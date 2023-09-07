@@ -1,3 +1,5 @@
+"use client";
+
 function AdminDashboard() {
   return <div>Dashboard</div>;
 }

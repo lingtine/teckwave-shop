@@ -109,9 +109,9 @@ function CartPage() {
         <div className="grid grid-flow-col grid-cols-3 gap-4">
           <div className="col-span-2 bg-white p-8 shadow-lg rounded-lg">
             {isSuccess && <Table config={configData} data={dataTable} />}
-            <Link href={"/"}>
-              <Button leftIcon={<IoIosArrowBack />}>Continue Shopping</Button>
-            </Link>
+            <Button className="my-4" leftIcon={<IoIosArrowBack />}>
+              <Link href={"/"}>Continue Shopping</Link>
+            </Button>
           </div>
           <div className="p-8 bg-white rounded h-fit border border-primary-1">
             <h3 className="text-1xl font-bold dark:text-white">Summary</h3>
@@ -129,11 +129,9 @@ function CartPage() {
               <h5>Total</h5>
               <p className="font-bold">{formatPrice(totalCount)}</p>
             </div>
-            <Link href={"/checkout"}>
-              <Button full secondary large className="text-lg ">
-                Check out
-              </Button>
-            </Link>
+            <Button full secondary large className="text-lg">
+              <Link href={"/checkout"}>Check out</Link>
+            </Button>
           </div>
         </div>
       );

@@ -2,10 +2,7 @@
 
 import Button from "~/app/components/button/button";
 import Input from "~/app/components/input/input";
-import InputTextArea from "~/app/components/input/input-textarea";
-import SelectBox from "~/app/components/select-box/select-box";
 
-import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeDistrict,
@@ -34,7 +31,7 @@ function AddAddress() {
     if (result.isSuccess) {
       router.push("/account/my-address");
       dispatch(clearForm());
-      toast.success("Add Address Success");
+      toast.success("Add Address succeeded");
     } else if (result.isError) {
       toast.error("Add Address Failed");
     }
@@ -123,7 +120,7 @@ function AddAddress() {
 
           <li className="flex justify-end items-center gap-4">
             <Link href={`/account/my-address`}>
-              <Button outline>Trở về</Button>
+              <Button outline>Back</Button>
             </Link>
             <Button secondary type={"submit"}>
               Add Address

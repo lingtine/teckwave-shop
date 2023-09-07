@@ -9,6 +9,7 @@ import {
   changeCategoryGroup,
   changeDescription,
   changeName,
+  clearData,
 } from "~/redux/features/product/category/form-add-category-slice";
 import { useDispatch, useSelector } from "react-redux";
 import SelectBox from "~/app/components/select-box/select-box";
@@ -43,6 +44,7 @@ function AddProducts() {
   useEffect(() => {
     if (result.isSuccess) {
       router.push("/dashboard/category");
+      dispatch(clearData());
     }
   }, [result.isSuccess]);
 

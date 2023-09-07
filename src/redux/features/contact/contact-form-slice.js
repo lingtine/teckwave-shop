@@ -23,10 +23,18 @@ const contactFormSlice = createSlice({
     changeMessage(state, action) {
       state.message = action.payload;
     },
+    clearData() {
+      return initialState;
+    },
   },
 });
 
-export const { changeEmail, changeName, changeMessage, changePhoneNumber } =
-  contactFormSlice.actions;
+export const {
+  clearData,
+  changeEmail,
+  changeName,
+  changeMessage,
+  changePhoneNumber,
+} = contactFormSlice.actions;
 
 export default contactFormSlice.reducer;

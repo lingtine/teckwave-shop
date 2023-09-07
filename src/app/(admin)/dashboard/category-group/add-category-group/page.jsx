@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import {
   changeDescription,
   changeName,
+  clearData,
 } from "~/redux/features/product/category-group/form-add-category-group-slice";
 import { useFetchCategoriesQuery } from "~/redux/services/catalog/category-api";
 import { useDispatch, useSelector } from "react-redux";
@@ -32,6 +33,7 @@ function AddProducts() {
   useEffect(() => {
     if (result.isSuccess) {
       router.push("/dashboard/category-group");
+      dispatch(clearData());
     }
   }, [result.isSuccess]);
 

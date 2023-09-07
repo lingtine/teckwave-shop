@@ -10,6 +10,7 @@ import {
   changeDescription,
   changeImage,
   changeName,
+  clearData,
 } from "~/redux/features/dashboard/brand/form-add-brand-slice";
 import { useAddBrandMutation } from "~/redux/services/catalog/brand-api";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +26,8 @@ function addBrand() {
   useEffect(() => {
     if (result.isSuccess) {
       router.push("/dashboard/brands");
-      toast.success("Create brand success");
+      toast.success("Create brand succeeded");
+      dispatch(clearData());
     }
   }, [result.isSuccess]);
 
