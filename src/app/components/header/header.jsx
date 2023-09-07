@@ -48,7 +48,7 @@ function Header() {
               href={user ? "/cart" : "/login"}
             >
               <BsCart3 className="text-3xl text-color-black ml-6 hover:text-secondary-3"></BsCart3>
-              {cart && quantity && (
+              {cart && quantity !== 0 && (
                 <span className="absolute text-xs -right-1.5 bottom-4 bg-red-500 text-white py-0.5 px-1 rounded shadow-lg ">
                   {quantity}
                 </span>
