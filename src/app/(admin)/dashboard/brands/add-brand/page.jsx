@@ -17,10 +17,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
-function addBrand() {
-  const [addBrand, result] = useAddBrandMutation();
+function AddBrand() {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [add, result] = useAddBrandMutation();
   const dataForm = useSelector((state) => state.formAddBrandSlice);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function addBrand() {
       toast.success("Create brand succeeded");
       dispatch(clearData());
     }
-  }, [result.isSuccess]);
+  }, [result.isSuccess, router, dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -37,7 +37,7 @@ function addBrand() {
     formData.append("Name", dataForm.name);
     formData.append("Description", dataForm.description);
     formData.append("Image", dataForm.image[0]);
-    addBrand(formData);
+    add(formData);
   };
 
   return (
@@ -84,4 +84,4 @@ function addBrand() {
   );
 }
 
-export default addBrand;
+export default AddBrand;

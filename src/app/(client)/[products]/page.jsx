@@ -62,7 +62,7 @@ function ProductsPage() {
     };
     getProducts(parameter);
     window.scrollTo(0, 0);
-  }, [getProducts, currentPage, valueSorted]);
+  }, [getProducts, currentPage, valueSorted, products]);
 
   let content;
   if (isLoading) {

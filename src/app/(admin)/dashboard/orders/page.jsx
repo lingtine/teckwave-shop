@@ -21,7 +21,7 @@ function Orders() {
     if (result.isSuccess) {
       toast.success("Process Success");
     }
-    if (result.error) {
+    if (result.isError) {
       toast.error("Process failed");
     }
   }, [result.isSuccess, result.isError]);

@@ -5,7 +5,7 @@ import { Spinner } from "@material-tailwind/react/components/Spinner";
 import DiscountInformation from "~/app/components/discount-detail/discount-detail-information";
 
 import CouponData from "~/app/components/discount-detail/coupon-data";
-function discountDetail() {
+function DiscountDetail() {
   const { discountId } = useParams();
   const {
     currentData: data,
@@ -42,4 +42,4 @@ function discountDetail() {
   return <div>{content}</div>;
 }
 
-export default discountDetail;
+export default DiscountDetail;

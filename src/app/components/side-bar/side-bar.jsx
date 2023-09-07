@@ -20,7 +20,7 @@ function SideBar() {
       toast.success("Logout succeeded");
       router.push("/login-admin");
     }
-  }, [isSuccess]);
+  }, [isSuccess, router]);
   const nav = [
     {
       label: "Orders",

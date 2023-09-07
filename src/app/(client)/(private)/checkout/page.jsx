@@ -61,7 +61,7 @@ function Checkout() {
     if (result.isError) {
       toast.success("Order failed");
     }
-  }, [result.isSuccess, result.isError]);
+  }, [result.isSuccess, result.isError, router, dispatch]);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (coupon === null) {

@@ -36,6 +36,7 @@ function AboutPage() {
               src="/images/products/contact-page/Side Image.png"
               width={705}
               height={609}
+              alt="slide"
             />
           </div>
         </div>
@@ -100,6 +101,7 @@ function AboutPage() {
             <div>
               <Image
                 src={"/images/products/contact-page/user-1.png"}
+                alt="user-1"
                 width={370}
                 height={430}
               />
@@ -112,6 +114,7 @@ function AboutPage() {
           <div>
             <div>
               <Image
+                alt="user-2"
                 src={"/images/products/contact-page/user-2.png"}
                 width={370}
                 height={430}
@@ -126,6 +129,7 @@ function AboutPage() {
           <div>
             <div>
               <Image
+                alt="user-3"
                 src={"/images/products/contact-page/user-3.png"}
                 width={370}
                 height={430}

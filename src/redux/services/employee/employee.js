@@ -21,6 +21,20 @@ const employeeApi = createApi({
           } catch (error) {}
         },
       }),
+      getEmployeeByMu: builder.mutation({
+        query: () => {
+          return {
+            method: "GET",
+            url: "employees/employees/detail",
+          };
+        },
+        async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
+          try {
+            const { data } = await queryFulfilled;
+            await dispatch(setUser(data.data));
+          } catch (error) {}
+        },
+      }),
       createAdmin: builder.mutation({
         query: (data) => {
           return {
@@ -43,5 +57,5 @@ const employeeApi = createApi({
   },
 });
 
-export const { useGetEmployeeQuery } = employeeApi;
+export const { useGetEmployeeQuery, useGetEmployeeByMuMutation } = employeeApi;
 export default employeeApi;

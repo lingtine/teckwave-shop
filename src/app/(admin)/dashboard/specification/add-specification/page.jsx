@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import {
   changeName,
   changeDescription,
-  cleanData,
+  clearData,
 } from "~/redux/features/warehouses/specification/form-add-specification-slice";
 import { useAddSpecificationMutation } from "~/redux/services/catalog/specification-api";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,14 +26,14 @@ function AddSpecification() {
       router.push("/dashboard/specification");
       toast.success("Create specification succeeded");
     }
-    if (result.error) {
+    if (result.isError) {
       toast.success("Create specification error");
     }
-  }, [result.isSuccess]);
+  }, [result.isSuccess, router, result.isError]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(cleanData());
+    dispatch(clearData());
     add(dataForm);
   };
 

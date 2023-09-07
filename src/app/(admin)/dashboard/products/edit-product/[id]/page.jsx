@@ -41,16 +41,17 @@ function EditProduct() {
   }
   useEffect(() => {
     if (isSuccess) {
+      const { id, name, unitPrice, description } = data.data;
       dispatch(
         changeAllValue({
-          id: data.data.id,
-          productName: data.data.name,
-          price: data.data.unitPrice,
-          description: data.data.description,
+          id,
+          productName: name,
+          price: unitPrice,
+          description: description,
         })
       );
     }
-  }, [isSuccess]);
+  }, [isSuccess, data.data, dispatch]);
 
   return (
     <form onSubmit={handleSubmit}>

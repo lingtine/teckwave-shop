@@ -13,13 +13,14 @@ function ProductImageContent({ imageUrl, images, alt }) {
               return;
             }
             return (
-              <figure className="relative mb-4">
+              <figure key={index} className="relative mb-4">
                 <Image
                   onClick={() => {
                     setCurrImage(index);
                   }}
                   priority={true}
                   src={image.url}
+                  alt={image.name}
                   fill
                   sizes="w-2 h-2"
                 />

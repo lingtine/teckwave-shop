@@ -36,7 +36,7 @@ function Register() {
     } else if (verifyEmailResult.isError) {
       toast.error("Errol");
     }
-  }, [verifyEmailResult.isSuccess, verifyEmailResult.isError]);
+  }, [verifyEmailResult.isSuccess, verifyEmailResult.isError, dispatch]);
 
   useEffect(() => {
     if (registerResult.isSuccess) {
@@ -46,7 +46,7 @@ function Register() {
     } else if (registerResult.isError) {
       toast.error("The code is incorrect");
     }
-  }, [registerResult.isSuccess, registerResult.isError]);
+  }, [registerResult.isSuccess, registerResult.isError, dispatch, router]);
   const handleSubmit = (e) => {
     e.preventDefault();
 

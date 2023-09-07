@@ -18,7 +18,8 @@ function CouponDetailInformation({ data }) {
   });
   useEffect(() => {
     if (result.isError) {
-      toast.error(result.error.data.Messages);
+      const { Messages } = result.error.data;
+      toast.error(Messages);
       setOption({
         id: Math.random(),
         label: data.status,
@@ -28,13 +29,19 @@ function CouponDetailInformation({ data }) {
       toast.success("Change Status succeeded");
       router.push("/dashboard/coupons");
     }
-  }, [result.isError, result.isSuccess]);
+  }, [
+    data.status,
+    result.isError,
+    result.isSuccess,
+    router,
+    result.error.data,
+  ]);
 
   useEffect(() => {
     if (option.label !== data.status) {
       changeStatus([data.id, { status: option.label }]);
     }
-  }, [option]);
+  }, [option, changeStatus, data.id, data.status]);
 
   let options = [
     {

@@ -1,23 +1,23 @@
-"use client";
-import { useGetAllCouponQuery } from "~/redux/services/discount/coupon-api";
-import SelectBox from "../select-box/select-box";
-import { useEffect } from "react";
+// "use client";
+// import { useGetAllCouponQuery } from "~/redux/services/discount/coupon-api";
+// import SelectBox from "../select-box/select-box";
+// import { useEffect } from "react";
 
-function Coupons({ onChange }) {
-  const { data, isSuccess } = useGetAllCouponQuery();
-  let renderSelectBox;
+// function Coupons({ onChange }) {
+//   const { data, isSuccess } = useGetAllCouponQuery();
+//   let renderSelectBox;
 
-  const handleChange = (coupon) => {
-    onChange(coupon.id);
-  };
+//   const handleChange = (coupon) => {
+//     onChange(coupon.id);
+//   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      renderSelectBox = <SelectBox options={[]} onChange={handleChange} />;
-    }
-  }, [isSuccess]);
+//   useEffect(() => {
+//     if (isSuccess) {
+//       renderSelectBox = <SelectBox options={[]} onChange={handleChange} />;
+//     }
+//   }, [isSuccess]);
 
-  return <div>{renderSelectBox}</div>;
-}
+//   return <div>{renderSelectBox}</div>;
+// }
 
-export default Coupons;
+// export default Coupons;

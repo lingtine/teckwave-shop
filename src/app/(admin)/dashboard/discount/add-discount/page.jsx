@@ -28,7 +28,7 @@ function AddDiscount() {
     if (result.isError) {
       toast.error("Error");
     }
-  }, [result.isSuccess, result.isError]);
+  }, [result.isSuccess, result.isError, dispatch, router]);
   const handleSubmit = (e) => {
     e.preventDefault();
     createDiscount(dataForm);

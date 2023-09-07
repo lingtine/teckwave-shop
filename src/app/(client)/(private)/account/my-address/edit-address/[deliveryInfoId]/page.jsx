@@ -45,7 +45,7 @@ function UpdateAddress() {
     if (isSuccess) {
       dispatch(changeAllData(data.data));
     }
-  }, [isSuccess, data]);
+  }, [isSuccess, data, dispatch]);
 
   useEffect(() => {
     if (result.isSuccess) {
@@ -56,7 +56,7 @@ function UpdateAddress() {
     if (result.isError) {
       toast.error("Update Failed");
     }
-  }, [result.isSuccess, result.isError]);
+  }, [result.isSuccess, result.isError, router, dispatch]);
   return (
     <div className="px-10">
       <h1 className="text-xl font-bold text-primary-1">Edit Address</h1>

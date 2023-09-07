@@ -29,9 +29,10 @@ function LoginPage() {
       dispatch(clearData());
       router.push("/");
     } else if (isError) {
-      toast.error(error.data.Messages);
+      const { Messages } = error.data;
+      toast.error(Messages);
     }
-  }, [isSuccess, isError]);
+  }, [isSuccess, isError, router, dispatch, error]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

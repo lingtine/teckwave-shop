@@ -15,7 +15,6 @@ export default function AdminLayout({ children }) {
   useEffect(() => {
     if (!accessToken) {
       router.push("/login-admin");
-      toast.info("You must login first");
     } else {
       const info = jwtDecode(accessToken);
       console.log(info);
@@ -24,7 +23,7 @@ export default function AdminLayout({ children }) {
         toast.info("You are not Admin");
       }
     }
-  }, []);
+  }, [accessToken, router]);
 
   return (
     <div className="px-8">

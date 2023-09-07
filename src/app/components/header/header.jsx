@@ -14,7 +14,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 function Header() {
   const { user } = useSelector((state) => state.user);
-  const { cart } = useSelector((state) => state.cart);
+  const { cart, quantity } = useSelector((state) => state.cart);
   const [logout, { isSuccess }] = useLogoutMutation();
   const router = useRouter();
 
@@ -22,7 +22,7 @@ function Header() {
     if (isSuccess) {
       router.push("/");
     }
-  }, [isSuccess, user, cart]);
+  }, [isSuccess, user, cart, router, quantity]);
   return (
     <header className="min-h-[142px] border-b">
       <TopBar />
@@ -48,9 +48,9 @@ function Header() {
               href={user ? "/cart" : "/login"}
             >
               <BsCart3 className="text-3xl text-color-black ml-6 hover:text-secondary-3"></BsCart3>
-              {cart && cart.items.length !== 0 && (
+              {cart && quantity && (
                 <span className="absolute text-xs -right-1.5 bottom-4 bg-red-500 text-white py-0.5 px-1 rounded shadow-lg ">
-                  {cart.items.length}
+                  {quantity}
                 </span>
               )}
             </Link>
@@ -74,6 +74,7 @@ function Header() {
                       <button
                         onClick={() => {
                           logout();
+                          router.push("/");
                         }}
                       >
                         Log out

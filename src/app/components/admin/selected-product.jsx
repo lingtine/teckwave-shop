@@ -11,12 +11,7 @@ import {
   changeQuantity,
   changeRemoveProduct,
 } from "~/redux/features/warehouses/report/form-add-report-slice";
-import {
-  List,
-  ListItem,
-  ListItemPrefix,
-  Typography,
-} from "@material-tailwind/react";
+import { List, ListItem, ListItemPrefix } from "@material-tailwind/react";
 import { BsFillTrash3Fill } from "react-icons/bs";
 
 function SelectedProduct() {
@@ -30,7 +25,7 @@ function SelectedProduct() {
     if (debounceSearch && debounceSearch !== "") {
       handleSearch(debounceSearch);
     }
-  }, [debounceSearch]);
+  }, [debounceSearch, handleSearch]);
 
   let renderSearchResult;
   let renderProducts;

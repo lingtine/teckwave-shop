@@ -41,7 +41,7 @@ function AddSpecification() {
     } else if (result.isError) {
       toast.error("Error");
     }
-  }, [result]);
+  }, [result, productId, dispatch, router]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

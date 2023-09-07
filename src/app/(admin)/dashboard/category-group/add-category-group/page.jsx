@@ -35,7 +35,7 @@ function AddProducts() {
       router.push("/dashboard/category-group");
       dispatch(clearData());
     }
-  }, [result.isSuccess]);
+  }, [result.isSuccess, dispatch, router]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

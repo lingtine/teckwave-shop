@@ -7,14 +7,10 @@ import InputTextArea from "~/app/components/input/input-textarea";
 import { useParams, useRouter } from "next/navigation";
 import {
   changeName,
-  changeCategoryGroupId,
   changeDescription,
 } from "~/redux/features/product/category/form-edit-category-slice";
-import { useGetProductQuery } from "~/redux/services/catalog/product-api";
 import { useDispatch, useSelector } from "react-redux";
-import { useUpdateProductMutation } from "~/redux/services/catalog/product-api";
 import { useEffect } from "react";
-import InputImage from "~/app/components/input/InputImage";
 import {
   useGetCategoryQuery,
   useUpdateCategoryMutation,
@@ -37,7 +33,7 @@ function EditCategory() {
     if (result.isSuccess) {
       router.push("/dashboard/products");
     }
-  }, [result.isSuccess]);
+  }, [result.isSuccess, router]);
   useEffect(() => {
     if (isSuccess) {
     }

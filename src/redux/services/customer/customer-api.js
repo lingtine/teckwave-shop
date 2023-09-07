@@ -36,8 +36,24 @@ const customerApi = createApi({
           try {
             const { data } = await queryFulfilled;
             await dispatch(setUser(data.data));
-            await dispatch(cartApi.endpoints.getCartDetail.initiate(null));
+            await dispatch(cartApi.endpoints.getCartDetail.initiate());
             await dispatch(customerApi.endpoints.getWishList.initiate(null));
+          } catch (error) {}
+        },
+        providesTags: ["update", "add-delivery-info", "update-delivery-info"],
+      }),
+      getCustomerByMu: builder.mutation({
+        query: () => {
+          return {
+            method: "GET",
+            url: `customers/customers/info`,
+          };
+        },
+        async onQueryStarted(args, { dispatch, queryFulfilled, getState }) {
+          try {
+            const { data } = await queryFulfilled;
+            await dispatch(setUser(data.data));
+            await dispatch(cartApi.endpoints.getCartDetail.initiate());
           } catch (error) {}
         },
         providesTags: ["update", "add-delivery-info", "update-delivery-info"],
@@ -169,7 +185,7 @@ export default customerApi;
 export const {
   useGetAllCustomersQuery,
   useGetCustomerQuery,
-
+  useGetCustomerByMuMutation,
   //delivery info
   useChangeDeliveryInfoDefaultMutation,
   useAddDeliveryInfosMutation,

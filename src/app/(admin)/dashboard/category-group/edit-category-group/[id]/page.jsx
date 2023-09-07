@@ -31,12 +31,12 @@ function EditProduct() {
     if (result.isSuccess) {
       router.push("/dashboard/category-group");
     }
-  }, [result.isSuccess]);
+  }, [result.isSuccess, router]);
   useEffect(() => {
     if (isSuccess) {
       dispatch(changeAllValue(data.data));
     }
-  }, [isSuccess]);
+  }, [isSuccess, dispatch, data.data]);
 
   return (
     <form onSubmit={handleSubmit}>

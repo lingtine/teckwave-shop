@@ -22,10 +22,11 @@ function LoginAdmin() {
   const [login, { isLoading, isError, isSuccess, data, error }] =
     useLoginMutation();
   const router = useRouter();
-  let jwt;
+
   useEffect(() => {
     if (isSuccess) {
-      jwt = jwtDecode(data.accessToken);
+      const { accessToken } = data;
+      const jwt = jwtDecode(accessToken);
       const found = jwt.role?.find((element) => element === "Employee");
       if (found) {
         router.push("/dashboard/orders");
@@ -35,9 +36,10 @@ function LoginAdmin() {
       }
     }
     if (isError) {
-      toast.error(error.data.Messages);
+      const { Messages } = error.data;
+      toast.error(Messages);
     }
-  }, [isSuccess, isError]);
+  }, [isSuccess, isError, error, data, router]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

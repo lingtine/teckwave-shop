@@ -8,6 +8,7 @@ import { logout as userLogout } from "~/redux/features/auth/user-slice";
 import { clearData } from "~/redux/features/cart/cart";
 import { clearWishList } from "~/redux/features/auth/wish-list-slice";
 import jwtDecode from "jwt-decode";
+import cartApi from "../orders/cart-api";
 
 import customFetchBase from "~/redux/api/customFetchBase";
 const authApi = createApi({
@@ -53,18 +54,26 @@ const authApi = createApi({
             await dispatch(changeAuth(data));
             let jwt = jwtDecode(data.accessToken);
 
-            if (jwt.role === "Customer") {
-              await setCookie("accessToken", data.accessToken);
-              await setCookie("refreshToken", data.refreshToken);
-              await dispatch(customerApi.endpoints.getCustomer.initiate(null));
-            } else if (jwt.role === "Employee") {
-              await setCookie("accessToken", data.accessToken);
-              await setCookie("refreshToken", data.refreshToken);
-              await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
-            } else if (jwt.role[1] === "Admin") {
-              await setCookie("accessToken", data.accessToken);
-              await setCookie("refreshToken", data.refreshToken);
-              await dispatch(employeeApi.endpoints.getEmployee.initiate(null));
+            if (Array.isArray(jwt.role)) {
+              const found = jwt.role.find((el) => {
+                return el === "Employee";
+              });
+              if (found) {
+                await setCookie("accessToken", data.accessToken);
+                await setCookie("refreshToken", data.refreshToken);
+                await dispatch(
+                  employeeApi.endpoints.getEmployee.initiate(null)
+                );
+              }
+            } else {
+              if (jwt.role === "Customer") {
+                await setCookie("accessToken", data.accessToken);
+                await setCookie("refreshToken", data.refreshToken);
+                await dispatch(
+                  customerApi.endpoints.getCustomer.initiate(null)
+                );
+                await dispatch(cartApi.endpoints.getCartDetail.initiate(null));
+              }
             }
           } catch (error) {}
         },

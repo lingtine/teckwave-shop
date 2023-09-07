@@ -3,7 +3,7 @@ function SkeletonTableList({ times, configData }) {
     .fill(0)
     .map((_, i) => {
       return (
-        <div className="flex items-center w-full space-x-2 border py-4">
+        <div key={i} className="flex items-center w-full space-x-2 border py-4">
           <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-full"></div>
         </div>
       );

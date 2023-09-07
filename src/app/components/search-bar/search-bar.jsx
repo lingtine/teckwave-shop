@@ -78,7 +78,7 @@ function SearchBar() {
     if (debounceSearch && debounceSearch !== "") {
       handleSearch(debounceSearch);
     }
-  }, [debounceSearch]);
+  }, [debounceSearch, handleSearch]);
   const renderStatus = (
     <div className="flex">
       {isLoading ? (

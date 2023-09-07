@@ -28,7 +28,7 @@ function AddSupplier() {
     if (result.isSuccess) {
       router.push("/dashboard/supplier");
     }
-  }, [result.isSuccess]);
+  }, [result.isSuccess, router]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

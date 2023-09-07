@@ -35,7 +35,7 @@ function AddAddress() {
     } else if (result.isError) {
       toast.error("Add Address Failed");
     }
-  }, [result.isSuccess, result.isError]);
+  }, [result.isSuccess, result.isError, dispatch, router]);
   const handleSubmit = (e) => {
     e.preventDefault();
     addDeliveryInfos(dataForm);

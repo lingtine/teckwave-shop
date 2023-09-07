@@ -61,7 +61,7 @@ function AccountLayout({ children }) {
     if (isSuccess) {
       router.push("/");
     }
-  }, [isSuccess]);
+  }, [isSuccess, router]);
   return (
     <div
       suppressHydrationWarning={true}

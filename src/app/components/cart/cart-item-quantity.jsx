@@ -26,7 +26,14 @@ function CartItemQuantity({ data }) {
         },
       ]);
     }
-  }, [debounceValue]);
+  }, [
+    debounceValue,
+    remove,
+    updateQuantity,
+    data.productId,
+    data.productName,
+    data.productPrice,
+  ]);
   return (
     <div>
       <InputQuantity onChange={setValue} maxQuantity={8} quantity={value} />

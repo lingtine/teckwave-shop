@@ -71,7 +71,7 @@ function AddProducts() {
     if (result.isError) {
       toast.error("Add product Failed");
     }
-  }, [result.isSuccess, result.isError]);
+  }, [result.isSuccess, result.isError, dispatch, router]);
   if (isSuccess) {
     dataCategoryConfig = data.data.map((item) => {
       return {

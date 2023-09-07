@@ -12,7 +12,7 @@ function LayoutPrivate({ children }) {
     if (!accessToken) {
       router.push("/login");
     }
-  }, []);
+  }, [accessToken, router]);
   return children;
 }
 

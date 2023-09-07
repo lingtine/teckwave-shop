@@ -91,7 +91,7 @@ function CartPage() {
       return accumulator + total;
     }, 0);
 
-    if (cart.items.length === 0) {
+    if (cart?.items.length === 0) {
       renderPage = (
         <div className=" min-h-[400px] flex-col flex justify-center items-center">
           <div className="text-6xl">

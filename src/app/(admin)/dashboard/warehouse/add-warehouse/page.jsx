@@ -27,7 +27,7 @@ function AddProducts() {
     } else if (result.isError) {
       toast.error("Create Failed");
     }
-  }, [result.isSuccess]);
+  }, [result.isSuccess, router, dispatch, result.isError]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

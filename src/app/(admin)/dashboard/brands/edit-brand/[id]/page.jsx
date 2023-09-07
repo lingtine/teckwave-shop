@@ -45,15 +45,23 @@ function EditProduct() {
       toast.error("Error");
     }
     if (isSuccess) {
+      const { id, name, description } = data.data;
       dispatch(
         changeAllValue({
-          id: data.data.id,
-          name: data.data.name,
-          description: data.data.description,
+          id,
+          name,
+          description,
         })
       );
     }
-  }, [isSuccess, result.isSuccess]);
+  }, [
+    isSuccess,
+    result.isSuccess,
+    data.data,
+    dispatch,
+    result.isError,
+    router,
+  ]);
 
   return (
     <form onSubmit={handleSubmit}>

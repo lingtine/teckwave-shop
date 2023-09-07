@@ -36,6 +36,8 @@ function SelectedReportStatus({ data, reportId }) {
       });
     }
   }, [
+    data,
+    router,
     approvedSuccess,
     cancelledSuccess,
     inspectSuccess,
@@ -64,7 +66,7 @@ function SelectedReportStatus({ data, reportId }) {
         cancelled(reportId);
       }
     }
-  }, [option]);
+  }, [data, option, approve, cancelled, inspect, reportId, auth.accessToken]);
 
   if (data === "Creative") {
     options = [
