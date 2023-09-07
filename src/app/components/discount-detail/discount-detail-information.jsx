@@ -30,7 +30,7 @@ function DiscountInformation({ data }) {
     result.isError,
     result.isSuccess,
     data.status,
-    result.error.data,
+    result.error?.data,
     router,
   ]);
   useEffect(() => {

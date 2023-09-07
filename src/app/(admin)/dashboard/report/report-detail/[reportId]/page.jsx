@@ -19,17 +19,19 @@ function ReportDetail() {
     );
   } else if (isSuccess) {
     content = (
-      <div>
-        <h2 className="text-2xl font-semibold my-4 uppercase">Report detail</h2>
-        <div className="flex gap-8 items-end justify-end">
-          <div className="min-w-[500px]">
+      <>
+        <h2 className="text-2xl font-semibold my-8 uppercase">Report detail</h2>
+
+        <div className="flex gap-8">
+          <div className="max-w-[50%] flex-1">
             <ReportDetailInformation data={data.data} />
           </div>
+
+          <div className="max-w-[50%]">
+            <ReportDetailProducts data={data.data.reportProducts} />
+          </div>
         </div>
-        <div className="flex-1">
-          <ReportDetailProducts data={data.data.reportProducts} />
-        </div>
-      </div>
+      </>
     );
   }
   return <div>{content}</div>;

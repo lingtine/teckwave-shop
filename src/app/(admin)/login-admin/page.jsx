@@ -6,7 +6,7 @@ import {
   changeUserName,
   changePassword,
 } from "~/redux/features/dashboard/form-login-admin-slice";
-
+import Image from "next/image";
 import { useLoginMutation } from "~/redux/services/authentication/auth-api";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -49,38 +49,46 @@ function LoginAdmin() {
     });
   };
   return (
-    <div>
-      <div className="">
-        <div className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">
-          <div className="flex flex-col p-10 border border-secondary-3 rounded-md min-w-[400px]">
-            <h1 className="text-2xl font-bold my-8">Login to Admin</h1>
-            <form onSubmit={handleSubmit}>
-              <div className="my-4">
-                <Input
-                  label={"Email"}
-                  value={loginAdmin.username}
-                  onChange={(e) => {
-                    dispatch(changeUserName(e.target.value));
-                  }}
-                />
-              </div>
-              <div className="my-4">
-                <Input
-                  label={"Password"}
-                  type="password"
-                  value={loginAdmin.password}
-                  onChange={(e) => {
-                    dispatch(changePassword(e.target.value));
-                  }}
-                />
-              </div>
-              <div>
-                <Button secondary full type={"submit"}>
-                  Login
-                </Button>
-              </div>
-            </form>
-          </div>
+    <div className="flex min-h-screen">
+      <div className="bg-[#80B1F3]  min-w-[50%] flex items-center justify-center">
+        <Image
+          src={"/images/login-admin/admin-2.jpg"}
+          alt="admin"
+          width={500}
+          height={500}
+        />
+      </div>
+      <div className="min-w-[50%] flex justify-center items-center">
+        <div className="flex flex-col p-10 border border-secondary-3 shadow-lg  rounded-md min-w-[400px]">
+          <h1 className="text-2xl text-center font-bold my-8">
+            Login to Admin
+          </h1>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div>
+              <Input
+                label={"Email"}
+                value={loginAdmin.username}
+                onChange={(e) => {
+                  dispatch(changeUserName(e.target.value));
+                }}
+              />
+            </div>
+            <div>
+              <Input
+                label={"Password"}
+                type="password"
+                value={loginAdmin.password}
+                onChange={(e) => {
+                  dispatch(changePassword(e.target.value));
+                }}
+              />
+            </div>
+            <div>
+              <Button secondary full type={"submit"}>
+                Login
+              </Button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

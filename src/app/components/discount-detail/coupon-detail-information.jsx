@@ -34,7 +34,7 @@ function CouponDetailInformation({ data }) {
     result.isError,
     result.isSuccess,
     router,
-    result.error.data,
+    result.error?.data,
   ]);
 
   useEffect(() => {

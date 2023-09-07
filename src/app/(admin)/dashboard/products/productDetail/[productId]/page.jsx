@@ -39,7 +39,7 @@ function ProductDetail() {
           </div>
         </div>
         <div>
-          <ProductSpecification data={data.data} />
+          <ProductSpecification data={data.data.productSpecifications} />
         </div>
       </div>
     );

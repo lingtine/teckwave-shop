@@ -57,7 +57,7 @@ function EditProduct() {
   }, [
     isSuccess,
     result.isSuccess,
-    data.data,
+    data?.data,
     dispatch,
     result.isError,
     router,

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { IoAddCircleOutline } from "react-icons/io5";
 
 import Table from "~/app/components/table/table";
-import { AiFillEdit } from "react-icons/ai";
+
 import { CiCircleRemove } from "react-icons/ci";
 import { useFetchAllReportsQuery } from "~/redux/services/warehouse/report-api";
 import { Spinner } from "@material-tailwind/react/components/Spinner";
@@ -70,7 +70,7 @@ function Report() {
   } else if (isSuccess) {
     content = (
       <>
-        <div className="my-8 w-full">
+        <div className="my-8">
           <Table data={data.data} config={configData}></Table>
         </div>
         <div className="flex justify-center">

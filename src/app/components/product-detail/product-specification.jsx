@@ -4,36 +4,27 @@ import Table from "../table/table";
 import Button from "../button/button";
 
 function ProductSpecification({ data }) {
+  console.log(data);
   let configData;
   configData = [
     {
-      label: "Coupon Name",
+      label: "Specifications Name",
       render: (data) => {
         return (
           <div>
-            <div>{data.name}</div>
+            <div>{}</div>
           </div>
         );
       },
     },
+
     {
-      label: "Description",
+      label: "Value",
       render: (data) => {
-        return data.description;
+        return <div className="text-center">{data.specificationValue}</div>;
       },
     },
-    {
-      label: "Quantity",
-      render: (data) => {
-        return <div className="text-center">{data.quantity}</div>;
-      },
-    },
-    {
-      label: "Reduced Price",
-      render: (data) => {
-        return <div className="text-center">{data.reducedPrice}</div>;
-      },
-    },
+
     // {
     //   label: "Actions",
     //   render: (data) => {
@@ -68,7 +59,7 @@ function ProductSpecification({ data }) {
         </Link>
       </div>
       <div>
-        <Table data={data.productSpecifications} config={configData}></Table>
+        <Table data={data} config={configData}></Table>
       </div>
     </div>
   );

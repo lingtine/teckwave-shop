@@ -51,7 +51,7 @@ function EditProduct() {
         })
       );
     }
-  }, [isSuccess, data.data, dispatch]);
+  }, [isSuccess, data?.data, dispatch]);
 
   return (
     <form onSubmit={handleSubmit}>

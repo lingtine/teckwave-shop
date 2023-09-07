@@ -43,6 +43,16 @@ function Orders() {
         },
       },
       {
+        label: "Order At",
+        render: (data) => {
+          return (
+            <div className="flex justify-center items-center gap-4">
+              {new Date(data.createAt).toDateString()}
+            </div>
+          );
+        },
+      },
+      {
         label: "Total order",
         render: (data) => {
           return <div className="text-center">{formatPrice(data.cost)}</div>;
@@ -85,12 +95,12 @@ function Orders() {
   }
   if (isSuccess) {
     content = (
-      <div>
-        <div className="text-xl font-semibold">Order Page</div>
+      <>
+        <div className="text-xl font-semibold my-8">Order Page</div>
         <div>
           <Table config={configData} data={data.data} />
         </div>
-      </div>
+      </>
     );
   }
 

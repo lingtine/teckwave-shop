@@ -22,7 +22,7 @@ function ReportDetailInformation({ data }) {
   return (
     <div>
       <div className="flex flex-col gap-4">
-        <h3 className="text-xl text-secondary-3 uppercase font boder">
+        <h3 className="text-xl my-4 font-semibold text-secondary-3">
           Information
         </h3>
         <div className="flex items-end justify-between">

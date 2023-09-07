@@ -23,18 +23,18 @@ function Customers() {
           return <div className="text-center">{data.email}</div>;
         },
       },
-      {
-        label: "Actions",
-        render: (data) => {
-          return (
-            <div className="flex justify-center">
-              <button className="mx-4" onClick={() => {}}>
-                <CiCircleRemove />
-              </button>
-            </div>
-          );
-        },
-      },
+      // {
+      //   label: "Actions",
+      //   render: (data) => {
+      //     return (
+      //       <div className="flex justify-center">
+      //         <button className="mx-4" onClick={() => {}}>
+      //           <CiCircleRemove />
+      //         </button>
+      //       </div>
+      //     );
+      //   },
+      // },
     ];
   }
   if (isFetching) {

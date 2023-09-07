@@ -36,7 +36,7 @@ function EditProduct() {
     if (isSuccess) {
       dispatch(changeAllValue(data.data));
     }
-  }, [isSuccess, dispatch, data.data]);
+  }, [isSuccess, dispatch, data?.data]);
 
   return (
     <form onSubmit={handleSubmit}>

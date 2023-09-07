@@ -18,6 +18,7 @@ import SelectBox from "~/app/components/select-box/select-box";
 import { useEffect } from "react";
 import { useCreateCouponMutation } from "~/redux/services/discount/coupon-api";
 import { useGetAllDiscountEventQuery } from "~/redux/services/discount/discount-event-api";
+import { toast } from "react-toastify";
 
 function AddProducts() {
   const { data, isLoading, isSuccess } = useGetAllDiscountEventQuery();
@@ -43,8 +44,11 @@ function AddProducts() {
     if (result.isSuccess) {
       router.push("/dashboard/coupons");
       dispatch(clearData());
+    } else if (result.isError) {
+      const { Messages } = result.error.data;
+      toast.error(Messages);
     }
-  }, [result.isSuccess, dispatch, router]);
+  }, [result.isSuccess, dispatch, router, result.error?.data]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
