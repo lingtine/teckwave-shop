@@ -48,7 +48,7 @@ function AddProducts() {
       const { Messages } = result.error.data;
       toast.error(Messages);
     }
-  }, [result.isSuccess, dispatch, router, result.error?.data]);
+  }, [result.isSuccess, result.isError, dispatch, router, result.error?.data]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -32,11 +32,6 @@ function AccountLayout({ children }) {
       href: "/account/my-orders",
       current: "my-orders" === segment,
     },
-    // {
-    //   label: "Rest Password",
-    //   href: "/account/reset-password",
-    //   current: "reset-password" === segment,
-    // },
   ];
 
   const renderNav = nav.map((item, index) => {
