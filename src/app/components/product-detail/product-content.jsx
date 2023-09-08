@@ -80,11 +80,24 @@ function ProductContent({ product }) {
   return (
     <div className="flex -mx-[35px] my-10">
       <div className="flex-[0_0_62.5%] max-w-[62.5%] px-[35px]">
-        <ProductImageContent
-          imageUrl={product.imageUrl}
-          images={product.productImages}
-          alt={product.name}
-        />
+        <div>
+          <ProductImageContent
+            imageUrl={product.imageUrl}
+            images={product.productImages}
+            alt={product.name}
+          />
+        </div>
+        {product.productSpecifications.length !== 0 && (
+          <div className="py-8 border-t border-primary-1">
+            <h3 className="text-xl font-semibold my-4">
+              Product Specifications
+            </h3>
+            <Table
+              data={product.productSpecifications}
+              config={configData}
+            ></Table>
+          </div>
+        )}
       </div>
       <div className="flex-[0_0_37.5%] max-w-[0_0_37.5%] px-[35px]">
         <div className="pb-4 border-b border-b-color-text-black">
@@ -119,18 +132,6 @@ function ProductContent({ product }) {
             </div>
           </div>
         </div>
-
-        {product.productSpecifications.length !== 0 && (
-          <div className="py-8 border-t border-primary-1">
-            <h3 className="text-xl font-semibold my-4">
-              Product Specifications
-            </h3>
-            <Table
-              data={product.productSpecifications}
-              config={configData}
-            ></Table>
-          </div>
-        )}
       </div>
     </div>
   );
