@@ -40,7 +40,9 @@ function InputImage({ onChange, multiple }) {
         >
           <div className="flex items-center">
             <Image src={url} alt={imageFile.name} width={40} height={30} />
-            <p className="text-primary mx-4">{imageFile.name}</p>
+            <p className="text-primary mx-4 max-w-[400px] line-clamp-1 ">
+              {imageFile.name}
+            </p>
           </div>
 
           <button

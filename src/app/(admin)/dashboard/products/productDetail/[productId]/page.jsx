@@ -1,14 +1,14 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useGetProductDetailQuery } from "~/redux/services/catalog/product-api";
+import { useGetProductQuery } from "~/redux/services/catalog/product-api";
 import ProductDetailInformation from "~/app/components/product-detail/product-detail-information";
 import { Spinner } from "@material-tailwind/react/components/Spinner";
 import Image from "next/image";
 import ProductSpecification from "~/app/components/product-detail/product-specification";
 function ProductDetail() {
   const { productId } = useParams();
-  const { data, isSuccess, isFetching } = useGetProductDetailQuery(productId);
+  const { data, isSuccess, isFetching } = useGetProductQuery(productId);
 
   let content;
 

@@ -17,7 +17,9 @@ import { useRouter } from "next/navigation";
 function AddSpecification() {
   const { productId } = useParams();
   const router = useRouter();
-  const { data, isFetching, isSuccess } = useFetchAllSpecificationQuery();
+  const { data, isFetching, isSuccess } = useFetchAllSpecificationQuery({
+    PageSize: 40,
+  });
   const dataForm = useSelector(
     (state) => state.formAddSpecificationProductSlice
   );
