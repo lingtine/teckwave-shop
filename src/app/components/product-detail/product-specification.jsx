@@ -3,18 +3,14 @@ import Link from "next/link";
 import Table from "../table/table";
 import Button from "../button/button";
 
-function ProductSpecification({ data }) {
+function ProductSpecification({ data, productId }) {
   console.log(data);
   let configData;
   configData = [
     {
       label: "Specifications Name",
       render: (data) => {
-        return (
-          <div>
-            <div>{}</div>
-          </div>
-        );
+        return <div className="text-center">{data.specificationName}</div>;
       },
     },
 
@@ -53,7 +49,7 @@ function ProductSpecification({ data }) {
       <div className="flex justify-between items-center my-4">
         <h3 className="text-xl font-bold text-secondary-3">Specifications</h3>
         <Link
-          href={`/dashboard/products/productDetail/${data.id}/add-specification`}
+          href={`/dashboard/products/productDetail/${productId}/add-specification`}
         >
           <Button>Add Specifications</Button>
         </Link>

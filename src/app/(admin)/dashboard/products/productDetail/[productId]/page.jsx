@@ -34,12 +34,15 @@ function ProductDetail() {
               src={data.data.imageUrl}
             />
           </div>
-          <div className="max-w-2xl">
+          <div className="min-w-[50%]">
             <ProductDetailInformation data={data.data} />
           </div>
         </div>
         <div>
-          <ProductSpecification data={data.data.productSpecifications} />
+          <ProductSpecification
+            productId={productId}
+            data={data.data.productSpecifications}
+          />
         </div>
       </div>
     );

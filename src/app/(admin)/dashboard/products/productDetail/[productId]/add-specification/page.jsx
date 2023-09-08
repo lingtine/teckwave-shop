@@ -54,7 +54,6 @@ function AddSpecification() {
         {
           specificationId: specification.id,
           specificationName: specification.name,
-
           specificationValue: value,
         },
       ],

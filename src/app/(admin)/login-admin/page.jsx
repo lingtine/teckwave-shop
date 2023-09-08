@@ -12,10 +12,12 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import jwtDecode from "jwt-decode";
+import { useLogoutMutation } from "~/redux/services/authentication/auth-api";
 function LoginAdmin() {
   const dispatch = useDispatch();
   const loginAdmin = useSelector((state) => state.loginAdminForm);
   const { user } = useSelector((state) => state.user);
+  const [logout] = useLogoutMutation();
   useEffect(() => {
     document.title = "Login Admin";
   }, []);
@@ -27,19 +29,22 @@ function LoginAdmin() {
     if (isSuccess) {
       const { accessToken } = data;
       const jwt = jwtDecode(accessToken);
-      const found = jwt.role?.find((element) => element === "Employee");
-      if (found) {
-        router.push("/dashboard/orders");
-        toast.success("Login succeeded");
+      if (Array.isArray(jwt.role)) {
+        const found = jwt.role.find((element) => element === "Employee");
+        if (found) {
+          router.push("/dashboard/orders");
+          toast.success("Login succeeded");
+        }
       } else if (jwt.role === "Customer") {
         toast.error("You are not the admin");
+        logout();
       }
     }
     if (isError) {
       const { Messages } = error.data;
       toast.error(Messages);
     }
-  }, [isSuccess, isError, error, data, router]);
+  }, [isSuccess, isError, error, data, router, logout]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

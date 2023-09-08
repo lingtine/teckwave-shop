@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
     <html
       http-equiv="Content-Security-Policy"
       content="upgrade-insecure-requests"
-      lang="en"
+       lang="en"
     >
       <body suppressHydrationWarning className={inter.className}>
         <Providers>{children}</Providers>

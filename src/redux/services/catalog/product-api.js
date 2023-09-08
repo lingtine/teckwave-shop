@@ -5,7 +5,7 @@ const productApi = createApi({
   reducerPath: "product",
   baseQuery: customFetchBase,
 
-  tagTypes: ["Post", "Delete", "Update"],
+  tagTypes: ["Post", "Delete", "Update", "Update-Item"],
   endpoints(builder) {
     return {
       getAllProducts: builder.query({
@@ -64,6 +64,7 @@ const productApi = createApi({
             url: `catalogs/products/details/${productId}`,
           };
         },
+        providesTags: ["Update-Item"],
       }),
 
       //admin page
@@ -74,6 +75,7 @@ const productApi = createApi({
             url: `catalogs/products/${productId}`,
           };
         },
+        providesTags: ["Update-Item"],
       }),
       updateProduct: builder.mutation({
         query: ([productId, data]) => {
@@ -129,6 +131,7 @@ const productApi = createApi({
             method: "POST",
           };
         },
+        invalidatesTags: ["Update-Item"],
       }),
       updateSpecification: builder.mutation({
         query: ([productId, data]) => {
