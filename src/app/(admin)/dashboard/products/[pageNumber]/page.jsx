@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 import { IoAddCircleOutline } from "react-icons/io5";
+import { AiFillEye } from "react-icons/ai";
 import Image from "next/image";
 import {
   useDeleteProductMutation,
@@ -80,9 +81,8 @@ function Products() {
         label: "Actions",
         render: (data) => {
           return (
-            <div className="flex justify-center">
+            <div className="flex justify-center gap-4">
               <button
-                className="mx-4"
                 onClick={() => {
                   removeProduct(data.id);
                 }}
@@ -91,6 +91,9 @@ function Products() {
               </button>
               <Link href={`/dashboard/products/edit-product/${data.id}`}>
                 <AiFillEdit></AiFillEdit>
+              </Link>
+              <Link href={`/dashboard/products/productDetail/${data.id}`}>
+                <AiFillEye />
               </Link>
             </div>
           );

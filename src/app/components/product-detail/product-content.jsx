@@ -11,8 +11,11 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import Table from "../table/table";
+import { data } from "autoprefixer";
 
 function ProductContent({ product }) {
+  console.log(product);
   const [addCart, { isSuccess, isLoading, isError }] = useAddProductMutation();
   const { user } = useSelector((state) => state.user);
   const [value, setValue] = useState(1);
@@ -59,6 +62,21 @@ function ProductContent({ product }) {
     );
   }
 
+  const configData = [
+    {
+      label: "Specifications Name",
+      render: (data) => {
+        return <div className="text-center">{data.specificationName}</div>;
+      },
+    },
+
+    {
+      label: "Value",
+      render: (data) => {
+        return <div className="text-center">{data.specificationValue}</div>;
+      },
+    },
+  ];
   return (
     <div className="flex -mx-[35px] my-10">
       <div className="flex-[0_0_62.5%] max-w-[62.5%] px-[35px]">
@@ -101,6 +119,18 @@ function ProductContent({ product }) {
             </div>
           </div>
         </div>
+
+        {product.productSpecifications.length !== 0 && (
+          <div className="py-8 border-t border-primary-1">
+            <h3 className="text-xl font-semibold my-4">
+              Product Specifications
+            </h3>
+            <Table
+              data={product.productSpecifications}
+              config={configData}
+            ></Table>
+          </div>
+        )}
       </div>
     </div>
   );
