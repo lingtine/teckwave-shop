@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 
 function HeaderNavigation() {
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.userSlice);
 
   const configData = [
     {

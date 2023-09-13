@@ -6,18 +6,16 @@ import InputTextArea from "~/app/components/input/input-textarea";
 
 import { useRouter } from "next/navigation";
 import {
-  changeCategoryGroup,
-  changeDescription,
-  changeName,
+  changeField,
   clearData,
-} from "~/redux/features/product/category/form-add-category-slice";
+} from "~/redux/features/catalog/category/form-add-category-slice";
 import { useDispatch, useSelector } from "react-redux";
 import SelectBox from "~/app/components/select-box/select-box";
 import { useEffect } from "react";
 import { useFetchCategoryGroupsQuery } from "~/redux/services/catalog/category-group-api";
 import { useCreateCategoryMutation } from "~/redux/services/catalog/category-api";
 
-function AddProducts() {
+function AddCategory() {
   const {
     data: categoryGroupData,
     isLoading,
@@ -54,6 +52,11 @@ function AddProducts() {
     addCategory({ name, description, categoryGroupId: categoryGroup.id });
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <h2 className="my-2 text-lg text-primary-1 font-bold">Add Category</h2>
@@ -65,9 +68,8 @@ function AddProducts() {
               <Input
                 label={"Category Name"}
                 value={dataForm.name}
-                onChange={(e) => {
-                  dispatch(changeName(e.target.value));
-                }}
+                name="name"
+                onChange={handleChange}
               ></Input>
             </li>
             <li className="my-4">
@@ -79,7 +81,9 @@ function AddProducts() {
                   <SelectBox
                     options={dataCategoryGroupConfig}
                     onChange={(option) => {
-                      dispatch(changeCategoryGroup(option));
+                      dispatch(
+                        changeField({ field: "categoryGroup", value: option })
+                      );
                     }}
                     selected={dataForm.categoryGroup}
                   />
@@ -90,9 +94,8 @@ function AddProducts() {
               <InputTextArea
                 label={"Description"}
                 value={dataForm.description}
-                onChange={(e) => {
-                  dispatch(changeDescription(e.target.value));
-                }}
+                name="description"
+                onChange={handleChange}
               ></InputTextArea>
             </li>
             <li className="flex justify-end">
@@ -107,4 +110,4 @@ function AddProducts() {
   );
 }
 
-export default AddProducts;
+export default AddCategory;

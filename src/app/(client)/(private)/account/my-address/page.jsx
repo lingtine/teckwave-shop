@@ -7,7 +7,7 @@ import AddressContent from "~/app/components/my-address/address-content";
 import { useSelector } from "react-redux";
 
 function MyAddress() {
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.userSlice);
 
   let renderData;
 

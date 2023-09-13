@@ -7,11 +7,9 @@ import InputImage from "~/app/components/input/InputImage";
 
 import { useRouter } from "next/navigation";
 import {
-  changeDescription,
-  changeImage,
-  changeName,
+  changeField,
   clearData,
-} from "~/redux/features/dashboard/brand/form-add-brand-slice";
+} from "~/redux/features/catalog/brand/form-add-brand-slice";
 import { useAddBrandMutation } from "~/redux/services/catalog/brand-api";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -40,6 +38,11 @@ function AddBrand() {
     add(formData);
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <h2 className="my-2 text-lg text-primary-1 font-bold">Add Brand</h2>
@@ -47,7 +50,7 @@ function AddBrand() {
         <div className="flex-[0_0_50%] px-2">
           <InputImage
             onChange={(image) => {
-              dispatch(changeImage(image));
+              dispatch(changeField({ field: "image", value: image }));
             }}
           ></InputImage>
         </div>
@@ -58,18 +61,16 @@ function AddBrand() {
               <Input
                 label={"Brand Name"}
                 value={dataForm.name}
-                onChange={(e) => {
-                  dispatch(changeName(e.target.value));
-                }}
+                name="name"
+                onChange={handleChange}
               ></Input>
             </li>
             <li className="my-4">
               <InputTextArea
                 label={"Description"}
                 value={dataForm.description}
-                onChange={(e) => {
-                  dispatch(changeDescription(e.target.value));
-                }}
+                name="description"
+                onChange={handleChange}
               ></InputTextArea>
             </li>
             <li className="flex justify-end">

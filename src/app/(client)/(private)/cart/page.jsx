@@ -1,10 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { TiDelete } from "react-icons/ti";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
-import { useGetCartDetailQuery } from "~/redux/services/orders/cart-api";
 import { useSelector } from "react-redux";
 import { TbShoppingCartPlus } from "react-icons/tb";
 import { useGetListProductsByIdQuery } from "~/redux/services/catalog/product-api";
@@ -14,7 +12,7 @@ import CartItemQuantity from "~/app/components/cart/cart-item-quantity";
 import { useEffect } from "react";
 import Button from "~/app/components/button/button";
 function CartPage() {
-  const { cart } = useSelector((state) => state.cart);
+  const { cart } = useSelector((state) => state.cartSlice);
   const arrayId = cart?.items.map((item) => item.productId);
   const { data, isSuccess } = useGetListProductsByIdQuery(arrayId, {
     refetchOnMountOrArgChange: true,
@@ -129,9 +127,11 @@ function CartPage() {
               <h5>Total</h5>
               <p className="font-bold">{formatPrice(totalCount)}</p>
             </div>
-            <Button full secondary large className="text-lg">
-              <Link href={"/checkout"}>Check out</Link>
-            </Button>
+            <Link href={"/checkout"}>
+              <Button full secondary large className="text-lg">
+                Check out
+              </Button>
+            </Link>
           </div>
         </div>
       );

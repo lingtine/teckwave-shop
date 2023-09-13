@@ -7,10 +7,10 @@ import { formatPrice } from "~/utils/formatPrice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  changeAddProduct,
-  changeQuantity,
-  changeRemoveProduct,
-} from "~/redux/features/warehouses/report/form-add-report-slice";
+  addProduct,
+  changeQuantityForProduct,
+  removeProduct,
+} from "~/redux/features/warehouse/report/form-add-report-slice";
 import { List, ListItem, ListItemPrefix } from "@material-tailwind/react";
 import { BsFillTrash3Fill } from "react-icons/bs";
 
@@ -86,14 +86,17 @@ function SelectedProduct() {
               type="number"
               onChange={(e) => {
                 dispatch(
-                  changeQuantity({ ...product, quantity: e.target.value })
+                  changeQuantityForProduct({
+                    ...product,
+                    quantity: e.target.value,
+                  })
                 );
               }}
             ></Input>
           </div>
           <div
             onClick={() => {
-              dispatch(changeRemoveProduct(product));
+              dispatch(removeProduct(product));
             }}
           >
             <BsFillTrash3Fill />
@@ -107,7 +110,7 @@ function SelectedProduct() {
     const productFounded = dataForm.products.find(
       (item) => item.id === product.id
     );
-    if (!productFounded) dispatch(changeAddProduct(product));
+    if (!productFounded) dispatch(addProduct(product));
     setSearchValue("");
   };
 

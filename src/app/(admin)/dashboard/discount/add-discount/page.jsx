@@ -4,10 +4,9 @@ import { useCreateDiscountEventMutation } from "~/redux/services/discount/discou
 import { useSelector, useDispatch } from "react-redux";
 
 import {
-  changeName,
-  changeDescription,
+  changeField,
   clearData,
-} from "~/redux/features/warehouses/discount/form-create-discount-slice";
+} from "~/redux/features/warehouse/discount/form-add-discount-event-slice";
 import Input from "~/app/components/input/input";
 import Button from "~/app/components/button/button";
 import { useEffect } from "react";
@@ -17,7 +16,7 @@ function AddDiscount() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [createDiscount, result] = useCreateDiscountEventMutation();
-  const dataForm = useSelector((state) => state.formCreateDiscountEventSlice);
+  const dataForm = useSelector((state) => state.formAddDiscountEventSlice);
 
   useEffect(() => {
     if (result.isSuccess) {
@@ -33,6 +32,12 @@ function AddDiscount() {
     e.preventDefault();
     createDiscount(dataForm);
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
+
   return (
     <div>
       <h4 className="my-8 uppercase text-2xl font-semibold">
@@ -43,18 +48,16 @@ function AddDiscount() {
           <Input
             label={"Name"}
             value={dataForm.name}
-            onChange={(e) => {
-              dispatch(changeName(e.target.value));
-            }}
+            name="name"
+            onChange={handleChange}
           />
         </div>
         <div>
           <Input
             label={"Description"}
             value={dataForm.description}
-            onChange={(e) => {
-              dispatch(changeDescription(e.target.value));
-            }}
+            name="description"
+            onChange={handleChange}
           />
         </div>
         <div>

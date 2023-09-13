@@ -1,11 +1,9 @@
 "use client";
 
-import { useState } from "react";
-
 import { useSelector } from "react-redux";
 
 function MyAccount() {
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.userSlice);
 
   return (
     <div className="px-10 border-l">

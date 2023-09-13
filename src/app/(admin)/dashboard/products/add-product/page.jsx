@@ -7,20 +7,11 @@ import InputImage from "~/app/components/input/InputImage";
 
 import { useRouter } from "next/navigation";
 import {
-  changeProductName,
-  changeCategory,
-  changePrice,
-  changeBrand,
-  changeDescription,
-  changeImage,
-  changeCategoryGroup,
+  changeField,
   clearData,
-} from "~/redux/features/product/addProductForm";
+} from "~/redux/features/catalog/product/form-add-product-slice";
 import { useAddProductMutation } from "~/redux/services/catalog/product-api";
-import {
-  useFetchCategoriesByQueryMutation,
-  useFetchCategoriesQuery,
-} from "~/redux/services/catalog/category-api";
+import { useFetchCategoriesByQueryMutation } from "~/redux/services/catalog/category-api";
 import { useFetchAllBrandsQuery } from "~/redux/services/catalog/brand-api";
 import { useDispatch, useSelector } from "react-redux";
 import { useFetchCategoryGroupsQuery } from "~/redux/services/catalog/category-group-api";
@@ -40,7 +31,7 @@ function AddProducts() {
 
   const router = useRouter();
   const dispatch = useDispatch();
-  const dataForm = useSelector((state) => state.addProduct);
+  const dataForm = useSelector((state) => state.formAddProductFormSlice);
 
   let dataCategoryConfig = [];
   let dataBrandsConfig = [];
@@ -83,13 +74,18 @@ function AddProducts() {
   const handleSubmit = (e) => {
     e.preventDefault();
     let formData = new FormData();
-    formData.append("Name", dataForm.productName);
+    formData.append("Name", dataForm.name);
     formData.append("Description", dataForm.description);
     formData.append("UnitPrice", dataForm.price);
     formData.append("CategoryId", dataForm.category.id);
     formData.append("BrandId", dataForm.brand.id);
     formData.append("Image", dataForm.image[0]);
     addProduct(formData);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
   };
 
   return (
@@ -99,7 +95,7 @@ function AddProducts() {
         <div className="flex-[0_0_50%] px-2">
           <InputImage
             onChange={(image) => {
-              dispatch(changeImage(image));
+              dispatch(changeField({ field: "image", value: image }));
             }}
           ></InputImage>
         </div>
@@ -109,10 +105,9 @@ function AddProducts() {
             <li className="my-4">
               <Input
                 label={"Product Name"}
-                value={dataForm.productName}
-                onChange={(e) => {
-                  dispatch(changeProductName(e.target.value));
-                }}
+                value={dataForm.name}
+                name="name"
+                onChange={handleChange}
               ></Input>
             </li>
             <li className="my-4">
@@ -124,7 +119,9 @@ function AddProducts() {
                   <SelectBox
                     options={dataCategoryGroupConfig}
                     onChange={(option) => {
-                      dispatch(changeCategoryGroup(option));
+                      dispatch(
+                        changeField({ field: "categoryGroup", value: option })
+                      );
                       getCategory({ GroupId: option.id });
                     }}
                     selected={dataForm.categoryGroup}
@@ -142,7 +139,9 @@ function AddProducts() {
                     <SelectBox
                       options={dataCategoryConfig}
                       onChange={(option) => {
-                        dispatch(changeCategory(option));
+                        dispatch(
+                          changeField({ field: "category", value: option })
+                        );
                       }}
                       selected={dataForm.category}
                     />
@@ -160,7 +159,7 @@ function AddProducts() {
                   <SelectBox
                     options={dataBrandsConfig}
                     onChange={(option) => {
-                      dispatch(changeBrand(option));
+                      dispatch(changeField({ field: "brand", value: option }));
                     }}
                     selected={dataForm.brand}
                   />
@@ -171,9 +170,8 @@ function AddProducts() {
               <Input
                 label={"Price"}
                 value={dataForm.price}
-                onChange={(e) => {
-                  dispatch(changePrice(e.target.value));
-                }}
+                name="price"
+                onChange={handleChange}
                 type="number"
               ></Input>
             </li>
@@ -181,9 +179,8 @@ function AddProducts() {
               <InputTextArea
                 label={"Description"}
                 value={dataForm.description}
-                onChange={(e) => {
-                  dispatch(changeDescription(e.target.value));
-                }}
+                name="description"
+                onChange={handleChange}
               ></InputTextArea>
             </li>
           </ul>

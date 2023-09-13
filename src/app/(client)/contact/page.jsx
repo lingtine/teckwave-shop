@@ -8,45 +8,39 @@ import InputTextArea from "~/app/components/input/input-textarea";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  changeEmail,
-  changeName,
-  changeMessage,
-  changePhoneNumber,
-} from "~/redux/features/contact/contact-form-slice";
+  changeField,
+  clearData,
+} from "~/redux/features/contact/form-contact-slice";
 import { useEffect } from "react";
 function ContactPage() {
   const dispatch = useDispatch();
-  const formValues = useSelector((state) => {
-    return state.contactForm;
-  });
+  const formValues = useSelector((state) => state.formContactSlice);
   useEffect(() => {
     document.title = "Contact";
   }, []);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
   const renderForm = (
     <form className="flex flex-col justify-between px-8 py-10 h-full">
       <div className="flex justify-between gap-4">
         <Input
           label={"Your Name"}
-          required
-          onChange={(e) => {
-            dispatch(changeName(e.target.value));
-          }}
+          onChange={handleChange}
+          name="name"
           value={formValues.name}
         />
         <Input
           label={"Your Email"}
-          required
-          onChange={(e) => {
-            dispatch(changeEmail(e.target.value));
-          }}
+          name="email"
+          onChange={handleChange}
           value={formValues.email}
         />
         <Input
           label={"Your Phone"}
-          required
-          onChange={(e) => {
-            dispatch(changePhoneNumber(e.target.value));
-          }}
+          name="phoneNumber"
+          onChange={handleChange}
           value={formValues.phoneNumber}
           type="number"
         />
@@ -54,9 +48,8 @@ function ContactPage() {
       <div className="my-8 flex-1">
         <InputTextArea
           label={"Your Message"}
-          onChange={(e) => {
-            dispatch(changeMessage(e.target.value));
-          }}
+          name="message"
+          onChange={handleChange}
           value={formValues.message}
         />
       </div>

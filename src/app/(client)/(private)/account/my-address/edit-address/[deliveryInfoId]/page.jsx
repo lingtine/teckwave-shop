@@ -11,16 +11,10 @@ import {
 
 import { useParams } from "next/navigation";
 import {
-  changeName,
-  changeCity,
-  changeDistrict,
-  changeNumber,
-  changePhoneNumber,
-  changeStreet,
-  changeWard,
   clearForm,
-  changeAllData,
-} from "~/redux/features/dashboard/form-edit-address-slice";
+  changeAddress,
+  changeField,
+} from "~/redux/features/auth/profile/form-update-address-slice";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -35,17 +29,12 @@ function UpdateAddress() {
     { refetchOnMountOrArgChange: true }
   );
   const [updateDeliveryInfo, result] = useUpdateDeliveryInfoMutation();
-  const dataForm = useSelector((state) => state.editAddressForm);
+  const dataForm = useSelector((state) => state.formUpdateAddressSlice);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     updateDeliveryInfo([deliveryInfoId, dataForm]);
   };
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(changeAllData(data.data));
-    }
-  }, [isSuccess, data, dispatch]);
 
   useEffect(() => {
     if (result.isSuccess) {
@@ -57,6 +46,16 @@ function UpdateAddress() {
       toast.error("Update Failed");
     }
   }, [result.isSuccess, result.isError, router, dispatch]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
+  const handleChangeAddress = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeAddress({ field: name, value }));
+  };
+
   return (
     <div className="px-10">
       <h1 className="text-xl font-bold text-primary-1">Edit Address</h1>
@@ -68,55 +67,48 @@ function UpdateAddress() {
               <Input
                 label={"Name"}
                 value={dataForm.name}
-                onChange={(e) => {
-                  dispatch(changeName(e.target.value));
-                }}
+                name="name"
+                onChange={handleChange}
               />
               <Input
                 label={"Phone Number"}
+                name="phoneNumber"
                 value={dataForm.phoneNumber}
-                onChange={(e) => {
-                  dispatch(changePhoneNumber(e.target.value));
-                }}
+                onChange={handleChange}
               />
             </li>
             <li className="flex gap-4">
               <Input
                 label={"City"}
+                name="city"
                 value={dataForm.address.city}
-                onChange={(e) => {
-                  dispatch(changeCity(e.target.value));
-                }}
+                onChange={handleChangeAddress}
               />
               <Input
                 label={"District"}
+                name="district"
                 value={dataForm.address.district}
-                onChange={(e) => {
-                  dispatch(changeDistrict(e.target.value));
-                }}
+                onChange={handleChangeAddress}
               />
             </li>
             <li className="flex gap-4">
               <Input
                 label={"Ward"}
+                name="ward"
                 value={dataForm.address.ward}
-                onChange={(e) => {
-                  dispatch(changeWard(e.target.value));
-                }}
+                onChange={handleChangeAddress}
               />
               <Input
                 label={"Street"}
+                name="street"
                 value={dataForm.address.street}
-                onChange={(e) => {
-                  dispatch(changeStreet(e.target.value));
-                }}
+                onChange={handleChangeAddress}
               />
               <Input
                 label={"Street number"}
+                name="number"
                 value={dataForm.address.number}
-                onChange={(e) => {
-                  dispatch(changeNumber(e.target.value));
-                }}
+                onChange={handleChangeAddress}
               />
             </li>
             <li className="flex justify-end">

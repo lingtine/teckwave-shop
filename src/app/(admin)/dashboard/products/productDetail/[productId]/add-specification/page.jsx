@@ -6,7 +6,7 @@ import {
   changeSpecification,
   changeValue,
   clearData,
-} from "~/redux/features/product/form-add-specification-product-slice";
+} from "~/redux/features/catalog/product/form-add-specification-product-slice";
 import SelectBox from "~/app/components/select-box/select-box";
 import Input from "~/app/components/input/input";
 import Button from "~/app/components/button/button";
@@ -18,7 +18,7 @@ function AddSpecification() {
   const { productId } = useParams();
   const router = useRouter();
   const { data, isFetching, isSuccess } = useFetchAllSpecificationQuery({
-    PageSize: 40,
+    PageSize: 1000,
   });
   const dataForm = useSelector(
     (state) => state.formAddSpecificationProductSlice

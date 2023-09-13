@@ -1,5 +1,5 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { setCart } from "~/redux/features/cart/cart";
+import { setCart } from "~/redux/features/auth/cart-slice";
 import customFetchBase from "~/redux/api/customFetchBase";
 const cartApi = createApi({
   reducerPath: "cartApi",

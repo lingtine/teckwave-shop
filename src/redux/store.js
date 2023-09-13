@@ -1,37 +1,36 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
-
-import contactFormReducer from "./features/contact/contact-form-slice";
-import formLoginReducer from "./features/dashboard/form-login-slice";
-import formRegisterReducer from "./features/dashboard/form-register-slice";
-import formLoginAdminReducer from "./features/dashboard/form-login-admin-slice";
-import searchReducer from "./features/search/search-slice";
-import addProductReducer from "./features/product/addProductForm";
-import formUpdateProductReducer from "./features/product/update-product-form-slice";
-import formEditProfileReducer from "./features/dashboard/form-edit-profile-slice";
-import formAddAddressReducer from "./features/dashboard/form-add-address-slice";
-import formEditAddressReducer from "./features/dashboard/form-edit-address-slice";
-import formDeliveryReducer from "./features/dashboard/form-delivery-slice";
-import userReducer from "./features/auth/user-slice";
-import checkoutReducer from "./features/check-out/checkout-slice";
-import authReducer from "./features/auth/auth-slice";
-import cartReducer from "./features/cart/cart";
-import formAddBrandSlice from "./features/dashboard/brand/form-add-brand-slice";
-import formUpdateBrandSlice from "./features/dashboard/brand/form-update-brand-slice";
-import formAddSpecificationProductSlice from "./features/product/form-add-specification-product-slice";
-
-import formAddCategorySlice from "./features/product/category/form-add-category-slice";
-import formEditCategorySlice from "./features/product/category/form-edit-category-slice";
-import formAddCategoryGroup from "./features/product/category-group/form-add-category-group-slice";
-import formEditCategoryGroup from "./features/product/category-group/form-edit-category-group-slice";
-import formAddSpecification from "./features/product/specification/form-add-specification-slice";
-import formEditSpecification from "./features/product/specification/form-edit-specification-slice";
-import formAddReportSlice from "./features/warehouses/report/form-add-report-slice";
-import formAddSupplierSlice from "./features/warehouses/supplier/form-add-supplier-slice";
-import formAddWarehouseSlice from "./features/warehouses/warehouse/form-add-warehouse-slice";
-import wishListSlice from "./features/auth/wish-list-slice";
-import formCreateDiscountEventSlice from "./features/warehouses/discount/form-create-discount-slice";
-import formCreateCouponSlice from "./features/warehouses/discount/form-create-coupon-slice";
+import {
+  formUpdateAddressSlice,
+  formAddAddressSlice,
+  formAddBrandSlice,
+  formAddCategoryGroupSlice,
+  formAddCategorySlice,
+  formAddCouponSlice,
+  formAddDiscountEventSlice,
+  formAddProductFormSlice,
+  formAddReportSlice,
+  formAddSpecificationProductSlice,
+  formUpdateProductFormSlice,
+  formAddSpecificationSlice,
+  formAddSupplierSlice,
+  formAddWarehouseSlice,
+  formCheckoutSlice,
+  formContactSlice,
+  formDeliveryFormSlice,
+  formLoginAdminSlice,
+  formLoginSlice,
+  formRegisterSlice,
+  formUpdateBrandSlice,
+  formUpdateCategoryGroupSlice,
+  formUpdateCategorySlide,
+  formUpdateSpecificationSlice,
+  searchSlice,
+  authSlice,
+  cartSLice,
+  userSlide,
+  wishListSlice,
+} from "./features";
 
 import {
   pokemonApi,
@@ -59,40 +58,40 @@ import {
 
 const store = configureStore({
   reducer: {
-    contactForm: contactFormReducer,
-    loginForm: formLoginReducer,
-    registerForm: formRegisterReducer,
-    searchData: searchReducer,
-    loginAdminForm: formLoginAdminReducer,
-    addProduct: addProductReducer,
-    updateProductForm: formUpdateProductReducer,
-    editProfileForm: formEditProfileReducer,
-    addAddressForm: formAddAddressReducer,
-    editAddressForm: formEditAddressReducer,
-    checkoutForm: checkoutReducer,
-    user: userReducer,
-    authSlice: authReducer,
-    deliveryForm: formDeliveryReducer,
-    cart: cartReducer,
-    [formAddBrandSlice.name]: formAddBrandSlice.reducer,
-    [formUpdateBrandSlice.name]: formUpdateBrandSlice.reducer,
-    [formAddCategorySlice.name]: formAddCategorySlice.reducer,
-    [formEditCategorySlice.name]: formEditCategorySlice.reducer,
-    [formAddCategoryGroup.name]: formAddCategoryGroup.reducer,
-    [formEditCategoryGroup.name]: formEditCategoryGroup.reducer,
-    [formAddSpecification.name]: formAddSpecification.reducer,
-    [formEditSpecification.name]: formEditSpecification.reducer,
-    [formAddSupplierSlice.name]: formAddSupplierSlice.reducer,
-    [formAddWarehouseSlice.name]: formAddWarehouseSlice.reducer,
-    [formAddReportSlice.name]: formAddReportSlice.reducer,
-    [wishListSlice.name]: wishListSlice.reducer,
-    [formCreateDiscountEventSlice.name]: formCreateDiscountEventSlice.reducer,
+    // slice
+    [formUpdateProductFormSlice.name]: formUpdateProductFormSlice.reducer,
 
-    [formCreateCouponSlice.name]: formCreateCouponSlice.reducer,
+    [formUpdateAddressSlice.name]: formUpdateAddressSlice.reducer,
+    [authSlice.name]: authSlice.reducer,
+    [cartSLice.name]: cartSLice.reducer,
+    [userSlide.name]: userSlide.reducer,
+    [wishListSlice.name]: wishListSlice.reducer,
+    [formAddAddressSlice.name]: formAddAddressSlice.reducer,
+    [formAddBrandSlice.name]: formAddBrandSlice.reducer,
+    [formAddCategoryGroupSlice.name]: formAddCategoryGroupSlice.reducer,
+    [formAddCategorySlice.name]: formAddCategorySlice.reducer,
+    [formAddCouponSlice.name]: formAddCouponSlice.reducer,
+    [formAddDiscountEventSlice.name]: formAddDiscountEventSlice.reducer,
+    [formAddProductFormSlice.name]: formAddProductFormSlice.reducer,
+    [formAddReportSlice.name]: formAddReportSlice.reducer,
     [formAddSpecificationProductSlice.name]:
       formAddSpecificationProductSlice.reducer,
+    [formAddSpecificationSlice.name]: formAddSpecificationSlice.reducer,
+    [formAddSupplierSlice.name]: formAddSupplierSlice.reducer,
+    [formAddWarehouseSlice.name]: formAddWarehouseSlice.reducer,
+    [formCheckoutSlice.name]: formCheckoutSlice.reducer,
+    [formContactSlice.name]: formContactSlice.reducer,
+    [formDeliveryFormSlice.name]: formDeliveryFormSlice.reducer,
+    [formLoginAdminSlice.name]: formLoginAdminSlice.reducer,
+    [formLoginSlice.name]: formLoginSlice.reducer,
+    [formRegisterSlice.name]: formRegisterSlice.reducer,
+    [formUpdateBrandSlice.name]: formUpdateBrandSlice.reducer,
+    [formUpdateCategoryGroupSlice.name]: formUpdateCategoryGroupSlice.reducer,
+    [formUpdateCategorySlide.name]: formUpdateCategorySlide.reducer,
+    [formUpdateSpecificationSlice.name]: formUpdateSpecificationSlice.reducer,
+    [searchSlice.name]: searchSlice.reducer,
 
-    //api
+    //RTK api
     [pokemonApi.reducerPath]: pokemonApi.reducer,
     [reviewApi.reducerPath]: reviewApi.reducer,
 

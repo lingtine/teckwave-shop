@@ -14,6 +14,7 @@ const customerApi = createApi({
     "add-wish-list",
     "add-delivery-info",
     "update-delivery-info",
+    "update-delivery-default",
   ],
   endpoints(builder) {
     return {
@@ -40,7 +41,12 @@ const customerApi = createApi({
             await dispatch(customerApi.endpoints.getWishList.initiate(null));
           } catch (error) {}
         },
-        providesTags: ["update", "add-delivery-info", "update-delivery-info"],
+        providesTags: [
+          "update-delivery-default",
+          "update",
+          "add-delivery-info",
+          "update-delivery-info",
+        ],
       }),
       getCustomerByMu: builder.mutation({
         query: () => {
@@ -103,7 +109,7 @@ const customerApi = createApi({
             method: "PATCH",
           };
         },
-        invalidatesTags: ["update"],
+        invalidatesTags: ["update-delivery-default"],
       }),
 
       // wish list

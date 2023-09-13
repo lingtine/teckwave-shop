@@ -4,10 +4,9 @@ import Link from "next/link";
 import Input from "~/app/components/input/input";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  changeEmail,
-  changePassword,
+  changeField,
   clearData,
-} from "~/redux/features/dashboard/form-login-slice";
+} from "~/redux/features/auth/actions/form-login-slice";
 import { useLoginMutation } from "~/redux/services/authentication/auth-api";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -17,7 +16,7 @@ import Button from "~/app/components/button/button";
 function LoginPage() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const formData = useSelector((state) => state.loginForm);
+  const formData = useSelector((state) => state.formLoginSlice);
   const [login, { isSuccess, isError, error }] = useLoginMutation();
   useEffect(() => {
     document.title = "Login";
@@ -37,6 +36,14 @@ function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     login(formData);
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+
+    const { name, value } = e.target;
+
+    dispatch(changeField({ field: name, value }));
   };
   return (
     <div className="my-20 ">
@@ -62,22 +69,18 @@ function LoginPage() {
           <div className="my-2">
             <Input
               label={"Email"}
-              required
               value={formData.email}
-              onChange={(e) => {
-                dispatch(changeEmail(e.target.value));
-              }}
+              name="email"
+              onChange={handleChange}
             />
           </div>
           <div className="my-2">
             <Input
               label={"Password"}
-              required
               type="password"
+              name="password"
               value={formData.password}
-              onChange={(e) => {
-                dispatch(changePassword(e.target.value));
-              }}
+              onChange={handleChange}
             />
           </div>
 

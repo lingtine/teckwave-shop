@@ -1,18 +1,13 @@
 "use client";
 
 import Button from "~/app/components/button/button";
-import Input from "~/app/components/input/input";
 import InputTextArea from "~/app/components/input/input-textarea";
-import InputImage from "~/app/components/input/InputImage";
 
 import { useRouter } from "next/navigation";
 import {
-  changeDescription,
-  changeFrom,
-  changeReportType,
-  changeTo,
+  changeField,
   clearData,
-} from "~/redux/features/warehouses/report/form-add-report-slice";
+} from "~/redux/features/warehouse/report/form-add-report-slice";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -21,7 +16,7 @@ import { useFetchAllSuppliersQuery } from "~/redux/services/warehouse/supplier-a
 import SelectBox from "~/app/components/select-box/select-box";
 import SelectedProduct from "~/app/components/admin/selected-product";
 import { useFetchAllWarehousersQuery } from "~/redux/services/warehouse/warehouse-api";
-function AddProducts() {
+function AddReport() {
   const { data: dataSupplier, isSuccess: dataSupplierSuccess } =
     useFetchAllSuppliersQuery();
   const { data: dataWarehouse, isSuccess: dataWareHouseSuccess } =
@@ -118,7 +113,7 @@ function AddProducts() {
                   <SelectBox
                     options={dataSupplierConfig}
                     onChange={(option) => {
-                      dispatch(changeFrom(option));
+                      dispatch(changeField({ field: "from", value: option }));
                     }}
                     selected={dataForm.from}
                   />
@@ -134,7 +129,7 @@ function AddProducts() {
                   <SelectBox
                     options={dataWarehouseConfig}
                     onChange={(option) => {
-                      dispatch(changeTo(option));
+                      dispatch(changeField({ field: "to", value: option }));
                     }}
                     selected={dataForm.to}
                   />
@@ -149,7 +144,9 @@ function AddProducts() {
                 <SelectBox
                   options={optionsReport}
                   onChange={(option) => {
-                    dispatch(changeReportType(option));
+                    dispatch(
+                      changeField({ field: "reportType", value: option })
+                    );
                   }}
                   selected={dataForm.reportType}
                 />
@@ -159,8 +156,10 @@ function AddProducts() {
               <InputTextArea
                 label={"Description"}
                 value={dataForm.description}
+                name="description"
                 onChange={(e) => {
-                  dispatch(changeDescription(e.target.value));
+                  const { name, value } = e.target;
+                  dispatch(changeField({ field: name, value }));
                 }}
               ></InputTextArea>
             </li>
@@ -176,4 +175,4 @@ function AddProducts() {
   );
 }
 
-export default AddProducts;
+export default AddReport;

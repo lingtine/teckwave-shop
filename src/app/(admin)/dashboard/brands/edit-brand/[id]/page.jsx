@@ -8,10 +8,9 @@ import InputImage from "~/app/components/input/InputImage";
 import { useParams, useRouter } from "next/navigation";
 import {
   changeAllValue,
-  changeDescription,
-  changeImage,
-  changeName,
-} from "~/redux/features/dashboard/brand/form-update-brand-slice";
+  changeField,
+  clearData,
+} from "~/redux/features/catalog/brand/form-update-brand-slice";
 import { useGetBrandQuery } from "~/redux/services/catalog/brand-api";
 import { useUpdateBrandMutation } from "~/redux/services/catalog/brand-api";
 import { useDispatch, useSelector } from "react-redux";
@@ -63,6 +62,11 @@ function EditProduct() {
     router,
   ]);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <h2 className="my-2 text-lg text-primary-1 font-bold">Update Brand</h2>
@@ -70,7 +74,7 @@ function EditProduct() {
         <div className="flex-[0_0_50%] px-2">
           <InputImage
             onChange={(image) => {
-              dispatch(changeImage(image));
+              dispatch(changeField({ field: "image", value: image }));
             }}
           />
         </div>
@@ -80,10 +84,9 @@ function EditProduct() {
             <li className="my-4">
               <Input
                 label={"Product Name"}
+                name="name"
                 value={dataForm.name}
-                onChange={(e) => {
-                  dispatch(changeName(e.target.value));
-                }}
+                onChange={handleChange}
               ></Input>
             </li>
 
@@ -91,9 +94,8 @@ function EditProduct() {
               <InputTextArea
                 label={"Description"}
                 value={dataForm.description}
-                onChange={(e) => {
-                  dispatch(changeDescription(e.target.value));
-                }}
+                name="description"
+                onChange={handleChange}
               ></InputTextArea>
             </li>
           </ul>

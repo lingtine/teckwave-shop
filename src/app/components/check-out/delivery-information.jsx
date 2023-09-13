@@ -4,21 +4,26 @@ import Input from "~/app/components/input/input";
 import InputTextArea from "~/app/components/input/input-textarea";
 import { useSelector } from "react-redux";
 import {
-  changeCity,
-  changeDistrict,
-  changeEmail,
-  changeName,
-  changeNote,
-  changePhoneNumber,
-  changeStreet,
-  changeStreetNumber,
-  changeWard,
-} from "~/redux/features/check-out/checkout-slice";
+  changeAddress,
+  changeField,
+  clearData,
+} from "~/redux/features/order/form-check-out-slice";
 import { useDispatch } from "react-redux";
 
 function DeliveryInformation() {
-  const dataForm = useSelector((state) => state.checkoutForm);
+  const dataForm = useSelector((state) => state.formCheckoutSlice);
   const dispatch = useDispatch();
+
+  const handleChangeInfo = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
+
+  const handleChangeAddress = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeAddress({ field: name, value }));
+  };
+
   return (
     <>
       <div>
@@ -28,36 +33,32 @@ function DeliveryInformation() {
             <Input
               label={"Email"}
               value={dataForm.email}
-              onChange={(e) => {
-                dispatch(changeEmail(e.target.value));
-              }}
+              name="email"
+              onChange={handleChangeInfo}
             />
           </div>
           <div className="my-4">
             <Input
               label={"FullName"}
               value={dataForm.fullName}
-              onChange={(e) => {
-                dispatch(changeName(e.target.value));
-              }}
+              name="fullName"
+              onChange={handleChangeInfo}
             />
           </div>
           <div className="my-4">
             <Input
               label={"PhoneNumber"}
               value={dataForm.phoneNumber}
-              onChange={(e) => {
-                dispatch(changePhoneNumber(e.target.value));
-              }}
+              name="phoneNumber"
+              onChange={handleChangeInfo}
             />
           </div>
           <div className="my-4">
             <InputTextArea
               label={"Note"}
               value={dataForm.note}
-              onChange={(e) => {
-                dispatch(changeNote(e.target.value));
-              }}
+              name="note"
+              onChange={handleChangeInfo}
             />
           </div>
         </div>
@@ -69,45 +70,40 @@ function DeliveryInformation() {
             <Input
               label={"City"}
               value={dataForm.city}
-              onChange={(e) => {
-                dispatch(changeCity(e.target.value));
-              }}
+              name="city"
+              onChange={handleChangeAddress}
             />
           </div>
           <div className="my-4">
             <Input
               label={"District"}
               value={dataForm.district}
-              onChange={(e) => {
-                dispatch(changeDistrict(e.target.value));
-              }}
+              name="district"
+              onChange={handleChangeAddress}
             />
           </div>
           <div className="my-4">
             <Input
               label={"Ward"}
               value={dataForm.ward}
-              onChange={(e) => {
-                dispatch(changeWard(e.target.value));
-              }}
+              name="ward"
+              onChange={handleChangeAddress}
             />
           </div>
           <div className="my-4">
             <Input
               label={"Street"}
               value={dataForm.stress}
-              onChange={(e) => {
-                dispatch(changeStreet(e.target.value));
-              }}
+              name="stress"
+              onChange={handleChangeAddress}
             />
           </div>
           <div className="my-4">
             <Input
               label={"StreetNumber"}
               value={dataForm.stressNumber}
-              onChange={(e) => {
-                dispatch(changeStreetNumber(e.target.value));
-              }}
+              name="stressNumber"
+              onChange={handleChangeAddress}
             />
           </div>
         </div>

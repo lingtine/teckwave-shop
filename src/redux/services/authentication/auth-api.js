@@ -5,7 +5,7 @@ import { changeAuth } from "~/redux/features/auth/auth-slice";
 import { setCookie, getCookie } from "cookies-next";
 import { logout } from "~/redux/features/auth/auth-slice";
 import { logout as userLogout } from "~/redux/features/auth/user-slice";
-import { clearData } from "~/redux/features/cart/cart";
+import { clearData } from "~/redux/features/auth/cart-slice";
 import { clearWishList } from "~/redux/features/auth/wish-list-slice";
 import jwtDecode from "jwt-decode";
 import cartApi from "../orders/cart-api";

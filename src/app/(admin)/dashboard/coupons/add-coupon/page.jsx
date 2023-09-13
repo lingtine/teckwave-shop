@@ -6,13 +6,9 @@ import InputTextArea from "~/app/components/input/input-textarea";
 
 import { useRouter } from "next/navigation";
 import {
-  changeDescription,
-  changeDiscountEvent,
-  changeName,
-  changeQuantity,
-  changeReducedPrice,
+  changeField,
   clearData,
-} from "~/redux/features/warehouses/discount/form-create-coupon-slice";
+} from "~/redux/features/warehouse/discount/form-add-coupon-slice";
 import { useDispatch, useSelector } from "react-redux";
 import SelectBox from "~/app/components/select-box/select-box";
 import { useEffect } from "react";
@@ -20,14 +16,14 @@ import { useCreateCouponMutation } from "~/redux/services/discount/coupon-api";
 import { useGetAllDiscountEventQuery } from "~/redux/services/discount/discount-event-api";
 import { toast } from "react-toastify";
 
-function AddProducts() {
+function AddCoupon() {
   const { data, isLoading, isSuccess } = useGetAllDiscountEventQuery();
 
   const [createCoupon, result] = useCreateCouponMutation();
 
   const router = useRouter();
   const dispatch = useDispatch();
-  const dataForm = useSelector((state) => state.formCreateCouponSlice);
+  const dataForm = useSelector((state) => state.formAddCouponSlice);
 
   let dataConfig = [];
 
@@ -63,6 +59,11 @@ function AddProducts() {
     });
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
+
   return (
     <div>
       <h2 className="my-2 text-lg text-primary-1 font-bold">Add Coupon</h2>
@@ -73,9 +74,8 @@ function AddProducts() {
             <Input
               label={"Coupon Name"}
               value={dataForm.name}
-              onChange={(e) => {
-                dispatch(changeName(e.target.value));
-              }}
+              name="name"
+              onChange={handleChange}
             ></Input>
           </li>
           <li>
@@ -87,7 +87,9 @@ function AddProducts() {
                 <SelectBox
                   options={dataConfig}
                   onChange={(option) => {
-                    dispatch(changeDiscountEvent(option));
+                    dispatch(
+                      changeField({ field: "discountEvent", value: option })
+                    );
                   }}
                   selected={dataForm.discountEvent}
                 />
@@ -99,9 +101,8 @@ function AddProducts() {
               type="number"
               label={"Reduced Price"}
               value={dataForm.reducedPrice}
-              onChange={(e) => {
-                dispatch(changeReducedPrice(e.target.value));
-              }}
+              name="reducedPrice"
+              onChange={handleChange}
             ></Input>
           </li>
           <li>
@@ -109,18 +110,16 @@ function AddProducts() {
               label={"Quantity"}
               value={dataForm.quantity}
               type="number"
-              onChange={(e) => {
-                dispatch(changeQuantity(e.target.value));
-              }}
+              name="quantity"
+              onChange={handleChange}
             ></Input>
           </li>
           <li>
             <InputTextArea
               label={"Description"}
               value={dataForm.description}
-              onChange={(e) => {
-                dispatch(changeDescription(e.target.value));
-              }}
+              name="description"
+              onChange={handleChange}
             ></InputTextArea>
           </li>
           <li className="flex justify-end">
@@ -134,4 +133,4 @@ function AddProducts() {
   );
 }
 
-export default AddProducts;
+export default AddCoupon;

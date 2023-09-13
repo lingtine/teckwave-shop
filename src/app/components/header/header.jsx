@@ -13,11 +13,10 @@ import { useLogoutMutation } from "~/redux/services/authentication/auth-api";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 function Header() {
-  const { user } = useSelector((state) => state.user);
-  const { cart, quantity } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.userSlice);
+  const { cart, quantity } = useSelector((state) => state.cartSlice);
   const [logout, { isSuccess }] = useLogoutMutation();
   const router = useRouter();
-
   useEffect(() => {
     if (isSuccess) {
       router.push("/");
@@ -42,7 +41,6 @@ function Header() {
           </div>
           <div className="flex items-center">
             <SearchBar />
-
             <Link
               className="flex items-center relative"
               href={user ? "/cart" : "/login"}

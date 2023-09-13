@@ -4,14 +4,9 @@ import Input from "~/app/components/input/input";
 import Button from "~/app/components/button/button";
 import Link from "next/link";
 import {
-  changeCode,
-  changeConfirmPassword,
-  changeEmail,
-  changeName,
-  changePassword,
-  changeShowCode,
+  changeField,
   clearData,
-} from "~/redux/features/dashboard/form-register-slice";
+} from "~/redux/features/auth/actions/form-register-slice";
 import { useRegisterMutation } from "~/redux/services/customer/customer-api";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -21,7 +16,7 @@ import { useRouter } from "next/navigation";
 
 function Register() {
   const dispatch = useDispatch();
-  const dataForm = useSelector((state) => state.registerForm);
+  const dataForm = useSelector((state) => state.formRegisterSlice);
   const [verifyEmail, verifyEmailResult] = useVerifyEmailMutation();
   const [register, registerResult] = useRegisterMutation();
 
@@ -32,7 +27,7 @@ function Register() {
   useEffect(() => {
     if (verifyEmailResult.isSuccess) {
       toast.info("Check your email to get the code");
-      dispatch(changeShowCode());
+      dispatch(changeField({ filed: showCode, value: true }));
     } else if (verifyEmailResult.isError) {
       toast.error("Errol");
     }
@@ -62,6 +57,15 @@ function Register() {
       }
     }
   };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+
+    const { name, value } = e.target;
+
+    dispatch(changeField({ field: name, value }));
+  };
+
   return (
     <div className="container mx-auto flex justify-center my-16">
       <form
@@ -84,40 +88,36 @@ function Register() {
           <Input
             label={"Name"}
             type="text"
+            name="name"
             value={dataForm.name}
-            onChange={(e) => {
-              dispatch(changeName(e.target.value));
-            }}
+            onChange={handleChange}
           />
         </div>
         <div className="my-4">
           <Input
             label={"Email"}
             type="email"
+            name="email"
             value={dataForm.email}
-            onChange={(e) => {
-              dispatch(changeEmail(e.target.value));
-            }}
+            onChange={handleChange}
           />
         </div>
         <div className="my-4">
           <Input
             label={"Password"}
             type="password"
+            name="password"
             value={dataForm.password}
-            onChange={(e) => {
-              dispatch(changePassword(e.target.value));
-            }}
+            onChange={handleChange}
           />
         </div>
         <div className="my-4">
           <Input
             label={"Confirm Password"}
             type="password"
+            name="confirmPassword"
             value={dataForm.confirmPassword}
-            onChange={(e) => {
-              dispatch(changeConfirmPassword(e.target.value));
-            }}
+            onChange={handleChange}
           />
         </div>
         {dataForm.showCode && (
@@ -125,10 +125,9 @@ function Register() {
             <Input
               label={"Code"}
               type="Number"
+              name="code"
               value={dataForm.code}
-              onChange={(e) => {
-                dispatch(changeCode(e.target.value));
-              }}
+              onChange={handleChange}
             />
           </div>
         )}

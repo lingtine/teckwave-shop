@@ -5,15 +5,10 @@ import Input from "~/app/components/input/input";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  changeDistrict,
-  changeCity,
-  changeName,
-  changePhoneNumber,
-  changeStreet,
-  changeWard,
-  changeNumberStreet,
+  changeAddress,
+  changeField,
   clearForm,
-} from "~/redux/features/dashboard/form-add-address-slice";
+} from "~/redux/features/auth/profile/form-add-address-slice";
 
 import { useAddDeliveryInfosMutation } from "~/redux/services/customer/customer-api";
 import Link from "next/link";
@@ -23,7 +18,7 @@ import { toast } from "react-toastify";
 function AddAddress() {
   const dispatch = useDispatch();
   const router = useRouter();
-  const dataForm = useSelector((state) => state.addAddressForm);
+  const dataForm = useSelector((state) => state.formAddAddressSlice);
 
   const [addDeliveryInfos, result] = useAddDeliveryInfosMutation();
 
@@ -41,6 +36,15 @@ function AddAddress() {
     addDeliveryInfos(dataForm);
   };
 
+  const handleChangeInfo = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
+  const handleChangeAddress = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeAddress({ field: name, value }));
+  };
+
   return (
     <div className="px-10">
       <h1 className="text-xl font-bold text-primary-1">Add Address</h1>
@@ -49,20 +53,16 @@ function AddAddress() {
           <li>
             <Input
               label={"Name"}
-              required
-              onChange={(e) => {
-                dispatch(changeName(e.target.value));
-              }}
+              name="name"
+              onChange={handleChangeInfo}
               value={dataForm.name}
             />
           </li>
           <li>
             <Input
               label={"Phone Number"}
-              required
-              onChange={(e) => {
-                dispatch(changePhoneNumber(e.target.value));
-              }}
+              name="phoneNumber"
+              onChange={handleChangeInfo}
               value={dataForm.phoneNumber}
             />
           </li>
@@ -70,50 +70,40 @@ function AddAddress() {
           <li>
             <Input
               label={"City"}
-              required
-              onChange={(e) => {
-                dispatch(changeCity(e.target.value));
-              }}
+              name="city"
+              onChange={handleChangeAddress}
               value={dataForm.address.city}
             />
           </li>
           <li>
             <Input
               label={"District"}
-              required
-              onChange={(e) => {
-                dispatch(changeDistrict(e.target.value));
-              }}
+              name="district"
+              onChange={handleChangeAddress}
               value={dataForm.address.district}
             />
           </li>
           <li>
             <Input
               label={"Ward"}
-              required
-              onChange={(e) => {
-                dispatch(changeWard(e.target.value));
-              }}
+              name="ward"
+              onChange={handleChangeAddress}
               value={dataForm.address.ward}
             />
           </li>
           <li>
             <Input
               label={"Street"}
-              required
-              onChange={(e) => {
-                dispatch(changeStreet(e.target.value));
-              }}
+              name="street"
+              onChange={handleChangeAddress}
               value={dataForm.address.street}
             />
           </li>
           <li>
             <Input
               label={"Street Number"}
-              required
-              onChange={(e) => {
-                dispatch(changeNumberStreet(e.target.value));
-              }}
+              name="number"
+              onChange={handleChangeAddress}
               value={dataForm.address.number}
             />
           </li>

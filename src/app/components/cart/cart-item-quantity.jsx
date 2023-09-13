@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import InputQuantity from "~/app/components/input-quanlity/input-quanlity";
+import InputQuantity from "~/app/components/input/input-quanlity";
 import useDebounce from "~/hooks/use-debounce";
 import {
   useRemoveProductMutation,

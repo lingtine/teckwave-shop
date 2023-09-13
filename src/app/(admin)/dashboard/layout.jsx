@@ -26,21 +26,23 @@ export default function AdminLayout({ children }) {
   }, [accessToken, router]);
 
   return (
-    <div className="px-8">
-      <div className="flex justify-between items-center py-8">
-        <Link
-          href={"/admin/dashboard"}
-          className={"text-color-text-black text-4xl text-center font-medium "}
-        >
-          Techwave
-        </Link>
-        <div>User</div>
+    <div className="flex">
+      <div className="w-[280px]">
+        <SideBar />
       </div>
-      <div className="flex">
-        <div className="max-w-[200px] flex-[0_0_50%] px-2">
-          <SideBar />
+      <div className="flex-1 ">
+        <div className="flex justify-between items-center py-8">
+          <Link
+            href={"/admin/dashboard"}
+            className={
+              "text-color-text-black text-4xl text-center font-medium "
+            }
+          >
+            Techwave
+          </Link>
+          <div>User</div>
         </div>
-        <div className="flex-1 px-4">{children}</div>
+        {children}
       </div>
     </div>
   );

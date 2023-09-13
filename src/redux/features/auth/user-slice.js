@@ -14,6 +14,6 @@ export const userSlide = createSlice({
     },
   },
 });
-export default userSlide.reducer;
+export default userSlide;
 
 export const { logout, setUser } = userSlide.actions;

@@ -7,23 +7,15 @@ import InputImage from "~/app/components/input/InputImage";
 
 import { useRouter } from "next/navigation";
 import {
-  changeDescription,
-  changeName,
+  changeField,
   clearData,
-} from "~/redux/features/product/category-group/form-add-category-group-slice";
+} from "~/redux/features/catalog/category-group/form-add-category-group-slice";
 import { useFetchCategoriesQuery } from "~/redux/services/catalog/category-api";
 import { useDispatch, useSelector } from "react-redux";
-import SelectBox from "~/app/components/select-box/select-box";
 import { useEffect } from "react";
 import { useAddCategoryGroupMutation } from "~/redux/services/catalog/category-group-api";
 
-function AddProducts() {
-  const {
-    data: categoryData,
-    isLoading,
-    isSuccess: categorySuccess,
-  } = useFetchCategoriesQuery();
-
+function AddCategoryGroup() {
   const [addCategoryGroup, result] = useAddCategoryGroupMutation();
 
   const router = useRouter();
@@ -42,6 +34,11 @@ function AddProducts() {
     addCategoryGroup(dataForm);
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
+
   return (
     <div>
       <h2 className="my-2 text-lg text-primary-1 font-bold">
@@ -58,9 +55,8 @@ function AddProducts() {
                 <Input
                   label={"Name Category Group "}
                   value={dataForm.name}
-                  onChange={(e) => {
-                    dispatch(changeName(e.target.value));
-                  }}
+                  name="name"
+                  onChange={handleChange}
                 ></Input>
               </li>
 
@@ -68,9 +64,8 @@ function AddProducts() {
                 <InputTextArea
                   label={"Description"}
                   value={dataForm.description}
-                  onChange={(e) => {
-                    dispatch(changeDescription(e.target.value));
-                  }}
+                  name="description"
+                  onChange={handleChange}
                 ></InputTextArea>
               </li>
               <li>
@@ -86,4 +81,4 @@ function AddProducts() {
   );
 }
 
-export default AddProducts;
+export default AddCategoryGroup;

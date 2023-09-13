@@ -7,12 +7,9 @@ import InputImage from "~/app/components/input/InputImage";
 
 import { useRouter } from "next/navigation";
 import {
-  changeAddress,
-  changeDescription,
-  changeEmail,
-  changeName,
-  changePhoneNumber,
-} from "~/redux/features/warehouses/supplier/form-add-supplier-slice";
+  changeField,
+  clearData,
+} from "~/redux/features/warehouse/supplier/form-add-supplier-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useAddSupplierMutation } from "~/redux/services/warehouse/supplier-api";
@@ -27,6 +24,7 @@ function AddSupplier() {
   useEffect(() => {
     if (result.isSuccess) {
       router.push("/dashboard/supplier");
+      dispatch(clearData());
     }
   }, [result.isSuccess, router]);
 
@@ -34,6 +32,11 @@ function AddSupplier() {
     e.preventDefault();
 
     add(dataForm);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
   };
 
   return (
@@ -47,45 +50,40 @@ function AddSupplier() {
               <Input
                 label={"Supplier Name"}
                 value={dataForm.name}
-                onChange={(e) => {
-                  dispatch(changeName(e.target.value));
-                }}
+                name="name"
+                onChange={handleChange}
               ></Input>
             </li>
             <li className="my-4">
               <Input
                 label={"Email"}
                 value={dataForm.email}
-                onChange={(e) => {
-                  dispatch(changeEmail(e.target.value));
-                }}
+                name="email"
+                onChange={handleChange}
               ></Input>
             </li>
             <li className="my-4">
               <Input
                 label={"Address"}
                 value={dataForm.address}
-                onChange={(e) => {
-                  dispatch(changeAddress(e.target.value));
-                }}
+                name="address"
+                onChange={handleChange}
               ></Input>
             </li>
             <li className="my-4">
               <Input
                 label={"Phone Number"}
                 value={dataForm.phoneNumber}
-                onChange={(e) => {
-                  dispatch(changePhoneNumber(e.target.value));
-                }}
+                name="phoneNumber"
+                onChange={handleChange}
               ></Input>
             </li>
             <li className="my-4">
               <InputTextArea
                 label={"Description"}
                 value={dataForm.description}
-                onChange={(e) => {
-                  dispatch(changeDescription(e.target.value));
-                }}
+                name="description"
+                onChange={handleChange}
               ></InputTextArea>
             </li>
             <li className="flex justify-end">

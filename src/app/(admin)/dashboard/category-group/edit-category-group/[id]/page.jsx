@@ -7,19 +7,19 @@ import InputTextArea from "~/app/components/input/input-textarea";
 import { useParams, useRouter } from "next/navigation";
 import {
   changeAllValue,
-  changeDescription,
-  changeName,
-} from "~/redux/features/product/category-group/form-edit-category-group-slice";
+  changeField,
+  clearData,
+} from "~/redux/features/catalog/category-group/form-update-category-group-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { useGetCategoryGroupQuery } from "~/redux/services/catalog/category-group-api";
 import { useUpdateCategoryGroupMutation } from "~/redux/services/catalog/category-group-api";
 import { useEffect } from "react";
-function EditProduct() {
+function EditCategoryGroup() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const dataForm = useSelector((state) => state.formEditCategoryGroup);
+  const dataForm = useSelector((state) => state.formEditCategoryGroupSlice);
   const [updateCategory, result] = useUpdateCategoryGroupMutation();
   const { data, isSuccess } = useGetCategoryGroupQuery(id);
   const handleSubmit = (e) => {
@@ -32,11 +32,17 @@ function EditProduct() {
       router.push("/dashboard/category-group");
     }
   }, [result.isSuccess, router]);
+
   useEffect(() => {
     if (isSuccess) {
       dispatch(changeAllValue(data.data));
     }
   }, [isSuccess, dispatch, data?.data]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -53,18 +59,16 @@ function EditProduct() {
               <Input
                 label={"Category Group Name"}
                 value={dataForm.name}
-                onChange={(e) => {
-                  dispatch(changeName(e.target.value));
-                }}
+                name="name"
+                onChange={handleChange}
               ></Input>
             </li>
             <li className="my-4">
               <InputTextArea
                 label={"Description"}
                 value={dataForm.description}
-                onChange={(e) => {
-                  dispatch(changeDescription(e.target.value));
-                }}
+                name="description"
+                onChange={handleChange}
               ></InputTextArea>
             </li>
             <li className="flex justify-end">
@@ -79,4 +83,4 @@ function EditProduct() {
   );
 }
 
-export default EditProduct;
+export default EditCategoryGroup;

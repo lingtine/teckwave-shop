@@ -3,9 +3,9 @@ import Input from "~/app/components/input/input";
 import Button from "~/app/components/button/button";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  changeUserName,
-  changePassword,
-} from "~/redux/features/dashboard/form-login-admin-slice";
+  changeField,
+  clearData,
+} from "~/redux/features/auth/actions/form-login-admin-slice";
 import Image from "next/image";
 import { useLoginMutation } from "~/redux/services/authentication/auth-api";
 import { useEffect } from "react";
@@ -15,8 +15,7 @@ import jwtDecode from "jwt-decode";
 import { useLogoutMutation } from "~/redux/services/authentication/auth-api";
 function LoginAdmin() {
   const dispatch = useDispatch();
-  const loginAdmin = useSelector((state) => state.loginAdminForm);
-  const { user } = useSelector((state) => state.user);
+  const dataForm = useSelector((state) => state.formLoginAdminSlice);
   const [logout] = useLogoutMutation();
   useEffect(() => {
     document.title = "Login Admin";
@@ -48,11 +47,14 @@ function LoginAdmin() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login({
-      email: loginAdmin.username,
-      password: loginAdmin.password,
-    });
+    login(dataForm);
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
+
   return (
     <div className="flex min-h-screen">
       <div className="bg-[#80B1F3]  min-w-[50%] flex items-center justify-center">
@@ -72,20 +74,18 @@ function LoginAdmin() {
             <div>
               <Input
                 label={"Email"}
-                value={loginAdmin.username}
-                onChange={(e) => {
-                  dispatch(changeUserName(e.target.value));
-                }}
+                value={dataForm.email}
+                name="email"
+                onChange={handleChange}
               />
             </div>
             <div>
               <Input
                 label={"Password"}
                 type="password"
-                value={loginAdmin.password}
-                onChange={(e) => {
-                  dispatch(changePassword(e.target.value));
-                }}
+                value={dataForm.password}
+                name="password"
+                onChange={handleChange}
               />
             </div>
             <div>

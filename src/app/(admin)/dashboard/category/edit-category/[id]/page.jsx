@@ -6,9 +6,9 @@ import InputTextArea from "~/app/components/input/input-textarea";
 
 import { useParams, useRouter } from "next/navigation";
 import {
-  changeName,
-  changeDescription,
-} from "~/redux/features/product/category/form-edit-category-slice";
+  changeField,
+  clearData,
+} from "~/redux/features/catalog/category/form-update-category-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
@@ -19,7 +19,7 @@ function EditCategory() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const router = useRouter();
-  const dataForm = useSelector((state) => state.formEditCategorySlice);
+  const dataForm = useSelector((state) => state.formUpdateCategorySlice);
   const { data, isLoading, isSuccess } = useGetCategoryQuery(id);
   const [updateCategory, result] = useUpdateCategoryMutation();
 
@@ -34,10 +34,11 @@ function EditCategory() {
       router.push("/dashboard/products");
     }
   }, [result.isSuccess, router]);
-  useEffect(() => {
-    if (isSuccess) {
-    }
-  }, [isSuccess]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -50,18 +51,16 @@ function EditCategory() {
               <Input
                 label={"Category Name"}
                 value={dataForm.name}
-                onChange={(e) => {
-                  dispatch(changeName(e.target.value));
-                }}
+                name="name"
+                onChange={handleChange}
               ></Input>
             </li>
             <li className="my-4">
               <InputTextArea
                 label={"Description"}
                 value={dataForm.description}
-                onChange={(e) => {
-                  dispatch(changeDescription(e.target.value));
-                }}
+                name="description"
+                onChange={handleChange}
               ></InputTextArea>
             </li>
             <li className="flex justify-end">

@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "../button/button";
-import InputQuantity from "../input-quanlity/input-quanlity";
+import InputQuantity from "../input/input-quanlity";
 import { formatPrice } from "~/utils/formatPrice";
 import ProductImageContent from "./product-image-content";
 import { TbTruckDelivery } from "react-icons/tb";
@@ -17,7 +17,7 @@ import { data } from "autoprefixer";
 function ProductContent({ product }) {
   console.log(product);
   const [addCart, { isSuccess, isLoading, isError }] = useAddProductMutation();
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.userSlice);
   const [value, setValue] = useState(1);
   const router = useRouter();
   useEffect(() => {

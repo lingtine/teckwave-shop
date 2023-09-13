@@ -6,52 +6,43 @@ import InputTextArea from "~/app/components/input/input-textarea";
 
 import { useParams, useRouter } from "next/navigation";
 import {
-  changeProductName,
-  changeAllValue,
-  changeDescription,
-  changeImage,
-  changePrice,
-} from "~/redux/features/product/update-product-form-slice";
+  changeField,
+  clearData,
+} from "~/redux/features/catalog/product/form-update-product-slice";
 import { useGetProductQuery } from "~/redux/services/catalog/product-api";
 import { useDispatch, useSelector } from "react-redux";
 import { useUpdateProductMutation } from "~/redux/services/catalog/product-api";
-import { useEffect } from "react";
 import InputImage from "~/app/components/input/InputImage";
+import { useEffect } from "react";
 function EditProduct() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const router = useRouter();
-  const dataForm = useSelector((state) => state.updateProductForm);
+  const dataForm = useSelector((state) => state.formUpdateProductFormSlice);
   const { data, isLoading, isSuccess } = useGetProductQuery(id);
   const [updateProduct, result] = useUpdateProductMutation();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     let formData = new FormData();
-    formData.append("Name", dataForm.productName);
+    formData.append("Name", dataForm.name);
     formData.append("Description", dataForm.description);
     formData.append("UnitPrice", dataForm.price);
     if (dataForm.image) formData.append("Image", dataForm.image[0]);
 
     updateProduct([dataForm.id, formData]);
   };
-
-  if (result.isSuccess) {
-    router.push("/dashboard/products");
-  }
   useEffect(() => {
-    if (isSuccess) {
-      const { id, name, unitPrice, description } = data.data;
-      dispatch(
-        changeAllValue({
-          id,
-          productName: name,
-          price: unitPrice,
-          description: description,
-        })
-      );
+    if (result.isSuccess) {
+      router.push("/dashboard/products");
+      dispatch(clearData());
     }
-  }, [isSuccess, data?.data, dispatch]);
+  }, [result]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ field: name, value }));
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -60,7 +51,7 @@ function EditProduct() {
         <div className="flex-[0_0_50%] px-2">
           <InputImage
             onChange={(image) => {
-              dispatch(changeImage(image));
+              dispatch(changeField({ field: "image", value: image }));
             }}
           />
         </div>
@@ -70,19 +61,17 @@ function EditProduct() {
             <li className="my-4">
               <Input
                 label={"Product Name"}
-                value={dataForm.productName}
-                onChange={(e) => {
-                  dispatch(changeProductName(e.target.value));
-                }}
+                value={dataForm.name}
+                name="name"
+                onChange={handleChange}
               ></Input>
             </li>
             <li className="my-4">
               <Input
                 label={"Price"}
                 value={dataForm.price}
-                onChange={(e) => {
-                  dispatch(changePrice(e.target.value));
-                }}
+                name="price"
+                onChange={handleChange}
                 type="number"
               ></Input>
             </li>
@@ -90,9 +79,8 @@ function EditProduct() {
               <InputTextArea
                 label={"Description"}
                 value={dataForm.description}
-                onChange={(e) => {
-                  dispatch(changeDescription(e.target.value));
-                }}
+                name="description"
+                onChange={handleChange}
               ></InputTextArea>
             </li>
           </ul>

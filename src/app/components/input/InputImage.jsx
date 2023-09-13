@@ -4,7 +4,7 @@ import { BiImageAdd } from "react-icons/bi";
 import { useRef } from "react";
 import Image from "next/image";
 import { FiTrash2 } from "react-icons/fi";
-function InputImage({ onChange, multiple }) {
+function InputImage({ onChange, multiple, ...props }) {
   const inputRef = useRef();
   const [imageFiles, setImageFiles] = useState(null);
   const handleAddFile = () => {
@@ -74,6 +74,7 @@ function InputImage({ onChange, multiple }) {
           ref={inputRef}
           type="file"
           hidden
+          {...props}
           multiple={multiple}
           onChange={handleChange}
           accept=".jpg, .jpeg, .png"
